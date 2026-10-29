@@ -63,12 +63,12 @@ svg{overflow:visible}
 @keyframes sunSpin{to{rotate:360deg}}
 .cloud{position:absolute;left:0;width:var(--w);height:auto;animation:drift var(--t) linear var(--dl) infinite;filter:drop-shadow(0 6px 0 rgba(58,31,77,.12))}
 @keyframes drift{from{transform:translateX(-260px)}to{transform:translateX(calc(100vw + 60px))}}
-.hills{position:absolute;left:-60px;bottom:clamp(60px,8vw,120px);width:calc(100% + 120px);height:clamp(170px,22vw,320px)}
+.hills{position:absolute;left:-60px;bottom:0;width:calc(100% + 120px);height:max(300px,calc((100vw + 120px) * .2))}
 .stem{position:absolute;bottom:0;height:min(92%,880px);width:auto;aspect-ratio:360/900;filter:drop-shadow(0 10px 18px rgba(40,60,40,.18))}
 .stem.l{left:clamp(-150px,-8vw,-50px)}
 .stem.r{right:clamp(-150px,-8vw,-50px);transform:scaleX(-1)}
 .bouquet{position:absolute;right:clamp(-70px,-3vw,-20px);top:clamp(-46px,-2vw,-10px);width:clamp(130px,17vw,260px);height:auto;transform:rotate(18deg);transform-origin:80% 20%;animation:sway 8s ease-in-out infinite}
-.meadow{position:absolute;left:-60px;bottom:-2px;width:calc(100% + 120px);height:clamp(96px,11vw,170px)}
+.meadow{position:absolute;left:-60px;bottom:-2px;width:calc(100% + 120px);height:max(100px,calc((100vw + 120px) * .122))}
 .mushroom{position:absolute;left:clamp(10px,7vw,120px);bottom:clamp(36px,4.6vw,78px);width:clamp(76px,8vw,132px);height:auto;animation:peek 4.5s ease-in-out infinite}
 .hero.opened .mushroom{animation:mushJump .6s cubic-bezier(.3,1.6,.5,1) 2}
 @keyframes peek{0%,100%{translate:0 0;rotate:-3deg}50%{translate:0 -8px;rotate:3deg}}
@@ -108,6 +108,9 @@ svg{overflow:visible}
 .after{animation:popIn .6s cubic-bezier(.3,1.6,.5,1) both}
 .after-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 16px}
 .after .btn{font-size:17px;padding:10px 22px 8px}
+
+/* chân trang chủ: thảm cỏ tan dần vào nền */
+.hero+main::before{content:"";position:relative;z-index:1;display:block;height:80px;margin-bottom:-80px;background:linear-gradient(#86D3A3,rgba(134,211,163,0));pointer-events:none}
 
 /* ---------- lời cảm ơn: bảng gỗ treo trên cành ---------- */
 .board{position:relative;max-width:1000px;margin-inline:auto;padding-top:clamp(70px,9vw,110px)}
@@ -216,7 +219,7 @@ svg{overflow:visible}
   .bfly{scale:.7}
   .bouquet{width:110px}
   .mushroom{bottom:28px;left:16px}
-  .hills{bottom:50px}
+  .hills{height:260px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}

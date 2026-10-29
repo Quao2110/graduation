@@ -105,14 +105,10 @@ svg{overflow:visible}
 
 /* ---------- chặng 3: ba chiếc khinh khí cầu ---------- */
 .balloons{list-style:none;margin:0;padding:0;position:absolute;left:50%;top:6%;transform:translateX(-50%);display:flex;align-items:flex-start;gap:clamp(18px,5vw,80px)}
-.balloon{display:flex;flex-direction:column;align-items:center;width:min(250px,24vw,30vh);margin-top:var(--y,0);animation:drift2 6s ease-in-out var(--dl,0s) infinite}
+.balloon{display:flex;flex-direction:column;align-items:center;width:min(300px,26vw,44vh);margin-top:var(--y,0);animation:drift2 6s ease-in-out var(--dl,0s) infinite}
 .bl-body{position:relative;width:100%;aspect-ratio:160/220;color:var(--c);filter:drop-shadow(0 16px 24px rgba(80,40,110,.3))}
 .bl-body>svg{position:absolute;inset:0;width:100%;height:100%}
 .bl-photo{position:absolute;left:17%;top:10%;width:66%;height:48%;border-radius:50%!important;box-shadow:0 0 0 4px rgba(255,255,255,.9),0 8px 18px rgba(80,40,110,.25)}
-.bl-art{display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#FFFDF7,#EAF6FF)}
-.bl-art svg{width:86%;height:86%}
-.bl-cap{margin:12px 0 0;padding:8px 14px 10px;border-radius:18px;background:rgba(255,250,243,.92);text-align:center;font:500 16px/1.4 var(--f-body);color:var(--ink-2);box-shadow:0 8px 20px rgba(80,40,110,.2)}
-.bl-cap b{display:block;font:600 italic clamp(21px,.8vw + 15px,28px)/1.2 var(--f-title);color:var(--rose-d)}
 .s2 .sky-title{bottom:19%;z-index:1;font-size:clamp(26px,1.6vw + 18px,42px)}
 @keyframes drift2{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-16px) rotate(2deg)}}
 
@@ -121,7 +117,7 @@ svg{overflow:visible}
 .s3 .sky-sub{top:calc(6% + clamp(40px,3vw + 26px,66px))}
 .pond{position:absolute;left:4vw;bottom:4%;width:92vw;height:auto;filter:drop-shadow(0 0 30px rgba(90,220,230,.25))}
 .lily-deco{position:absolute;width:clamp(90px,10vw,160px);height:auto;animation:bobPad 5s ease-in-out infinite}
-.album{position:absolute;left:0;right:0;top:calc(6% + clamp(78px,4vw + 54px,118px));bottom:max(17%,15vw)}
+.album{position:absolute;left:0;right:0;top:calc(9% + clamp(78px,4vw + 54px,118px));bottom:max(10%,8.5vw)}
 .streams{height:100%;display:flex;flex-direction:column;gap:2%}
 .stream{flex:1;min-height:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .stream-in{display:flex;height:100%;width:max-content;padding:6px 0 10px;animation:flow var(--t,120s) linear infinite}
@@ -268,16 +264,16 @@ body.lb-open{overflow:hidden}
 
 /* ---------- màn hình hẹp / thấp ---------- */
 @media (max-width:760px){
-  .album{top:calc(6% + 128px);bottom:12%}
+  .album{top:calc(8% + 128px);bottom:9%}
   .s3 .sky-sub{padding:0 6vw;font-size:16px}
   .wreath{right:50%;transform:translateX(50%);top:7%;width:48vw;animation:none}
   .intro{left:5vw;top:30%;width:90vw}
   .wish-tree{left:-26vw;opacity:.5}
   .letter{left:6vw;width:88vw;top:6%;max-height:56%;overflow:auto;font-size:14.5px;line-height:1.55}
   .hang-photo{width:30%}
-  .balloons{gap:6px;top:6%}
-  .balloon{width:31vw}
-  .bl-cap{font-size:12.5px;padding:6px 8px}
+  .balloons{gap:0 4vw;top:5%;width:100vw;flex-wrap:wrap;justify-content:center}
+  .balloon{width:44vw}
+  .balloon:nth-child(3){margin-top:-8%}
   .companion{left:6vw}
   .scroll-hint{right:4vw;font-size:14px}
   .critter{scale:.8}

@@ -11,7 +11,7 @@ Kỹ thuật hạt sáng và xếp tên bằng canvas tham khảo từ [TranMinh
 | 1 | Đêm hội đom đóm | Ảnh chân dung trong vầng trăng, tên tụ lại từ đom đóm và bướm, huy hiệu 4 năm · 1 tấm bằng · ∞ kỷ niệm |
 | 2 | Cây ước nguyện | Thư cảm ơn treo trên cây, ảnh tân cử nhân, ba mẩu giấy biết ơn |
 | 3 | Ba chiếc đèn lồng | Ngày ấy · Hôm nay · Mai sau |
-| 4 | Hồ kỷ niệm | Sáu ảnh đứng trên lá sen, có chú thích |
+| 4 | Hồ kỷ niệm | Mười ảnh đứng trên lá sen, có chú thích |
 | 5 | Cổng hoa | Thư mời, đếm ngày, chỉ đường, lưu vào lịch (.ics) |
 | 6 | Hẹn gặp bạn | Ảnh cùng mọi người, mũ cử nhân tung lên, pháo đom đóm |
 
@@ -37,7 +37,7 @@ HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG
 <label class="photo-slot moon-photo" data-slot="chan-dung" data-src="assets/images/chan-dung.jpg" data-label="Ảnh chân dung"></label>
 ```
 
-Các khung: `chan-dung`, `tan-cu-nhan`, `thoi-sinh-vien`, `ao-cu-nhan`, `album-1` … `album-6`, `cung-moi-nguoi`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
+Các khung: `chan-dung`, `tan-cu-nhan`, `thoi-sinh-vien`, `ao-cu-nhan`, `album-1` … `album-10`, `cung-moi-nguoi`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
 
 ## Chạy thử
 

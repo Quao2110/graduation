@@ -105,24 +105,24 @@ svg{overflow:visible}
 /* ---------- chặng 3: ba chiếc đèn lồng ---------- */
 .lantern-branch{position:absolute;left:-3vw;top:3%;width:106vw;height:11vh;filter:drop-shadow(0 8px 10px rgba(20,10,50,.35))}
 .lanterns{list-style:none;margin:0;padding:0;position:absolute;left:50%;top:8%;transform:translateX(-50%);display:flex;align-items:flex-start;gap:clamp(18px,6vw,90px)}
-.lantern{display:flex;flex-direction:column;align-items:center;width:min(170px,20vw,22vh);transform-origin:50% 0;animation:lsway 5s ease-in-out var(--dl,0s) infinite}
+.lantern{display:flex;flex-direction:column;align-items:center;width:min(230px,23vw,28vh);transform-origin:50% 0;animation:lsway 5s ease-in-out var(--dl,0s) infinite}
 .lt-string{width:2px;height:var(--len);background:#E9D9C0}
 .lt-body{position:relative;width:100%;aspect-ratio:120/180;color:var(--c);filter:drop-shadow(0 0 26px var(--c))}
 .lt-body>svg{position:absolute;inset:0;width:100%;height:100%}
-.lt-photo{position:absolute;left:19%;top:25%;width:62%;height:54%;border-radius:50%!important;box-shadow:0 0 0 3px rgba(255,255,255,.85),0 0 20px 6px rgba(255,255,255,.5)}
+.lt-photo{position:absolute;left:11%;top:19%;width:78%;height:64%;border-radius:50%!important;box-shadow:0 0 0 3px rgba(255,255,255,.85),0 0 20px 6px rgba(255,255,255,.5)}
 .lt-art{display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#FFFDF7,#EAF6FF)}
 .lt-art svg{width:86%;height:86%}
 .lt-cap{margin:12px 0 0;padding:8px 14px 10px;border-radius:18px;background:rgba(70,45,140,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);text-align:center;font:500 16px/1.4 var(--f-body);color:#FFF4F8;box-shadow:0 8px 20px rgba(60,30,90,.25)}
 .lt-cap b{display:block;font:600 italic clamp(21px,.8vw + 15px,28px)/1.2 var(--f-title);color:#FFE7A8;text-shadow:0 0 12px rgba(255,220,140,.8)}
-.s2 .sky-title{bottom:26%;font-size:clamp(26px,1.6vw + 18px,42px)}
+.s2 .sky-title{bottom:19%;z-index:1;font-size:clamp(26px,1.6vw + 18px,42px)}
 @keyframes lsway{0%,100%{rotate:-3deg}50%{rotate:3deg}}
 
 /* ---------- chặng 4: hồ kỷ niệm ---------- */
 .s3 .sky-title{top:6%}
 .s3 .sky-sub{top:calc(6% + clamp(40px,3vw + 26px,66px))}
 .pond{position:absolute;left:4vw;bottom:4%;width:92vw;height:auto;filter:drop-shadow(0 0 30px rgba(90,220,230,.25))}
-.pads{position:absolute;left:8vw;right:8vw;top:26%;bottom:8%}
-.pad{position:absolute;left:var(--x);top:var(--y);width:min(140px,12vw,16vh);margin:0;animation:bobPad 4.5s ease-in-out var(--dl,0s) infinite}
+.pads{position:absolute;left:6vw;right:8vw;top:22%;bottom:8%}
+.pad{position:absolute;left:var(--x);top:var(--y);width:min(124px,10vw,15vh);margin:0;animation:bobPad 4.5s ease-in-out var(--dl,0s) infinite}
 .pad .photo-slot{aspect-ratio:4/5;border-radius:3px 3px 0 0;border:6px solid #fff;border-bottom:0;outline-offset:-10px}
 .pad>svg{display:block;width:150%;margin:-14% 0 0 -25%;height:auto;position:relative;z-index:-1}
 .pad figcaption{position:relative;z-index:1;margin:0;padding:4px 4px 8px;background:#fff;border-radius:0 0 3px 3px;box-shadow:0 14px 24px rgba(10,30,40,.3);text-align:center;font:700 clamp(15px,.6vw + 11px,20px)/1.1 var(--f-script);color:#7A3E5E}
@@ -159,7 +159,7 @@ svg{overflow:visible}
 @keyframes toss{0%,100%{transform:translate(calc(var(--x) * .6),0) rotate(0)}50%{transform:translate(var(--x),-32vh) rotate(380deg)}}
 
 /* ---------- thỏ con đi cùng, thanh chặng, gợi ý ---------- */
-.companion{position:absolute;left:11vw;bottom:var(--ground);width:clamp(62px,5vw,86px);z-index:7;filter:drop-shadow(0 0 14px rgba(255,230,250,.55))}
+.companion{position:absolute;left:11vw;bottom:var(--ground);width:clamp(84px,7vw,120px);z-index:7;filter:drop-shadow(0 0 14px rgba(255,230,250,.55))}
 .companion .critter{position:relative;left:auto;bottom:auto;width:100%;display:block}
 .companion.back svg{transform:scaleX(-1)}
 .companion .cr-body,.companion .cr-ear{animation:none!important}
@@ -217,6 +217,23 @@ svg{overflow:visible}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 @keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(-.7)}}
 .s5 .critter:not(.rev) .cr-body{animation-duration:.45s}
+.owl .cr-body{transform-origin:50% 100%;animation:owlTilt 5s ease-in-out infinite}
+.owl .cr-wing{transform-origin:50% 15%;animation:owlFlap 2.6s ease-in-out infinite}
+.owl .cr-wing2{animation-delay:-.2s}
+@keyframes owlTilt{0%,40%,100%{transform:rotate(0)}50%,60%{transform:rotate(-12deg)}70%,85%{transform:rotate(10deg)}}
+@keyframes owlFlap{0%,70%,100%{transform:rotate(0)}78%{transform:rotate(-28deg)}86%{transform:rotate(14deg)}}
+.perch{filter:drop-shadow(0 0 12px rgba(255,230,250,.6))}
+.duck .cr-body{transform-origin:50% 100%;animation:paddle 1.6s ease-in-out infinite}
+.duck .cr-wing{transform-origin:20% 50%;animation:flap .5s ease-in-out infinite alternate}
+@keyframes paddle{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+.swim{animation:patrol var(--t,16s) ease-in-out infinite}
+.hedgehog .cr-body{animation:trot .34s ease-in-out infinite alternate}
+.hedgehog .cr-leg{transform-origin:50% 50%;animation:step .34s ease-in-out infinite alternate}
+.hedgehog .cr-b{animation-direction:alternate-reverse}
+.snail .cr-body{transform-origin:0 100%;animation:creep 2.4s ease-in-out infinite}
+.snail .cr-ear{transform-origin:50% 100%;animation:wiggle 1.2s ease-in-out infinite}
+@keyframes creep{0%,100%{transform:scaleX(1)}50%{transform:scaleX(1.06)}}
+@keyframes wiggle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
 
 /* ---------- bướm 2.5D ---------- */
 .bfly{position:absolute;width:var(--s,56px);aspect-ratio:1;color:var(--bc,#F2A7BC);pointer-events:none}
@@ -238,11 +255,11 @@ svg{overflow:visible}
   .wish-tree{left:-26vw;opacity:.5}
   .letter{left:6vw;width:88vw;top:6%;max-height:56%;overflow:auto;font-size:14.5px;line-height:1.55}
   .hang-photo{width:30%}
-  .lanterns{gap:10px;top:8%}
-  .lantern{width:29vw}
+  .lanterns{gap:6px;top:8%}
+  .lantern{width:31vw}
   .lt-cap{font-size:12.5px}
-  .pad{width:24vw}
-  .pads{left:4vw;right:4vw;top:24%}
+  .pad{width:17vw}
+  .pads{left:2vw;right:6vw;top:22%}
   .companion{left:6vw}
   .scroll-hint{right:4vw;font-size:14px}
   .critter{scale:.8}

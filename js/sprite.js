@@ -29,6 +29,10 @@
     lin('gFox', [[0, '#E0662E'], [1, '#FFB45E']], true) +
     lin('gFrog', [[0, '#2E8F5A'], [1, '#9CE27A']], true) +
     lin('gBird', [[0, '#3C8FD6'], [1, '#A9DFFF']], true) +
+    lin('gOwl', [[0, '#7A5CB0'], [1, '#C9B2F2']], true) +
+    lin('gDuck', [[0, '#F5C53A'], [1, '#FFF3B8']], true) +
+    lin('gHog', [[0, '#6E4630'], [1, '#B07A52']], true) +
+    rad('gShell', [[0, '#FFE4F2'], [0.6, '#F49AC6'], [1, '#B06AD0']], 0.4, 0.4) +
     rad('gCore', [[0, '#FFF8D0'], [0.6, '#FFD45E'], [1, '#E99A2A']]) +
     rad('gHalo', [[0, '#FFF8DC', 0.9], [0.45, '#FFE0A8', 0.4], [1, '#FFE0A8', 0]]) +
     rad('gHaloC', [[0, '#E9FDFF', 0.95], [0.4, '#7FE6FF', 0.45], [1, '#7FE6FF', 0]]) +
@@ -289,6 +293,36 @@
       '<circle cx="40" cy="60" r="9" fill="#fff"/><circle cx="62" cy="60" r="9" fill="#fff"/>' + eye(42, 61, 4.4) + eye(64, 61, 4.4) +
       '<ellipse cx="30" cy="74" rx="5" ry="3" fill="#FF9CC6" opacity=".8"/><ellipse cx="72" cy="74" rx="5" ry="3" fill="#FF9CC6" opacity=".8"/>' +
       '<ellipse class="cr-leg cr-a" cx="38" cy="94" rx="8" ry="5" fill="#8E74D6"/><ellipse class="cr-leg cr-b" cx="62" cy="94" rx="8" ry="5" fill="#8E74D6"/></g>'],
+    /* cú mèo đậu cành (viewBox 0 0 100 112) */
+    owl: ['0 0 100 112', '<g class="cr-body">' +
+      '<ellipse class="cr-wing" cx="20" cy="66" rx="12" ry="26" fill="#6A4E9E"/><ellipse class="cr-wing cr-wing2" cx="80" cy="66" rx="12" ry="26" fill="#6A4E9E"/>' +
+      '<path d="M24 30 L22 8 L40 22 Z M76 30 L78 8 L60 22 Z" fill="#7A5CB0"/>' +
+      '<ellipse cx="50" cy="60" rx="34" ry="42" fill="url(#gOwl)"/><ellipse cx="50" cy="74" rx="22" ry="25" fill="#F3EAFF"/>' +
+      '<path d="M40 70 l4 4 4 -4 M52 70 l4 4 4 -4 M46 80 l4 4 4 -4 M40 88 l4 4 4 -4 M52 88 l4 4 4 -4" fill="none" stroke="#B9A2E0" stroke-width="2" stroke-linecap="round"/>' +
+      '<circle cx="36" cy="44" r="14" fill="#fff"/><circle cx="64" cy="44" r="14" fill="#fff"/>' + eye(37, 45, 6) + eye(65, 45, 6) +
+      '<path d="M46 54 L54 54 L50 63 Z" fill="#FFB347"/><ellipse cx="26" cy="58" rx="5" ry="3" fill="#FF9CC6" opacity=".8"/><ellipse cx="74" cy="58" rx="5" ry="3" fill="#FF9CC6" opacity=".8"/>' +
+      '<path d="M38 100 l-4 8 M42 100 l0 9 M58 100 l0 9 M62 100 l4 8" stroke="#F0A030" stroke-width="3.4" stroke-linecap="round"/></g>'],
+    /* vịt con trên mặt hồ (viewBox 0 0 112 84) */
+    duck: ['0 0 112 84', '<ellipse cx="54" cy="72" rx="46" ry="7" fill="none" stroke="#E9FFFF" stroke-opacity=".55" stroke-width="2"/><ellipse cx="54" cy="76" rx="30" ry="4" fill="none" stroke="#E9FFFF" stroke-opacity=".35" stroke-width="1.6"/>' +
+      '<g class="cr-body"><path d="M18 50 L4 38 L10 56 Z" fill="#F5C53A"/>' +
+      '<ellipse cx="50" cy="56" rx="34" ry="18" fill="url(#gDuck)"/><ellipse class="cr-wing" cx="44" cy="52" rx="16" ry="9" fill="#F5C53A" opacity=".9"/>' +
+      '<circle cx="80" cy="32" r="16" fill="url(#gDuck)"/><ellipse cx="97" cy="36" rx="9" ry="4.4" fill="#FF8A3D"/>' + eye(84, 29, 2.8) +
+      '<ellipse cx="78" cy="40" rx="4.4" ry="2.6" fill="#FF9CC6" opacity=".8"/></g>'],
+    /* nhím (viewBox 0 0 124 84) */
+    hedgehog: ['0 0 124 84', SHADOW(62, 80, 44) + '<g class="cr-body">' +
+      '<ellipse class="cr-leg cr-a" cx="40" cy="70" rx="7" ry="6" fill="#5A3A28"/><ellipse class="cr-leg cr-b" cx="78" cy="70" rx="7" ry="6" fill="#5A3A28"/>' +
+      '<path d="M12 62 L8 46 L20 50 L16 32 L30 40 L32 20 L44 32 L52 12 L60 28 L72 14 L76 32 L90 24 L88 42 L100 42 L96 62 Z" fill="url(#gHog)"/>' +
+      '<path d="M22 58 C22 34 46 22 66 26 C84 30 96 44 96 62 Z" fill="#8C5C3C" opacity=".55"/>' +
+      '<path d="M84 62 C84 44 96 36 108 44 C118 50 120 58 110 64 Z" fill="#F4D6B4"/><circle cx="118" cy="56" r="4" fill="#2B2540"/>' + eye(102, 50, 2.8) +
+      '<ellipse cx="102" cy="58" rx="4" ry="2.4" fill="#FF9CC6" opacity=".8"/>' +
+      '<circle cx="46" cy="26" r="6" fill="#FF5E7A"/><path d="M46 20 q2 -5 6 -5" stroke="#3E9468" stroke-width="2" fill="none"/></g>'],
+    /* ốc sên (viewBox 0 0 124 84) */
+    snail: ['0 0 124 84', SHADOW(64, 80, 46) + '<g class="cr-body">' +
+      '<path d="M10 76 C30 72 70 72 96 70 C104 60 104 44 108 34 L114 34 C114 48 114 64 110 76 Z" fill="#B6EEA4"/>' +
+      '<g class="cr-ear"><path d="M106 36 L100 14 M112 36 L118 14" stroke="#8FD682" stroke-width="3" stroke-linecap="round"/><circle cx="100" cy="13" r="4" fill="#2B2540"/><circle cx="118" cy="13" r="4" fill="#2B2540"/></g>' +
+      '<circle cx="56" cy="46" r="30" fill="url(#gShell)"/>' +
+      '<path d="M56 46 m0 -4 a4 4 0 1 1 -4 4 a8 8 0 1 1 8 8 a13 13 0 1 1 -13 -13 a19 19 0 1 1 19 19" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>' +
+      '<ellipse cx="104" cy="58" rx="4" ry="2.4" fill="#FF9CC6" opacity=".8"/></g>'],
     bird: ['0 0 80 60', '<g class="cr-body">' +
       '<path d="M14 30 L0 22 L4 36 Z" fill="#3C8FD6"/>' +
       '<ellipse cx="36" cy="32" rx="22" ry="16" fill="url(#gBird)"/><ellipse cx="42" cy="38" rx="12" ry="8" fill="#FFF4E0"/>' +

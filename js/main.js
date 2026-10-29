@@ -1,19 +1,19 @@
-/* ===== Thư mời của Thanh Huyền — hiệu ứng vườn thần tiên ===== */
+/* ===== Thư mời của Thanh Huyền — khu vườn: nụ hoa nở, cánh hoa xếp tên, bướm, mây, phấn hoa ===== */
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  var INK = '#3A1F4D', WHITE = '#FFFFFF';
+  var INK = '#3A1F4D';
   var PCOLORS = ['#FFD86B', '#FF9ED2', '#FFFFFF', '#FFC7E0', '#B8F0CF'];
-  var PETALS = ['#FFC7E0', '#FF9ED2', '#FFFFFF', '#FFE3F0', '#E9D8FF'];
+  var PETALS = ['#FFC7E0', '#FF9ED2', '#FFFFFF', '#FFB3CF', '#E9D8FF'];
   var BCOLORS = ['#FF8FCB', '#B79CFF', '#7FD6FF', '#FFC46B', '#8FE3B0', '#FFB0C8'];
   var NAME_FONT = '"Baloo 2","Nunito",ui-rounded,system-ui,sans-serif';
   var LINES = [{ t: 'Trương Thị', s: 124, y: 150 }, { t: 'Thanh Huyền', s: 150, y: 310 }];
   var rand = function (a, b) { return a + Math.random() * (b - a); };
   var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
 
-  var hero = $('#top'), table = $('#table'), deckEl = $('#deck'), portrait = $('#portrait'),
+  var hero = $('#top'), garden = $('#garden'), bloomEl = $('#bloom'), tilt = $('#blTilt'), core = $('#core'),
       logoWrap = $('#logoWrap'), welcome = $('#welcome'), after = $('#after'), floatWrap = $('#floaters');
 
   /* ---------- bướm 2.5D: hai cánh SVG vỗ quanh thân bằng CSS 3D ---------- */
@@ -22,21 +22,15 @@
     '<svg class="bf-body" viewBox="0 0 20 100"><use href="#bBody"/></svg></span></span>';
   $$('.bfly').forEach(function (b) { if (!b.firstChild) b.innerHTML = BFLY; b.style.setProperty('--fl', rand(0.26, 0.42).toFixed(2) + 's'); });
 
-  /* ---------- bộ bài trên sách ---------- */
-  var DECK = [
-    { x: '19%', y: '17%', r: -15 }, { x: '34.5%', y: '9%', r: -7 }, { x: '50%', y: '6%', r: 0 },
-    { x: '65.5%', y: '1%', r: 7, glow: true }, { x: '81%', y: '14%', r: 15 }
-  ];
-  deckEl.innerHTML = DECK.map(function (d, i) {
-    return '<button type="button" class="tcard deck-card' + (d.glow ? ' glow' : '') + '" style="--i:' + i + ';--x:' + d.x + ';--y:' + d.y + ';--r:' + d.r + 'deg"' +
-      ' aria-label="Mở lá bài số ' + (i + 1) + '"><svg viewBox="0 0 200 330" aria-hidden="true"><use href="#cardBack"/></svg></button>';
-  }).join('');
-  var deckCards = $$('.deck-card', deckEl);
+  /* ---------- nụ hoa: 10 cánh ngoài, 8 cánh trong ---------- */
+  var OUTER = ['#FF8FC0', '#FF9ECB'], INNER = ['#FFC6E4', '#FFD6EA'], petalHTML = '';
+  for (var pi = 0; pi < 10; pi++) petalHTML += '<span class="bl-petal" style="--a:' + (pi * 36) + 'deg;--i:' + pi + ';--pc:' + OUTER[pi % 2] + '"><svg viewBox="0 0 100 160"><use href="#petal"/></svg></span>';
+  for (var pj = 0; pj < 8; pj++) petalHTML += '<span class="bl-petal inner" style="--a:' + (pj * 45 + 22.5) + 'deg;--i:' + (pj + 6) + ';--pc:' + INNER[pj % 2] + '"><svg viewBox="0 0 100 160"><use href="#petal"/></svg></span>';
+  tilt.innerHTML = petalHTML;
+  var petalEls = $$('.bl-petal', tilt);
 
-  /* ---------- khung ảnh: bấm để thử ảnh (không lưu lại, tải lại trang là mất; xóa ảnh thử cũ đã lưu) ---------- */
+  /* ---------- khung ảnh: bấm để thử ảnh (không lưu lại, tải lại trang là mất) ---------- */
   var CAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg>';
-  function store(key, val) { try { if (val == null) localStorage.removeItem(key); else localStorage.setItem(key, val); return true; } catch (e) { return false; } }
-  function load(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
   function shrink(file) {
     return new Promise(function (res, rej) {
       var url = URL.createObjectURL(file), img = new Image();
@@ -53,8 +47,7 @@
     });
   }
   $$('.photo-slot').forEach(function (slot) {
-    var id = 'ph-' + slot.dataset.slot, label = slot.dataset.label, key = 'tm-photo:' + slot.dataset.slot;
-    store(key, null);
+    var id = 'ph-' + slot.dataset.slot, label = slot.dataset.label;
     if (slot.dataset.src) {
       /* khung đã có ảnh chính thức: hiển thị cố định, không cho đổi */
       var box = document.createElement('span'); box.className = slot.className + ' has-img fixed';
@@ -72,35 +65,19 @@
       '<span class="ph-empty">' + CAM + '<b>Thêm ảnh</b><small>' + label + '</small></span>' +
       '<img alt="' + label + '" hidden><span class="ph-change" aria-hidden="true">Đổi ảnh</span>';
     var input = slot.querySelector('input'), img = slot.querySelector('img');
-    function show(src) { img.src = src; img.hidden = false; slot.classList.add('has-img'); }
     input.addEventListener('change', function () {
       var f = input.files && input.files[0];
       if (!f) return;
-      shrink(f).then(function (data) { show(data); }).catch(function () {});
+      shrink(f).then(function (data) { img.src = data; img.hidden = false; slot.classList.add('has-img'); }).catch(function () {});
       input.value = '';
     });
   });
 
   /* ---------- canvas ---------- */
   var sky = $('#sky'), sctx = sky.getContext('2d'), fx = $('#fx'), fctx = fx.getContext('2d');
-  var W = 0, H = 0, DPR = 1, stars = [], petals = [], skyParts = [], fxParts = [], meteor = null, nextMeteor = 4000;
+  var W = 0, H = 0, DPR = 1, pollen = [], petals = [], skyParts = [], fxParts = [];
   var smooth = window.scrollY, prevSmooth = smooth, vel = 0;
 
-  function makeStars() {
-    var count = clamp(Math.round(W * H / 5200), 70, 380);
-    stars = [];
-    for (var i = 0; i < count; i++) {
-      var big = Math.random() < 0.12;
-      stars.push({ x: Math.random() * W, y: Math.random() * H, r: big ? rand(3, 6) : rand(0.6, 1.8), big: big,
-        ph: Math.random() * 6.28, sp: rand(0.6, 2.2), d: rand(0.02, 0.12), c: big ? (Math.random() < 0.5 ? '#FFF3A0' : '#FFFFFF') : (Math.random() < 0.4 ? '#E4FFB8' : '#FFFFFF') });
-    }
-    petals = [];
-    var pc = clamp(Math.round(W * H / 42000), 10, 36);
-    for (var j = 0; j < pc; j++) {
-      petals.push({ x: Math.random() * W, y: Math.random() * H, r: rand(5, 11), vy: rand(0.35, 0.9), sw: rand(0.4, 1.2), ph: Math.random() * 6.28,
-        rot: Math.random() * 6.28, vr: rand(-0.02, 0.02), fl: rand(1.2, 2.6), d: rand(0.05, 0.25), c: PETALS[j % PETALS.length] });
-    }
-  }
   function sparkPath(ctx, x, y, r) {
     var k = r * 0.2;
     ctx.beginPath(); ctx.moveTo(x, y - r);
@@ -117,6 +94,21 @@
       if (i) ctx.lineTo(X, Y); else ctx.moveTo(X, Y);
     }
     ctx.closePath();
+  }
+  function makeSky() {
+    pollen = [];
+    var count = clamp(Math.round(W * H / 14000), 30, 120);
+    for (var i = 0; i < count; i++) {
+      var big = Math.random() < 0.15;
+      pollen.push({ x: Math.random() * W, y: Math.random() * H, r: big ? rand(3, 5.5) : rand(1, 2.4), big: big,
+        ph: Math.random() * 6.28, sp: rand(0.6, 2), d: rand(0.03, 0.14), c: big ? '#FFFFFF' : (Math.random() < 0.5 ? '#FFE48A' : '#FFFFFF') });
+    }
+    petals = [];
+    var pc = clamp(Math.round(W * H / 38000), 10, 40);
+    for (var j = 0; j < pc; j++) {
+      petals.push({ x: Math.random() * W, y: Math.random() * H, r: rand(5, 11), vy: rand(0.35, 0.9), sw: rand(0.4, 1.2), ph: Math.random() * 6.28,
+        rot: Math.random() * 6.28, vr: rand(-0.02, 0.02), fl: rand(1.2, 2.6), d: rand(0.05, 0.25), c: PETALS[j % PETALS.length] });
+    }
   }
   function addPart(list, x, y, opt) {
     if (list.length > 700) list.shift();
@@ -138,19 +130,20 @@
       if (y < -20 || y > H + 20) continue;
       ctx.globalAlpha = 1 - t * t;
       ctx.fillStyle = p.c;
-      if (p.pt) petalPath(ctx, p.x, y, Math.max(0.6, s * 1.4), p.rot + p.life * p.vr, Math.cos(p.life / 180));
-      else sparkPath(ctx, p.x, y, Math.max(0.3, s));
-      ctx.fill();
+      if (p.pt) {
+        petalPath(ctx, p.x, y, Math.max(0.6, s * 1.4), p.rot + p.life * p.vr, Math.cos(p.life / 180));
+        ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(58,31,77,.45)'; ctx.stroke();
+      } else { sparkPath(ctx, p.x, y, Math.max(0.3, s)); ctx.fill(); }
     }
     ctx.globalAlpha = 1;
   }
 
-  /* hạt sáng vàng (bokeh) */
+  /* hạt sáng (bokeh) */
   var glowImg = document.createElement('canvas'); glowImg.width = glowImg.height = 64;
   (function () {
     var g = glowImg.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-    rg.addColorStop(0, 'rgba(255,248,214,1)'); rg.addColorStop(0.22, 'rgba(255,222,120,.9)');
-    rg.addColorStop(0.55, 'rgba(255,196,80,.28)'); rg.addColorStop(1, 'rgba(255,196,80,0)');
+    rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.25, 'rgba(255,228,240,.9)');
+    rg.addColorStop(0.55, 'rgba(255,190,220,.3)'); rg.addColorStop(1, 'rgba(255,190,220,0)');
     g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
   })();
   var glows = [];
@@ -163,7 +156,6 @@
   }
   function drawGlows(dt) {
     var sy0 = window.scrollY;
-    fctx.globalCompositeOperation = 'lighter';
     for (var i = glows.length - 1; i >= 0; i--) {
       var p = glows[i];
       p.life += dt;
@@ -176,68 +168,46 @@
       var r = p.r * (0.7 + 0.3 * Math.sin(p.life / 300));
       fctx.drawImage(glowImg, (p.x - r) * DPR, (y - r) * DPR, r * 2 * DPR, r * 2 * DPR);
     }
-    fctx.globalAlpha = 1; fctx.globalCompositeOperation = 'source-over';
-  }
-  function cardOrigins() {
-    return deckCards.map(function (c) {
-      var r = c.getBoundingClientRect();
-      return { x: r.left + r.width / 2, y: r.top + r.height / 2 + window.scrollY, w: r.width, h: r.height };
-    });
+    fctx.globalAlpha = 1;
   }
 
   function resize() {
     var nw = window.innerWidth, nh = window.innerHeight, widthChanged = nw !== W, bigH = Math.abs(nh - H) > 140;
     W = nw; H = nh; DPR = Math.min(2, window.devicePixelRatio || 1);
     [sky, fx].forEach(function (c) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); });
-    if (widthChanged || bigH || !stars.length) makeStars();
+    if (widthChanged || bigH || !pollen.length) makeSky();
     if (widthChanged) {
       buildFloaters();
-      if (state !== 'idle' && state !== 'arming') { layoutName(); finishFlight(); }
+      if (state === 'done' || state === 'flying' || state === 'settle') { layoutName(); finishFlight(); }
     }
   }
 
   function drawSky(t, dt) {
     sctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     sctx.clearRect(0, 0, W, H);
-    for (var i = 0; i < stars.length; i++) {
-      var s = stars[i], y = ((s.y - smooth * s.d) % H + H) % H;
-      var a = reduce ? 0.8 : 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph));
+    /* phấn hoa lơ lửng */
+    for (var i = 0; i < pollen.length; i++) {
+      var s = pollen[i], y = ((s.y - smooth * s.d) % H + H) % H;
+      var a = reduce ? 0.8 : 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph));
+      var sx = reduce ? s.x : s.x + Math.sin(t * s.sp * 0.5 + s.ph) * 8;
       sctx.globalAlpha = a; sctx.fillStyle = s.c;
-      var sx = reduce || s.big ? s.x : s.x + Math.sin(t * s.sp * 0.5 + s.ph) * 6;
       if (s.big) { sparkPath(sctx, sx, y, s.r * (0.65 + 0.35 * a)); sctx.fill(); }
       else { sctx.beginPath(); sctx.arc(sx, y, s.r, 0, 6.283); sctx.fill(); }
     }
     /* cánh hoa rơi chậm, vừa xoay vừa lật */
     var f0 = dt / 16.67;
+    sctx.lineWidth = 1; sctx.strokeStyle = 'rgba(58,31,77,.35)';
     for (var k = 0; k < petals.length; k++) {
       var q = petals[k];
       if (!reduce) { q.y += q.vy * f0; q.x += Math.sin(t * q.sw + q.ph) * 0.6 * f0 + 0.15 * f0; q.rot += q.vr * f0; }
       if (q.y > H + 20) { q.y = -20; q.x = Math.random() * W; }
       if (q.x > W + 20) q.x = -20;
       var py = ((q.y - smooth * q.d) % (H + 40) + H + 40) % (H + 40) - 20;
-      sctx.globalAlpha = 0.85; sctx.fillStyle = q.c;
+      sctx.globalAlpha = 0.9; sctx.fillStyle = q.c;
       petalPath(sctx, q.x, py, q.r, q.rot, reduce ? 1 : Math.cos(t * q.fl + q.ph));
-      sctx.fill();
+      sctx.fill(); sctx.stroke();
     }
     sctx.globalAlpha = 1;
-    if (!reduce) {
-      nextMeteor -= dt;
-      if (!meteor && nextMeteor <= 0) {
-        var dir = Math.random() < 0.5 ? -1 : 1;
-        meteor = { x: rand(W * 0.2, W * 0.8), y: rand(10, H * 0.35), vx: dir * rand(9, 13), vy: rand(3.5, 5.5), life: 0, max: 900 };
-        nextMeteor = rand(5000, 11000);
-      }
-      if (meteor) {
-        meteor.life += dt;
-        var f = dt / 16.67; meteor.x += meteor.vx * f; meteor.y += meteor.vy * f;
-        var tl = 1 - meteor.life / meteor.max;
-        var g = sctx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx * 12, meteor.y - meteor.vy * 12);
-        g.addColorStop(0, 'rgba(255,255,255,' + (0.95 * tl) + ')'); g.addColorStop(1, 'rgba(255,255,255,0)');
-        sctx.strokeStyle = g; sctx.lineWidth = 3; sctx.lineCap = 'round';
-        sctx.beginPath(); sctx.moveTo(meteor.x, meteor.y); sctx.lineTo(meteor.x - meteor.vx * 12, meteor.y - meteor.vy * 12); sctx.stroke();
-        if (meteor.life > meteor.max) meteor = null;
-      }
-    }
     stepParts(sctx, skyParts, dt, 0);
   }
 
@@ -256,34 +226,31 @@
         el.innerHTML = BFLY;
         floatWrap.appendChild(el);
         floaters.push({ el: el, side: i % 2 ? 1 : -1, y0: (i + 0.5) / count + rand(-0.05, 0.05),
-          speed: rand(0.12, 0.42), ph: Math.random() * 6.28, fs: rand(0.5, 1), r0: rand(-22, 22), ry0: rand(0, 360),
-          lag: 0, k: rand(5, 11), sc: rand(0.82, 1.12) });
+          speed: rand(0.12, 0.42), ph: Math.random() * 6.28, fs: rand(0.5, 1), r0: rand(-22, 22), lag: 0, k: rand(5, 11), sc: rand(0.82, 1.12) });
       }
     }
     var lane = Math.max(0, (W - 1120) / 2);
     floaters.forEach(function (f) {
       f.w = f.el.offsetWidth || 56; f.h = f.el.offsetHeight || 56;
-      var x;
-      if (lane > f.w + 24) x = rand(10, lane - f.w - 10);
-      else x = -f.w * rand(0.25, 0.45);
+      var x = lane > f.w + 24 ? rand(10, lane - f.w - 10) : -f.w * rand(0.1, 0.3);
       f.x0 = f.side < 0 ? x : W - f.w - x;
     });
   }
   function updateFloaters(t) {
     var appear = reduce ? 0 : clamp((window.scrollY - H * 0.3) / (H * 0.5), 0, 1);
-    floatWrap.style.opacity = (appear * (W < 640 ? 0.6 : 0.9)).toFixed(3);
+    floatWrap.style.opacity = (appear * (W < 640 ? 0.7 : 0.95)).toFixed(3);
     if (appear <= 0) return;
     var v = clamp(vel, -60, 60);
     for (var i = 0; i < floaters.length; i++) {
       var f = floaters[i], span = H + f.h * 2 + 40;
       f.lag += (v * f.k - f.lag) * 0.06;
       var y = ((f.y0 * span - smooth * f.speed) % span + span) % span - f.h - 20 + clamp(f.lag, -140, 140);
-      var x = f.x0 + Math.sin(t * f.fs + f.ph) * (8 + Math.min(36, Math.abs(v) * 1.6)) * f.side;
-      var rot = f.r0 + Math.sin(t * f.fs * 0.8 + f.ph) * 6 + clamp(v * 1.3, -32, 32) * f.side;
+      var x = f.x0 + Math.sin(t * f.fs + f.ph) * (14 + Math.min(36, Math.abs(v) * 1.6)) * f.side;
+      var rot = f.r0 + Math.sin(t * f.fs * 0.8 + f.ph) * 10 + clamp(v * 1.3, -32, 32) * f.side;
       f.el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + rot.toFixed(1) + 'deg) scale(' + f.sc + ')';
       if (Math.abs(v) > 2.5 && Math.random() < Math.min(0.9, Math.abs(v) * 0.04)) {
-        addPart(skyParts, x + f.w / 2 + rand(-f.w * 0.4, f.w * 0.4), y + f.h / 2 + rand(-f.h * 0.4, f.h * 0.4),
-          { sp: rand(0.2, 0.8), a: v > 0 ? -Math.PI / 2 + rand(-0.6, 0.6) : Math.PI / 2 + rand(-0.6, 0.6), g: 0, max: rand(450, 850), r: rand(2, 4.5), c: Math.random() < 0.5 ? '#FFF3A0' : '#FFFFFF' });
+        addPart(skyParts, x + f.w / 2 + rand(-f.w * 0.3, f.w * 0.3), y + f.h / 2 + rand(-f.h * 0.3, f.h * 0.3),
+          { sp: rand(0.2, 0.8), a: v > 0 ? -Math.PI / 2 + rand(-0.6, 0.6) : Math.PI / 2 + rand(-0.6, 0.6), g: 0, max: rand(450, 850), r: rand(2, 4.5), c: Math.random() < 0.5 ? '#FFE48A' : '#FFFFFF' });
       }
     }
   }
@@ -296,13 +263,12 @@
     return LINES.map(function (l, i) {
       measure.font = fontAt(100);
       var w = measure.measureText(l.t).width / 100;
-      var s = Math.min(l.s, (i ? 930 : 900) / w);
-      return { t: l.t, s: s, y: l.y };
+      return { t: l.t, s: Math.min(l.s, (i ? 930 : 900) / w), y: l.y };
     });
   }
   function paintName(ctx, lines, mode) {
     ctx.save();
-    ctx.translate(500, 180); ctx.rotate(-5 * Math.PI / 180); ctx.translate(-500, -180);
+    ctx.translate(500, 180); ctx.rotate(-3 * Math.PI / 180); ctx.translate(-500, -180);
     ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round'; ctx.miterLimit = 2;
     lines.forEach(function (l) {
       ctx.font = fontAt(l.s);
@@ -317,11 +283,12 @@
       }
     });
     if (mode === 'art') {
-      lines.forEach(function (l) {
+      lines.forEach(function (l, i) {
         ctx.font = fontAt(l.s);
         ctx.strokeStyle = INK; ctx.lineWidth = 24; ctx.strokeText(l.t, 500, l.y);
         var g = ctx.createLinearGradient(0, l.y - l.s * 0.8, 0, l.y + l.s * 0.1);
-        g.addColorStop(0, '#FFB0DC'); g.addColorStop(0.48, '#FFFFFF'); g.addColorStop(1, '#FFD04A');
+        if (i) { g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.5, '#FFC6E4'); g.addColorStop(1, '#FF7FB5'); }
+        else { g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.55, '#D8F6E3'); g.addColorStop(1, '#7FD3A3'); }
         ctx.fillStyle = g; ctx.fillText(l.t, 500, l.y);
       });
     }
@@ -348,8 +315,7 @@
       pts = [];
       for (var y = step / 2, row = 0; y < ch; y += step, row++) {
         for (var x = (row % 2 ? step / 2 : 0) + step / 4; x < cw; x += step) {
-          var ix = x | 0, iy = y | 0;
-          if (data[(iy * cw + ix) * 4 + 3] > 128) pts.push({ x: left + x + rand(-step * 0.2, step * 0.2), y: top + y + rand(-step * 0.2, step * 0.2) });
+          if (data[((y | 0) * cw + (x | 0)) * 4 + 3] > 128) pts.push({ x: left + x + rand(-step * 0.2, step * 0.2), y: top + y + rand(-step * 0.2, step * 0.2) });
         }
       }
       if (pts.length <= 1700) break;
@@ -368,17 +334,13 @@
       var a = rand(-Math.PI, 0), rr = rand(0.18, 0.5) * R, a2 = a + (Math.random() < 0.5 ? -1 : 1) * rand(1, 2);
       return { sx: sx, sy: sy, c1x: sx + Math.cos(a) * rr, c1y: sy + Math.sin(a) * rr, c2x: p.x + Math.cos(a2) * rr * 0.5, c2y: p.y + Math.sin(a2) * rr * 0.5,
         tx: p.x, ty: p.y, delay: 80 + (p.x - minX) / spanX * 700 + rand(0, 380), dur: rand(950, 1500),
-        spin: rand(-12, 12), rf: rand(-0.25, 0.25), fp: rand(0, 6.28), yel: Math.random() < 0.18, landed: false };
+        spin: rand(-12, 12), rf: rand(-0.6, 0.6), fp: rand(0, 6.28), col: PETALS[(Math.random() * 5) | 0], landed: false };
     });
     flyStart = now;
     flyEnd = now + minis.reduce(function (m, q) { return Math.max(m, q.delay + q.dur); }, 0);
     state = 'flying';
   }
-  function finishFlight() {
-    minis = [];
-    state = 'done'; nameAlpha = 1;
-    revealAfter();
-  }
+  function finishFlight() { minis = []; state = 'done'; nameAlpha = 1; revealAfter(); }
   function revealAfter() {
     if (!after.hidden) return;
     welcome.hidden = true; after.hidden = false;
@@ -396,11 +358,11 @@
       var fxs = Math.max(0.15, Math.abs(flip)), c = Math.cos(rot), s = Math.sin(rot), kk = DPR * sc;
       fctx.setTransform(c * kk * fxs, s * kk * fxs, -s * kk, c * kk, DPR * x, DPR * (y - sy0));
       fctx.globalAlpha = alpha * Math.min(1, t * 5);
-      fctx.fillStyle = m.yel ? '#FFD86B' : flip < 0 ? '#FFFFFF' : '#FF8FC0';
+      fctx.fillStyle = flip < 0 ? '#FFFFFF' : m.col;
       fctx.beginPath(); fctx.ellipse(0, 0, mw * 0.6, mh * 0.5, 0, 0, 6.283);
       fctx.lineWidth = Math.max(0.6, mw * 0.14); fctx.strokeStyle = INK;
       fctx.fill(); fctx.stroke();
-      if (t < 1 && Math.random() < 0.08) addPart(fxParts, x, y, { sp: rand(0.1, 0.6), g: 0.01, max: rand(380, 700), r: rand(1.6, 3.6) });
+      if (t < 1 && Math.random() < 0.06) addPart(fxParts, x, y, { sp: rand(0.1, 0.6), g: 0.01, max: rand(380, 700), r: rand(1.6, 3.6) });
       if (t === 1 && !m.landed) { m.landed = true; if (Math.random() < 0.12) addPart(fxParts, x, y, { sp: 0.3, g: 0, max: 420, r: rand(3, 5), c: '#FFFFFF' }); }
     }
     fctx.setTransform(1, 0, 0, 1, 0, 0); fctx.globalAlpha = 1;
@@ -421,167 +383,69 @@
       sc.fillStyle = g; sc.fillRect(0, 0, w, h);
       fctx.globalAlpha = alpha * 0.75;
       fctx.drawImage(L.sheen, L.left * DPR, y * DPR);
-      if (alpha >= 1 && Math.random() < 0.3 && L.pts.length) {
+      if (alpha >= 1 && Math.random() < 0.25 && L.pts.length) {
         var p = L.pts[(Math.random() * L.pts.length) | 0];
-        addPart(fxParts, p.x, p.y, { sp: rand(0, 0.3), g: 0, max: rand(500, 900), r: rand(2.5, 5.5), c: Math.random() < 0.6 ? '#FFFFFF' : '#FFE27A' });
+        addPart(fxParts, p.x, p.y, { sp: rand(0, 0.3), g: 0, max: rand(500, 900), r: rand(2.5, 5.5), c: Math.random() < 0.6 ? '#FFFFFF' : '#FFE48A' });
       }
     }
     fctx.globalAlpha = 1;
   }
 
-  /* ---------- màn mở thẻ: bay ra giữa, nạp sáng, lóe sáng, lật ảnh ---------- */
-  var stage = $('#stage'), stageCard = $('#stageCard'), scShake = $('.sc-shake', stage), scFlip = $('.sc-flip', stage),
-      scBack = $('.sc-back', stage), scFront = $('.sc-front', stage), scLightB = $('.sc-back .sc-light', stage), scLightF = $('.sc-front .sc-light', stage),
-      stDim = $('.stage-dim', stage), stRays = $('.stage-rays', stage), stRing = $('.stage-ring', stage), stFlash = $('.stage-flash', stage), stCap = $('.stage-caption', stage);
-  var portraitCard = $('.tcard', portrait), stageAnims = [], charge = false, runId = 0;
+  /* ---------- nụ hoa nở: cánh xòe 3D, nhụy hiện ảnh, cánh hoa bay lên xếp tên ---------- */
+  var runId = 0;
   function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
-  function anim(el, kf, opt) { var a = el.animate(kf, Object.assign({ fill: 'forwards' }, opt)); stageAnims.push(a); return a; }
-  function closeStage() {
-    charge = false;
-    stageAnims.forEach(function (a) { try { a.cancel(); } catch (e) {} });
-    stageAnims = [];
-    if (portraitCard.parentNode !== portrait) portrait.appendChild(portraitCard);
-    stage.hidden = true; stage.classList.remove('spin'); scBack.hidden = false; scFront.hidden = true;
+  function bloomCenter() {
+    var r = bloomEl.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 + window.scrollY, w: r.width };
   }
-  function portraitCenter() {
-    var tr = table.getBoundingClientRect();
-    return { x: tr.left + portrait.offsetLeft, y: tr.top + portrait.offsetTop + portrait.offsetHeight / 2, w: portrait.offsetWidth };
-  }
-  function burstAt(x, y, nParts, nGlows) {
-    var dy = window.scrollY;
-    for (var i = 0; i < nParts; i++) addPart(fxParts, x, y + dy, { a: i / nParts * 6.283 + rand(-0.15, 0.15), sp: rand(3, 8), g: 0.04, max: rand(900, 1500), r: rand(4, 8), pt: i % 2 === 0 });
-    for (var j = 0; j < nGlows; j++) addGlow(x + rand(-40, 40), y + dy + rand(-60, 60), { sp: rand(1, 4.5), up: 0.2, r: rand(8, 22), max: rand(900, 1800) });
-  }
-  function chargeGlows() {
-    var k = Math.random() < 0.5 ? 2 : 3;
-    while (k--) {
-      var a = rand(0, 6.283), d = rand(0.28, 0.55) * Math.min(W, H), life = rand(650, 950);
-      addGlow(W / 2 + Math.cos(a) * d, H / 2 + Math.sin(a) * d + window.scrollY, { a: a + Math.PI, sp: d / (life / 16.67) * 1.05, up: 0, max: life, r: rand(5, 13) });
-    }
-  }
-  function cinematic(chosen, id) {
-    var r = chosen.getBoundingClientRect(), rot = parseFloat(chosen.style.getPropertyValue('--r')) || 0;
-    var Wc = Math.min(Math.min(H * 0.62, 540) * 200 / 330, W * 0.66);
-    stage.style.setProperty('--scw', Wc + 'px');
-    var s0 = chosen.offsetWidth / Wc, dx0 = r.left + r.width / 2 - W / 2, dy0 = r.top + r.height / 2 - H / 2;
-    scFront.insertBefore(portraitCard, scLightF);
-    scBack.hidden = false; scFront.hidden = true;
-    stage.classList.add('spin');
-    stage.hidden = false;
-    chosen.classList.add('taken');
-    anim(stDim, [{ opacity: 0 }, { opacity: 1 }], { duration: 500 });
-    var fly = anim(stageCard, [
-      { transform: 'translate(' + dx0 + 'px,' + dy0 + 'px) rotate(' + rot + 'deg) scale(' + s0 + ')' },
-      { transform: 'translate(0px,-20px) rotate(-6deg) scale(1.06)', offset: 0.7 },
-      { transform: 'translate(0px,0px) rotate(0deg) scale(1)' }], { duration: 760, easing: 'cubic-bezier(.25,.8,.35,1)' });
-    anim(scFlip, [{ transform: 'perspective(1400px) rotateY(0deg)' }, { transform: 'perspective(1400px) rotateY(720deg)' }], { duration: 950, easing: 'cubic-bezier(.3,.6,.25,1)' });
-    return fly.finished.then(function () {
-      if (id !== runId) throw 0;
-      anim(stRays, [{ opacity: 0 }, { opacity: 1 }], { duration: 900 });
-      anim(stCap, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450 });
-      anim(scLightB, [{ opacity: 0 }, { opacity: 0.97 }], { duration: 1200, easing: 'ease-in' });
-      anim(scShake, [
-        { transform: 'rotate(0deg) scale(1)', filter: 'drop-shadow(0 0 0px rgba(205,180,255,0))' },
-        { transform: 'rotate(-1.5deg) scale(1.01)', offset: 0.2 }, { transform: 'rotate(1.5deg) scale(1.02)', offset: 0.34 },
-        { transform: 'rotate(-2.5deg) scale(1.03)', offset: 0.48 }, { transform: 'rotate(2.5deg) scale(1.04)', offset: 0.6 },
-        { transform: 'rotate(-3deg) scale(1.05)', offset: 0.72 }, { transform: 'rotate(3deg) scale(1.06)', offset: 0.84 },
-        { transform: 'rotate(0deg) scale(1.08)', filter: 'drop-shadow(0 0 36px rgba(205,180,255,1)) drop-shadow(0 0 90px rgba(255,255,255,.8))' }],
-        { duration: 1200, easing: 'ease-in' });
-      charge = true;
-      return sleep(1200);
-    }).then(function () {
-      if (id !== runId) throw 0;
-      charge = false;
-      anim(stFlash, [{ opacity: 0 }, { opacity: 1, offset: 0.25 }, { opacity: 0 }], { duration: 700, easing: 'ease-out' });
-      anim(stCap, [{ opacity: 1 }, { opacity: 0 }], { duration: 250 });
-      return sleep(80);
-    }).then(function () {
-      if (id !== runId) throw 0;
-      stage.classList.remove('spin'); scFront.hidden = false;
-      anim(scFlip, [{ transform: 'perspective(1400px) rotateY(720deg) scale(1)' }, { transform: 'perspective(1400px) rotateY(1120deg) scale(1.1)', offset: 0.55 },
-        { transform: 'perspective(1400px) rotateY(1260deg) scale(1)' }], { duration: 1200, easing: 'cubic-bezier(.2,.7,.25,1)' });
-      anim(scLightF, [{ opacity: 0.97 }, { opacity: 0 }], { duration: 950, easing: 'ease-out' });
-      anim(stRing, [{ transform: 'scale(.3)', opacity: 1 }, { transform: 'scale(3.6)', opacity: 0 }], { duration: 950, easing: 'cubic-bezier(.2,.7,.3,1)' });
-      anim(scShake, [{ transform: 'scale(1.08)', filter: 'drop-shadow(0 0 36px rgba(205,180,255,1)) drop-shadow(0 0 90px rgba(255,255,255,.8))' },
-        { transform: 'scale(1)', filter: 'drop-shadow(0 0 26px rgba(255,214,90,.95))' }], { duration: 800, easing: 'ease-out' });
-      burstAt(W / 2, H / 2, 44, 50);
-      return sleep(1700);
-    }).then(function () {
-      if (id !== runId) throw 0;
-      var pc = portraitCenter(), s1 = pc.w / Wc;
-      anim(stDim, [{ opacity: 1 }, { opacity: 0 }], { duration: 700 });
-      anim(stRays, [{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
-      return anim(stageCard, [{ transform: 'translate(0px,0px) rotate(0deg) scale(1)' },
-        { transform: 'translate(' + (pc.x - W / 2) + 'px,' + (pc.y - H / 2) + 'px) rotate(0deg) scale(' + s1 + ')' }],
-        { duration: 680, easing: 'cubic-bezier(.5,0,.3,1)' }).finished;
-    }).then(function () {
-      if (id !== runId) throw 0;
-      portrait.classList.add('instant', 'show'); portrait.setAttribute('aria-hidden', 'false');
-      closeStage();
-      requestAnimationFrame(function () { requestAnimationFrame(function () { portrait.classList.remove('instant'); }); });
+  function petalOrigins() {
+    return petalEls.map(function (p) {
+      var r = p.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 + window.scrollY, w: r.width, h: r.height };
     });
   }
-  function burstOthers(chosen) {
-    var tr = table.getBoundingClientRect(), origins = [];
-    deckCards.forEach(function (c) {
-      if (c === chosen) return;
-      var r = c.getBoundingClientRect();
-      origins.push({ x: r.left + r.width / 2, y: r.top + r.height / 2 + window.scrollY, w: r.width, h: r.height });
-      var ccx = c.offsetLeft + c.offsetWidth / 2, dirX = (ccx - tr.width / 2) / (tr.width / 2);
-      c.style.setProperty('--bx', (dirX * W * 0.6 + rand(-120, 120)) + 'px');
-      c.style.setProperty('--by', (-rand(0.45, 0.9) * H) + 'px');
-      c.style.setProperty('--br', rand(-540, 540) + 'deg');
-      c.classList.add('fly');
-    });
-    if (!reduce) origins.forEach(function (o) {
-      for (var j = 0; j < 14; j++) addPart(fxParts, o.x, o.y, { sp: rand(1.5, 5), up: 1.2, g: 0.06, max: rand(600, 1100), r: rand(2.5, 6) });
-      for (var k = 0; k < 6; k++) addGlow(o.x + rand(-o.w / 2, o.w / 2), o.y + rand(-o.h / 2, o.h / 2), { sp: rand(0.4, 1.5), r: rand(6, 14), max: rand(900, 1600) });
-    });
-    return origins;
-  }
-  function openDeck(chosen) {
+  function openBloom() {
     if (state !== 'idle') return;
-    state = 'arming';
+    state = 'blooming';
     var id = ++runId;
     hero.classList.add('opened');
-    deckCards.forEach(function (c) { c.tabIndex = -1; });
+    bloomEl.classList.add('open');
+    core.setAttribute('aria-hidden', 'false');
     $('#heroTitle').textContent = 'Trương Thị Thanh Huyền — Thư mời tốt nghiệp';
     var ready = (document.fonts && document.fonts.load) ? Promise.race([document.fonts.load(fontAt(80), 'Trương Thị Thanh Huyền'), sleep(1200)]) : Promise.resolve();
-    var co = cardOrigins()[deckCards.indexOf(chosen)];
-    for (var gi = 0; gi < 30; gi++) addGlow(co.x + rand(-co.w * 0.6, co.w * 0.6), co.y + rand(-co.h * 0.6, co.h * 0.6), { sp: rand(0.3, 1.6), up: 0.5, r: rand(7, 18), max: rand(1200, 2400), delay: rand(0, 300) });
-    var seq = reduce ? Promise.resolve().then(function () {
-      chosen.classList.add('taken');
-      portrait.classList.add('instant', 'show'); portrait.setAttribute('aria-hidden', 'false');
-    }) : cinematic(chosen, id);
-    seq.then(function () {
+    var c = bloomCenter();
+    for (var gi = 0; gi < 36; gi++) addGlow(c.x + rand(-c.w * 0.4, c.w * 0.4), c.y + rand(-c.w * 0.4, c.w * 0.4), { sp: rand(0.3, 1.6), up: 0.5, r: rand(8, 20), max: rand(1200, 2400), delay: rand(0, 500) });
+    sleep(reduce ? 0 : 700).then(function () {
       if (id !== runId) return;
-      var origins = burstOthers(chosen);
+      if (!reduce) for (var i = 0; i < 40; i++) addPart(fxParts, c.x, c.y, { a: i / 40 * 6.283 + rand(-0.15, 0.15), sp: rand(3, 8), g: 0.04, max: rand(900, 1500), r: rand(4, 8), pt: i % 2 === 0 });
+      return sleep(reduce ? 0 : 900);
+    }).then(function () {
+      if (id !== runId) return;
+      var origins = petalOrigins();
       return ready.catch(function () {}).then(function () {
         if (id !== runId) return;
         layoutName();
         if (reduce) { finishFlight(); return; }
         startFlight(origins, performance.now() + 60);
       });
-    }).catch(function () {});
+    });
   }
-  function reshuffle() {
+  function closeBloom() {
     runId++;
-    closeStage();
     state = 'idle'; minis = []; nameAlpha = 0; L = null;
-    hero.classList.remove('opened');
-    portrait.classList.remove('show', 'instant'); portrait.setAttribute('aria-hidden', 'true');
-    deckCards.forEach(function (c) { c.classList.remove('fly', 'chosen', 'taken'); c.tabIndex = 0; });
+    hero.classList.remove('opened'); bloomEl.classList.remove('open');
+    core.setAttribute('aria-hidden', 'true');
     after.hidden = true; welcome.hidden = false;
     $('#heroTitle').textContent = 'Thư mời tốt nghiệp của Trương Thị Thanh Huyền';
-    deckCards[3].focus({ preventScroll: true });
+    $('#bloomBtn').focus({ preventScroll: true });
   }
-  deckCards.forEach(function (c) { c.addEventListener('click', function () { openDeck(c); }); });
-  $('#reshuffle').addEventListener('click', reshuffle);
+  $('#bloomBtn').addEventListener('click', openBloom);
+  $('#reshuffle').addEventListener('click', closeBloom);
 
   function drawFx(now, dt) {
     fctx.setTransform(1, 0, 0, 1, 0, 0);
     fctx.clearRect(0, 0, fx.width, fx.height);
-    if (L && state !== 'idle' && state !== 'arming') {
+    if (L) {
       if (state === 'flying') {
         drawMinis(now, 1);
         if (now >= flyEnd) { state = 'settle'; settleStart = now; }
@@ -598,43 +462,36 @@
     stepParts(fctx, fxParts, dt, window.scrollY);
     fctx.setTransform(1, 0, 0, 1, 0, 0);
   }
-  /* hạt sáng bay quanh quyển sách khi trang chủ đang hiện */
+  /* hạt sáng bay quanh nụ hoa khi trang chủ đang hiện */
   function ambientGlows(dt) {
     if (reduce || window.scrollY > hero.offsetHeight) return;
-    if (Math.random() < dt / 16.67 * 0.12) {
-      var r = table.getBoundingClientRect();
-      addGlow(r.left + rand(0.05, 0.95) * r.width, r.top + window.scrollY + rand(0.1, 0.95) * r.height, { sp: rand(0.05, 0.25), up: rand(0.15, 0.45) });
+    if (Math.random() < dt / 16.67 * 0.1) {
+      var r = garden.getBoundingClientRect();
+      addGlow(r.left + rand(0.05, 0.95) * r.width, r.top + window.scrollY + rand(0.05, 0.8) * r.height, { sp: rand(0.05, 0.25), up: rand(0.15, 0.45) });
     }
   }
-  /* lúc mở trang: lá bài hiện dần kèm ánh sáng */
-  setTimeout(function () {
-    cardOrigins().forEach(function (o, i) {
-      for (var j = 0; j < 9; j++) addGlow(o.x + rand(-o.w * 0.5, o.w * 0.5), o.y + rand(-o.h * 0.5, o.h * 0.5), { delay: 250 + i * 140 + rand(0, 300), sp: rand(0.1, 0.6), r: rand(6, 15), max: rand(1200, 2400) });
-    });
-  }, 60);
 
   /* ---------- con trỏ rắc cánh hoa, bấm tung hoa ---------- */
   if (!reduce) {
     var lastX = 0, lastY = 0, acc = 0;
     window.addEventListener('pointermove', function (e) {
-      if (e.pointerType !== 'mouse' || document.documentElement.classList.contains('map-open')) return;
+      if (e.pointerType !== 'mouse') return;
       acc += Math.hypot(e.clientX - lastX, e.clientY - lastY); lastX = e.clientX; lastY = e.clientY;
       if (acc > 18) { acc = 0; addPart(fxParts, e.clientX, e.clientY + window.scrollY, { sp: rand(0.2, 0.9), g: 0.03, max: rand(600, 1000), r: rand(3, 5.5), pt: Math.random() < 0.6 }); }
     }, { passive: true });
     window.addEventListener('pointerdown', function (e) {
-      if (document.documentElement.classList.contains('map-open')) return;
       for (var i = 0; i < 12; i++) addPart(fxParts, e.clientX, e.clientY + window.scrollY, { a: i / 12 * 6.283 + rand(-0.2, 0.2), sp: rand(2, 4), g: 0.05, max: rand(600, 1000), r: rand(3, 6), pt: i % 2 === 0 });
     }, { passive: true });
   }
 
   /* ---------- đếm ngược tới ngày lễ (giờ Việt Nam) — sửa EV_START, EV_END cho đúng ---------- */
-  var EV_START = Date.UTC(2026, 10, 7, 5, 30, 0), EV_END = Date.UTC(2026, 10, 7, 10, 0, 0); // khách đến từ 12h30 đến 17h00 giờ Việt Nam
+  var EV_START = Date.UTC(2026, 10, 7, 5, 30, 0), EV_END = Date.UTC(2026, 10, 7, 10, 0, 0); // 12h30 đến 17h00 giờ Việt Nam
   function vnDay(t) { return new Date(t + 7 * 3600e3).toISOString().slice(0, 10); }
   function eventState() {
     var now = Date.now();
     if (now < EV_START) {
       var days = Math.round((Date.parse(vnDay(EV_START)) - Date.parse(vnDay(now))) / 86400e3);
-      return days > 0 ? { pre: 'Còn', num: String(days), post: 'ngày' } : { pre: '', num: 'Hôm nay', post: 'lúc 12h30!' };
+      return days > 0 ? { pre: 'Hoa nở sau', num: String(days), post: 'ngày' } : { pre: '', num: 'Hôm nay', post: 'lúc 12h30!' };
     }
     if (now < EV_END) return { pre: '', num: '', post: 'Mình đang chờ bạn ở khu vườn!' };
     return { pre: '', num: '', post: 'Cảm ơn bạn đã đến chung vui!' };
@@ -645,19 +502,18 @@
   }
   countdown(); setInterval(countdown, 60000);
 
-  /* ---------- phong bì bật dấu sáp khi cuộn tới ---------- */
-  var env = $('#envelope');
-  if ('IntersectionObserver' in window) {
+  /* ---------- cổng hoa tung cánh khi cuộn tới ---------- */
+  var arch = $('#arch');
+  if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (en) {
-        if (en.isIntersecting) {
-          env.classList.add('in-view');
-          if (!reduce) { var r = $('.seal').getBoundingClientRect(); for (var i = 0; i < 18; i++) addPart(fxParts, r.left + r.width / 2, r.top + r.height / 2 + window.scrollY, { sp: rand(1.5, 4), up: 1, g: 0.05, max: rand(600, 1000), r: rand(2.5, 5.5) }); }
-          io.disconnect();
-        }
+        if (!en.isIntersecting) return;
+        var r = arch.getBoundingClientRect();
+        for (var i = 0; i < 26; i++) addPart(fxParts, r.left + r.width * rand(0.2, 0.8), r.top + rand(0, 60) + window.scrollY, { sp: rand(1.5, 4), up: 1, g: 0.05, max: rand(900, 1500), r: rand(3.5, 6.5), pt: true });
+        io.disconnect();
       });
-    }, { threshold: 0.45 });
-    io.observe(env);
+    }, { threshold: 0.35 });
+    io.observe(arch);
   }
 
   /* ---------- chiều sâu theo chuột ---------- */
@@ -670,17 +526,16 @@
   var last = performance.now();
   function frame(now) {
     var dt = Math.min(50, now - last); last = now;
-    if (document.documentElement.classList.contains('map-open')) { requestAnimationFrame(frame); return; }
     var t = now / 1000;
     smooth += (window.scrollY - smooth) * Math.min(1, dt / 1000 * 7.5);
     vel = (smooth - prevSmooth) * (16.67 / Math.max(1, dt)); prevSmooth = smooth;
     drawSky(t, dt);
     updateFloaters(t);
     ambientGlows(dt);
-    if (charge) chargeGlows();
     if (pmChanged && window.scrollY < hero.offsetHeight) {
       pmChanged = false;
       scene.style.setProperty('--mx', (-pmx).toFixed(3)); scene.style.setProperty('--my', (-pmy).toFixed(3));
+      garden.style.transform = 'translate(' + (pmx * 6).toFixed(1) + 'px,' + (pmy * 4).toFixed(1) + 'px)';
     }
     drawFx(now, dt);
     requestAnimationFrame(frame);

@@ -1,14 +1,17 @@
 # Thư Mời Tốt Nghiệp · Trương Thị Thanh Huyền
 
-Thư mời dự lễ tốt nghiệp online theo chủ đề **vườn thần tiên**: hoa, bướm 2.5D, cánh hoa rơi và đom đóm.
+Thư mời dự lễ tốt nghiệp online theo chủ đề **khu vườn ban ngày**: nụ hoa 2.5D, bướm vỗ cánh, cánh hoa rơi, mây trôi.
 
-Dựa trên mã nguồn [TranMinh0903/Invitation-card](https://github.com/TranMinh0903/Invitation-card), vẽ lại toàn bộ hình minh họa và đổi nội dung.
+Kỹ thuật hiệu ứng (hạt, xếp tên bằng canvas) dựa trên [TranMinh0903/Invitation-card](https://github.com/TranMinh0903/Invitation-card); thiết kế, bố cục và hình minh họa làm mới.
 
 ## Tính năng
 
-- **Màn mở đầu:** bộ bài thần tiên trên quyển sách hoa. Chọn một lá thì lá bài bay ra giữa, xoay, phát sáng rồi lật ra ảnh chân dung; các lá còn lại tan thành cánh hoa bay xếp thành tên.
-- **Chiều sâu 2.5D:** cảnh nền nhiều lớp dịch chuyển theo chuột (trăng, thân hoa lớn, bó hoa, thảm cỏ, nấm), bướm vỗ cánh bằng CSS 3D, cánh hoa vừa rơi vừa lật.
-- **Thư mời:** lời cảm ơn, ba đóa hoa (quá khứ, hiện tại, tương lai), album kỷ niệm, phong bì có đếm ngược tới ngày lễ.
+- **Màn mở đầu:** một nụ hoa lớn trên đồi. Chạm vào thì từng cánh xòe ra trong không gian 3D, nhụy hoa hiện ảnh chân dung, cánh hoa bay lên xếp thành tên.
+- **Chiều sâu 2.5D:** cảnh nhiều lớp dịch chuyển theo chuột (mặt trời, mây, đồi xa, thân hoa lớn, thảm cỏ, nấm), bướm vỗ cánh bằng CSS 3D, cánh hoa vừa rơi vừa lật.
+- **Lời cảm ơn:** bảng gỗ treo trên cành hoa, ảnh trong vòng cánh hoa.
+- **Ba đóa hoa:** quá khứ, hiện tại, tương lai là ba bông hoa mọc từ đất.
+- **Album:** ảnh kẹp trên dây phơi, đung đưa.
+- **Thư mời:** thiệp hình cổng vòm kết hoa, đếm ngược "hoa nở sau … ngày".
 - Bướm bay theo khi cuộn, con trỏ rắc cánh hoa, bấm để tung hoa.
 - Responsive, tôn trọng `prefers-reduced-motion`.
 

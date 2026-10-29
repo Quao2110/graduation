@@ -14,103 +14,71 @@
 <div class="sky-bg" aria-hidden="true"><canvas id="sky"></canvas></div>
 <div class="floaters" id="floaters" aria-hidden="true"></div>
 <canvas id="fx" aria-hidden="true"></canvas>
-<div class="stage" id="stage" hidden aria-hidden="true">
-  <div class="stage-dim"></div>
-  <div class="stage-rays"></div>
-  <div class="stage-ring"></div>
-  <div class="stage-card" id="stageCard">
-    <div class="sc-shake">
-      <div class="sc-flip">
-        <div class="sc-face sc-back"><svg viewBox="0 0 200 330"><use href="#cardBack"/></svg><span class="sc-light"></span></div>
-        <div class="sc-face sc-front" hidden><span class="sc-light"></span></div>
-      </div>
-    </div>
-  </div>
-  <p class="stage-caption">Hoa đang nở…</p>
-  <div class="stage-flash"></div>
-</div>
 
 <header class="hero" id="top">
   <div class="scene" id="scene" aria-hidden="true">
-    <div class="layer" style="--d:8">
-      <div class="planet"></div>
-      <span class="bubble" style="--bc:#F6B6E8;--s:88px;left:13%;top:27%;animation-delay:-2s"></span>
-      <span class="bubble" style="--bc:#C9B8FF;--s:56px;right:21%;top:15%;animation-delay:-5s"></span>
-      <span class="bubble" style="--bc:#B8F0CF;--s:40px;left:25%;top:60%;animation-delay:-3s"></span>
-      <span class="bubble" style="--bc:#F6B6E8;--s:124px;right:6%;top:44%;animation-delay:-7s"></span>
-      <span class="bubble" style="--bc:#FFE08A;--s:30px;left:31%;top:9%;animation-delay:-1s"></span>
+    <div class="layer" style="--d:6">
+      <div class="sun-glow"></div>
+      <svg class="sun" viewBox="0 0 260 260"><use href="#sun"/></svg>
+      <svg class="cloud" viewBox="0 0 200 100" style="--w:200px;top:9%;--t:70s;--dl:-10s"><use href="#cloudPuff"/></svg>
+      <svg class="cloud" viewBox="0 0 200 100" style="--w:140px;top:24%;--t:90s;--dl:-55s"><use href="#cloudPuff"/></svg>
+      <svg class="cloud" viewBox="0 0 200 100" style="--w:110px;top:4%;--t:80s;--dl:-30s"><use href="#cloudPuff"/></svg>
+    </div>
+    <div class="layer" style="--d:14">
+      <svg class="hills"><use href="#hills" width="100%" height="100%"/></svg>
     </div>
     <div class="layer" style="--d:24">
       <svg class="stem l" viewBox="0 0 360 900" preserveAspectRatio="xMinYMax meet"><use href="#stem"/></svg>
       <svg class="stem r" viewBox="0 0 360 900" preserveAspectRatio="xMinYMax meet"><use href="#stem"/></svg>
-      <span class="bfly" style="--bc:#B79CFF;--s:56px;left:22%;top:38%;--t:17s;--dl:-6s;--rz:14deg"></span>
-      <span class="bfly" style="--bc:#7FD6FF;--s:48px;right:24%;top:62%;--t:13s;--dl:-2s;--rz:-18deg"></span>
-    </div>
-    <div class="layer" style="--d:16">
-      <svg class="moon-big" viewBox="0 0 260 260"><use href="#moonBig"/></svg>
       <svg class="bouquet" viewBox="0 0 240 220"><use href="#bouquet"/></svg>
-      <span class="bfly" style="--bc:#FF8FCB;--s:78px;left:9%;top:44%;--t:15s;--rz:-10deg"></span>
-      <span class="bfly" style="--bc:#FFC46B;--s:68px;right:9%;top:30%;--t:19s;--dl:-9s;--rz:16deg"></span>
+      <span class="bfly" style="--bc:#B79CFF;--s:56px;left:20%;top:34%;--t:17s;--dl:-6s;--rz:14deg"></span>
+      <span class="bfly" style="--bc:#FFC46B;--s:66px;right:18%;top:26%;--t:19s;--dl:-9s;--rz:16deg"></span>
     </div>
     <div class="layer" style="--d:36">
       <svg class="meadow"><use href="#meadow" width="100%" height="100%"/></svg>
       <svg class="mushroom" viewBox="0 -10 170 180"><use href="#mushroom"/></svg>
-      <span class="bfly" style="--bc:#8FE3B0;--s:88px;right:14%;bottom:14%;--t:12s;--dl:-4s;--rz:-8deg"></span>
+      <span class="bfly" style="--bc:#FF8FCB;--s:78px;left:10%;bottom:30%;--t:15s;--rz:-10deg"></span>
+      <span class="bfly" style="--bc:#7FD6FF;--s:84px;right:12%;bottom:18%;--t:12s;--dl:-4s;--rz:-8deg"></span>
     </div>
   </div>
+
   <div class="wrap hero-inner">
     <h1 class="sr-only" id="heroTitle">Thư mời tốt nghiệp của Trương Thị Thanh Huyền</h1>
     <div class="logo-wrap" id="logoWrap">
       <svg class="logo" id="logo" viewBox="0 0 1000 360" aria-hidden="true">
-        <defs>
-          <linearGradient id="gLogo" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFB0DC"/><stop offset=".48" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFD04A"/>
-          </linearGradient>
-        </defs>
-        <g transform="rotate(-5 500 180)" font-family="'Baloo 2','Nunito',sans-serif" font-weight="800" text-anchor="middle" stroke-linejoin="round">
-          <g fill="#3A1F4D" stroke="#3A1F4D" stroke-width="26" transform="translate(0 12)">
-            <text x="500" y="150" font-size="124">Thư Mời</text>
-            <text x="500" y="310" font-size="150">Tốt Nghiệp</text>
-          </g>
-          <g fill="url(#gLogo)" stroke="#3A1F4D" stroke-width="24" paint-order="stroke">
-            <text x="500" y="150" font-size="124">Thư Mời</text>
-            <text x="500" y="310" font-size="150">Tốt Nghiệp</text>
-          </g>
+        <g class="logo-ribbon">
+          <path d="M130 196 H40 L80 246 L40 296 H160 Z M870 196 H960 L920 246 L960 296 H840 Z" fill="#C9518C" stroke="#3A1F4D" stroke-width="10" stroke-linejoin="round"/>
+          <path d="M130 172 Q500 120 870 172 V300 Q500 248 130 300 Z" fill="#3A1F4D" transform="translate(0 12)"/>
+          <path d="M130 172 Q500 120 870 172 V300 Q500 248 130 300 Z" fill="#E86FA8" stroke="#3A1F4D" stroke-width="10" stroke-linejoin="round"/>
+          <path d="M160 190 Q500 142 840 190" fill="none" stroke="#FFC6E4" stroke-width="5" stroke-linecap="round" stroke-dasharray="4 14"/>
+        </g>
+        <g font-weight="800" text-anchor="middle" stroke-linejoin="round" paint-order="stroke">
+          <text x="500" y="118" font-family="'Dancing Script','Mali',cursive" font-weight="700" font-size="120" fill="#fff" stroke="#3A1F4D" stroke-width="20">Thư mời</text>
+          <text x="500" y="270" font-family="'Baloo 2','Nunito',sans-serif" font-size="118" fill="#FFF6EA" stroke="#3A1F4D" stroke-width="16">Tốt Nghiệp</text>
         </g>
       </svg>
-      <svg class="wand" viewBox="0 0 262 120" aria-hidden="true"><use href="#wand"/></svg>
     </div>
 
-    <div class="table" id="table">
-      <svg class="book" viewBox="0 0 1000 432" aria-hidden="true"><use href="#book"/></svg>
-      <svg class="vine l" viewBox="0 0 220 440" aria-hidden="true"><use href="#vine"/></svg>
-      <svg class="vine r" viewBox="0 0 220 440" aria-hidden="true"><use href="#vine"/></svg>
-      <svg class="pot" viewBox="0 0 90 108" aria-hidden="true"><use href="#pot"/></svg>
-      <svg class="jar" viewBox="0 0 110 108" aria-hidden="true"><use href="#jar"/></svg>
-      <div id="deck"></div>
-      <div class="portrait" id="portrait" aria-hidden="true">
-        <div class="tcard">
-          <svg viewBox="0 0 200 330" aria-hidden="true"><use href="#cardPhoto"/></svg>
-          <label class="photo-slot tc-photo" data-slot="chan-dung" data-label="Ảnh chân dung"></label>
-          <svg class="sticker" viewBox="0 0 60 60" aria-hidden="true"><use href="#stickerFlower"/></svg>
-          <span class="tc-title">Tân Cử Nhân 2026</span>
+    <div class="garden" id="garden">
+      <span class="bl-glow" aria-hidden="true"></span>
+      <svg class="bud-stem" viewBox="0 0 400 300" aria-hidden="true"><use href="#budStem"/></svg>
+      <div class="bloom" id="bloom">
+        <div class="bl-tilt" id="blTilt" aria-hidden="true"></div>
+        <div class="bl-core" id="core" aria-hidden="true">
+          <label class="photo-slot core-photo" data-slot="chan-dung" data-label="Ảnh chân dung"></label>
         </div>
+        <button class="bl-hit" id="bloomBtn" type="button" aria-label="Chạm vào nụ hoa để mở thư mời"></button>
       </div>
     </div>
 
     <div class="welcome" id="welcome">
-      <p class="welcome-top">Chào mừng bạn đến với khu vườn</p>
-      <p class="welcome-pill">thư mời của Thanh Huyền!</p>
-      <p class="hint"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#flower"/></svg>Chọn một lá bài thần tiên để mở thư mời nhé!</p>
+      <p class="sign-post">Chạm vào nụ hoa<br>để mở thư mời của <b>Thanh Huyền</b> nhé!</p>
     </div>
     <div class="after" id="after" hidden>
-      <div class="welcome">
-        <p class="welcome-top">Lễ tốt nghiệp · 2026</p>
-        <a class="welcome-pill" href="#loi-cam-on">Cuộn xuống xem thư mời ↓</a>
-      </div>
+      <p class="sign-post">Chào mừng bạn đến khu vườn của mình!</p>
       <div class="after-row">
-        <a class="btn btn-yellow" href="#thu-moi">Xem thư mời →</a>
-        <button class="reshuffle" id="reshuffle" type="button">Xáo bài lại</button>
+        <a class="btn btn-yellow" href="#loi-cam-on">Cuộn xuống xem thư mời ↓</a>
+        <button class="btn-soft" id="reshuffle" type="button">Thu nụ lại</button>
       </div>
     </div>
   </div>
@@ -119,67 +87,70 @@
 <main>
   <section class="section thanks" id="loi-cam-on">
     <div class="wrap">
-      <div class="scroll-card">
-        <svg class="doodle" viewBox="0 0 40 40" style="width:34px;right:5%;top:9%" aria-hidden="true"><use href="#heart"/></svg>
-        <svg class="doodle" viewBox="0 0 40 40" style="width:30px;right:4%;bottom:6%" aria-hidden="true"><use href="#flower"/></svg>
-        <figure class="polaroid" style="--rot:-4deg;--tape:3deg">
-          <label class="photo-slot" data-slot="tan-cu-nhan" data-pos="50% 18%" data-label="Ảnh tân cử nhân"></label>
-          <figcaption>Tân cử nhân 2026</figcaption>
-        </figure>
-        <div class="thanks-text">
-          <h2 class="ink-h">Lời cảm ơn</h2>
-          <p>Những năm đại học là khu vườn nơi mình được gieo hạt, được chăm bón và lớn lên từng ngày. Có những mùa nắng rực rỡ, cũng có những ngày mưa mình tưởng như muốn dừng lại.</p>
-          <p>Cảm ơn bố mẹ và gia đình đã luôn là mảnh đất vững chãi cho mình. Cảm ơn thầy cô đã kiên nhẫn vun trồng từng bài học. Cảm ơn bạn bè đã cùng mình đi qua mọi mùa hoa.</p>
-          <p class="magic">Nếu có phép màu nào trong hành trình này, đó chính là mọi người.</p>
-          <p class="sign">Thanh Huyền</p>
+      <div class="board">
+        <svg class="board-branch" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><use href="#branch"/></svg>
+        <div class="board-wood">
+          <div class="board-panel">
+            <figure class="round-photo" style="--pc:#FF8FCB">
+              <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
+              <label class="photo-slot rp-photo" data-slot="tan-cu-nhan" data-pos="50% 18%" data-label="Ảnh tân cử nhân"></label>
+              <figcaption>Tân cử nhân 2026</figcaption>
+            </figure>
+            <div class="thanks-text">
+              <h2 class="ink-h">Lời cảm ơn</h2>
+              <p>Những năm đại học là khu vườn nơi mình được gieo hạt, được chăm bón và lớn lên từng ngày. Có những mùa nắng rực rỡ, cũng có những ngày mưa mình tưởng như muốn dừng lại.</p>
+              <p>Cảm ơn bố mẹ và gia đình đã luôn là mảnh đất vững chãi cho mình. Cảm ơn thầy cô đã kiên nhẫn vun trồng từng bài học. Cảm ơn bạn bè đã cùng mình đi qua mọi mùa hoa.</p>
+              <p class="magic">Nếu có phép màu nào trong hành trình này, đó chính là mọi người.</p>
+              <p class="sign">Thanh Huyền</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section spread" id="trai-bai">
+  <section class="section grow-sec" id="ba-doa-hoa">
     <div class="wrap">
       <div class="sec-head">
         <p class="kicker">Ba đóa hoa</p>
         <h2 class="pop">Quá khứ, hiện tại và tương lai</h2>
       </div>
-      <ol class="spread-list">
-        <li class="spread-item">
-          <p class="pos">Quá khứ</p>
-          <div class="tcard">
-            <svg viewBox="0 0 200 330" aria-hidden="true"><use href="#cardPhoto"/></svg>
-            <label class="photo-slot tc-photo" data-slot="thoi-sinh-vien" data-label="Ảnh thời sinh viên"></label>
-            <svg class="sticker" viewBox="0 0 60 60" aria-hidden="true"><use href="#stickerFlower"/></svg>
-            <span class="tc-title">Nụ Hoa</span>
+      <ol class="grow-list">
+        <li class="grow" style="--pc:#FFB38A;--h:150px">
+          <div class="grow-plant">
+            <div class="round-photo">
+              <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
+              <label class="photo-slot rp-photo" data-slot="thoi-sinh-vien" data-label="Ảnh thời sinh viên"></label>
+            </div>
+            <svg class="grow-stem" viewBox="0 0 80 220" preserveAspectRatio="none" aria-hidden="true"><use href="#growStem"/></svg>
           </div>
-          <div class="spread-text">
-            <h3>Gieo hạt, ươm mầm</h3>
-            <p>Những năm tháng miệt mài học tập trên giảng đường.</p>
-          </div>
+          <p class="leaf-tag">Quá khứ · Nụ hoa</p>
+          <h3>Gieo hạt, ươm mầm</h3>
+          <p>Những năm tháng miệt mài học tập trên giảng đường.</p>
         </li>
-        <li class="spread-item">
-          <p class="pos">Hiện tại</p>
-          <div class="tcard">
-            <svg viewBox="0 0 200 330" aria-hidden="true"><use href="#cardPhoto"/></svg>
-            <label class="photo-slot tc-photo" data-slot="ao-cu-nhan" data-label="Ảnh mặc áo cử nhân"></label>
-            <svg class="sticker left" viewBox="0 0 60 60" aria-hidden="true"><use href="#stickerButterfly"/></svg>
-            <span class="tc-title">Hoa Nở</span>
+        <li class="grow" style="--pc:#FF8FCB;--h:210px">
+          <div class="grow-plant">
+            <div class="round-photo">
+              <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
+              <label class="photo-slot rp-photo" data-slot="ao-cu-nhan" data-label="Ảnh mặc áo cử nhân"></label>
+            </div>
+            <svg class="grow-stem" viewBox="0 0 80 220" preserveAspectRatio="none" aria-hidden="true"><use href="#growStem"/></svg>
           </div>
-          <div class="spread-text">
-            <h3>Thành quả, niềm vui</h3>
-            <p>Ngày hôm nay, mình chính thức tốt nghiệp.</p>
-          </div>
+          <p class="leaf-tag">Hiện tại · Hoa nở</p>
+          <h3>Thành quả, niềm vui</h3>
+          <p>Ngày hôm nay, mình chính thức tốt nghiệp.</p>
         </li>
-        <li class="spread-item">
-          <p class="pos">Tương lai</p>
-          <div class="tcard">
-            <svg viewBox="0 0 200 330" aria-hidden="true"><use href="#cardButterfly"/></svg>
-            <span class="tc-title">Cánh Bướm</span>
+        <li class="grow" style="--pc:#B79CFF;--h:150px">
+          <div class="grow-plant">
+            <div class="round-photo">
+              <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
+              <span class="rp-photo rp-art"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#butterflyArt"/></svg></span>
+            </div>
+            <svg class="grow-stem" viewBox="0 0 80 220" preserveAspectRatio="none" aria-hidden="true"><use href="#growStem"/></svg>
           </div>
-          <div class="spread-text">
-            <h3>Tung cánh, bay xa</h3>
-            <p>Mang theo những điều đã học để chạm tới ước mơ.</p>
-          </div>
+          <p class="leaf-tag">Tương lai · Cánh bướm</p>
+          <h3>Tung cánh, bay xa</h3>
+          <p>Mang theo những điều đã học để chạm tới ước mơ.</p>
         </li>
       </ol>
     </div>
@@ -191,20 +162,16 @@
         <p class="kicker">Những ngày đáng nhớ</p>
         <h2 class="pop">Album kỷ niệm</h2>
       </div>
-      <div class="album-book">
-        <div class="album-pages">
-          <div class="album-page">
-            <figure class="polaroid" style="--rot:-3deg;--tape:-6deg"><label class="photo-slot" data-slot="album-1" data-label="Ảnh album 1"></label></figure>
-            <figure class="polaroid" style="--rot:4deg;--tape:5deg"><label class="photo-slot" data-slot="album-2" data-label="Ảnh album 2"></label></figure>
-            <figure class="polaroid" style="--rot:-1.5deg;--tape:2deg"><label class="photo-slot" data-slot="album-3" data-label="Ảnh album 3"></label></figure>
-            <svg class="doodle" viewBox="0 0 40 40" style="width:30px;left:6%;bottom:4%" aria-hidden="true"><use href="#heart"/></svg>
-          </div>
-          <div class="album-page">
-            <figure class="polaroid" style="--rot:3deg;--tape:-3deg"><label class="photo-slot" data-slot="album-4" data-label="Ảnh album 4"></label></figure>
-            <figure class="polaroid" style="--rot:-4deg;--tape:6deg"><label class="photo-slot" data-slot="album-5" data-label="Ảnh album 5"></label></figure>
-            <figure class="polaroid" style="--rot:1.5deg;--tape:-4deg"><label class="photo-slot" data-slot="album-6" data-label="Ảnh album 6"></label></figure>
-            <svg class="doodle" viewBox="0 0 40 40" style="width:30px;right:6%;bottom:5%" aria-hidden="true"><use href="#flower"/></svg>
-          </div>
+      <div class="lines">
+        <div class="line">
+          <figure class="snap" style="--rot:-5deg;--dy:18px;--dl:-1s"><span class="pin"></span><label class="photo-slot" data-slot="album-1" data-label="Ảnh album 1"></label></figure>
+          <figure class="snap" style="--rot:3deg;--dy:46px;--dl:-2.4s"><span class="pin"></span><label class="photo-slot" data-slot="album-2" data-label="Ảnh album 2"></label></figure>
+          <figure class="snap" style="--rot:-2deg;--dy:18px;--dl:-.6s"><span class="pin"></span><label class="photo-slot" data-slot="album-3" data-label="Ảnh album 3"></label></figure>
+        </div>
+        <div class="line">
+          <figure class="snap" style="--rot:4deg;--dy:18px;--dl:-1.8s"><span class="pin"></span><label class="photo-slot" data-slot="album-4" data-label="Ảnh album 4"></label></figure>
+          <figure class="snap" style="--rot:-3deg;--dy:46px;--dl:-3s"><span class="pin"></span><label class="photo-slot" data-slot="album-5" data-label="Ảnh album 5"></label></figure>
+          <figure class="snap" style="--rot:5deg;--dy:18px;--dl:-.2s"><span class="pin"></span><label class="photo-slot" data-slot="album-6" data-label="Ảnh album 6"></label></figure>
         </div>
       </div>
     </div>
@@ -212,10 +179,9 @@
 
   <section class="section invite" id="thu-moi">
     <div class="wrap">
-      <div class="envelope" id="envelope">
-        <div class="env-flap" aria-hidden="true"></div>
-        <div class="seal" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#flower"/></svg></div>
-        <article class="letter">
+      <div class="arch" id="arch">
+        <svg class="arch-garland" viewBox="0 0 800 440" aria-hidden="true"><use href="#garland"/></svg>
+        <article class="arch-card">
           <p class="kicker">Thư mời</p>
           <h2 class="letter-h">Trân trọng kính mời bạn đến dự lễ tốt nghiệp của mình</h2>
           <p class="letter-name">Trương Thị Thanh Huyền</p>
@@ -223,15 +189,15 @@
           <p class="countdown" id="countdown" aria-live="polite"><span id="cdPre">Còn</span> <b id="cdNum">10</b> <span id="cdPost">ngày</span></p>
           <dl class="details">
             <div>
-              <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Ngày</dt>
+              <dt><span class="dt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>Ngày</dt>
               <dd>Thứ Bảy, 07.11.2026</dd>
             </div>
             <div>
-              <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Giờ</dt>
+              <dt><span class="dt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>Giờ</dt>
               <dd>Từ 12h30<span>Lúc đó mình vừa nhận bằng xong, mời bạn đến chung vui cùng mình</span></dd>
             </div>
             <div>
-              <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Địa điểm</dt>
+              <dt><span class="dt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Địa điểm</dt>
               <dd>[Tên địa điểm]<span>[Địa chỉ]</span></dd>
             </div>
           </dl>

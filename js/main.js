@@ -1,5 +1,5 @@
-/* ===== Thư mời của Thanh Huyền — hành trình dạo vườn đom đóm: cuộn dọc để cảnh trôi ngang nhiều lớp,
-   thỏ con đi cùng, tên tụ lại từ đom đóm và bướm, sao lấp lánh, pháo đom đóm ở chặng cuối ===== */
+/* ===== Thư mời của Thanh Huyền — hành trình dạo vườn ngày tốt nghiệp: cuộn dọc để cảnh trôi ngang nhiều lớp,
+   cáo con đi cùng, tên tụ lại từ đom đóm và bướm, sao lấp lánh, pháo đom đóm ở chặng cuối ===== */
 (function () {
   'use strict';
   /* ---------- thông tin buổi lễ: sửa ở đây (giờ UTC = giờ Việt Nam − 7) ---------- */
@@ -260,12 +260,12 @@
   function nameOffset() { var r = anchor.getBoundingClientRect(); return { x: r.left - L.ax, y: r.top - L.ay }; }
   var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
   function startFlight() {
-    /* bay lên từ đồi cỏ và từ vầng trăng */
-    var mr = $('.moon').getBoundingClientRect(), minX = Infinity, maxX = -Infinity;
+    /* bay lên từ đồi cỏ và từ vòng nguyệt quế */
+    var mr = $('.wreath').getBoundingClientRect(), minX = Infinity, maxX = -Infinity;
     L.pts.forEach(function (p) { if (p.x < minX) minX = p.x; if (p.x > maxX) maxX = p.x; });
     var spanX = Math.max(1, maxX - minX), R = Math.min(W, H);
     minis = L.pts.map(function (p) {
-      var fromMoon = Math.random() < 0.25;
+      var fromMoon = Math.random() < 0.2;
       var sx = fromMoon ? mr.left + mr.width * rand(0.2, 0.8) : rand(0, W), sy = fromMoon ? mr.top + mr.height * rand(0.2, 0.8) : H * rand(0.72, 0.95);
       var a = rand(-Math.PI, 0), rr = rand(0.15, 0.45) * R, a2 = a + (Math.random() < 0.5 ? -1 : 1) * rand(1, 2);
       return { sx: sx, sy: sy, c1x: sx + Math.cos(a) * rr, c1y: sy + Math.sin(a) * rr, c2x: p.x + Math.cos(a2) * rr * 0.5, c2y: p.y + Math.sin(a2) * rr * 0.5,

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Thư Mời Của Thanh Huyền</title>
-<meta name="description" content="Thư mời dự lễ tốt nghiệp của Trương Thị Thanh Huyền — một hành trình dạo vườn đom đóm.">
+<meta name="description" content="Thư mời dự lễ tốt nghiệp của Trương Thị Thanh Huyền — một hành trình dạo vườn ngày tốt nghiệp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap">
@@ -15,9 +15,10 @@
 <div class="sky-bg" aria-hidden="true"><canvas id="sky"></canvas></div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
-<section class="journey" id="journey" aria-label="Hành trình dạo vườn đom đóm của Thanh Huyền">
+<section class="journey" id="journey" aria-label="Hành trình dạo vườn ngày tốt nghiệp của Thanh Huyền">
   <div class="stage" id="stage">
     <div class="glow-horizon" aria-hidden="true"></div>
+    <div class="sun-disc" aria-hidden="true"></div>
     <div class="bg far" data-speed=".12" aria-hidden="true"></div>
     <div class="bg mid" data-speed=".35" aria-hidden="true"></div>
     <div class="sky-track" id="skyTrack" aria-hidden="true">
@@ -31,19 +32,19 @@
     <div class="bg near" data-speed="1" aria-hidden="true"></div>
 
     <div class="track" id="track">
-      <!-- chặng 1: đêm hội đom đóm -->
+      <!-- chặng 1: ngày hội tốt nghiệp -->
       <article class="station s0" id="st-0" aria-labelledby="t0">
         <svg class="bunting" viewBox="0 0 1000 130" preserveAspectRatio="none" aria-hidden="true"><use href="#bunting"/></svg>
-        <svg class="cap-float" viewBox="0 0 160 120" aria-hidden="true"><use href="#gradCap"/></svg>
-        <div class="moon">
-          <svg class="moon-art" viewBox="0 0 400 400" aria-hidden="true"><use href="#moon"/></svg>
-          <label class="photo-slot moon-photo" data-slot="chan-dung" data-label="Ảnh chân dung"></label>
+        <div class="wreath">
+          <svg class="wreath-art" viewBox="0 0 400 400" aria-hidden="true"><use href="#wreath"/></svg>
+          <label class="photo-slot wreath-photo" data-slot="chan-dung" data-label="Ảnh chân dung"></label>
+          <svg class="wreath-cap" viewBox="0 0 160 120" aria-hidden="true"><use href="#gradCap"/></svg>
         </div>
         <div class="intro">
           <p class="eyebrow">Thư mời tốt nghiệp · 2026</p>
           <h1 class="sr-only" id="t0">Trương Thị Thanh Huyền</h1>
           <div class="name-anchor" id="nameAnchor" aria-hidden="true"></div>
-          <p class="intro-line">Một đêm hội đom đóm nhỏ, và mình mong có bạn ở đó.</p>
+          <p class="intro-line">Một ngày thật đặc biệt của mình, và mình mong có bạn ở đó.</p>
           <ul class="badges">
             <li><b>4</b>năm thanh xuân</li>
             <li><b>1</b>tấm bằng cử nhân</li>
@@ -83,25 +84,21 @@
         <span class="critter fox patrol" data-kind="fox" style="left:66vw;--w:140px;--t:9s"></span>
       </article>
 
-      <!-- chặng 3: ba chiếc đèn lồng -->
+      <!-- chặng 3: ba chiếc khinh khí cầu -->
       <article class="station s2" id="st-2" aria-labelledby="t2">
-        <svg class="lantern-branch" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><use href="#branch"/></svg>
-        <h2 class="sky-title" id="t2">Ba chiếc đèn lồng</h2>
-        <ol class="lanterns">
-          <li class="lantern" style="--c:#FF9CC6;--len:8vh;--dl:-1s">
-            <span class="lt-string" aria-hidden="true"></span>
-            <div class="lt-body"><svg viewBox="0 0 120 180" aria-hidden="true"><use href="#lantern"/></svg><label class="photo-slot lt-photo" data-slot="thoi-sinh-vien" data-label="Ảnh ngày ấy"></label></div>
-            <p class="lt-cap"><b>Ngày ấy</b>Cô sinh viên năm nhất còn bỡ ngỡ</p>
+        <h2 class="sky-title" id="t2">Ba chiếc khinh khí cầu</h2>
+        <ol class="balloons">
+          <li class="balloon" style="--c:#FF7FB5;--dl:-1s;--y:6%">
+            <div class="bl-body"><svg viewBox="0 0 160 220" aria-hidden="true"><use href="#balloon"/></svg><label class="photo-slot bl-photo" data-slot="thoi-sinh-vien" data-label="Ảnh ngày ấy"></label></div>
+            <p class="bl-cap"><b>Ngày ấy</b>Cô sinh viên năm nhất còn bỡ ngỡ</p>
           </li>
-          <li class="lantern" style="--c:#FFE07A;--len:9vh;--dl:-2.5s">
-            <span class="lt-string" aria-hidden="true"></span>
-            <div class="lt-body"><svg viewBox="0 0 120 180" aria-hidden="true"><use href="#lantern"/></svg><label class="photo-slot lt-photo" data-slot="ao-cu-nhan" data-label="Ảnh hôm nay"></label></div>
-            <p class="lt-cap"><b>Hôm nay</b>Khoác lên mình tấm áo cử nhân</p>
+          <li class="balloon" style="--c:#FFC24A;--dl:-2.5s;--y:0%">
+            <div class="bl-body"><svg viewBox="0 0 160 220" aria-hidden="true"><use href="#balloon"/></svg><label class="photo-slot bl-photo" data-slot="ao-cu-nhan" data-label="Ảnh hôm nay"></label></div>
+            <p class="bl-cap"><b>Hôm nay</b>Khoác lên mình tấm áo cử nhân</p>
           </li>
-          <li class="lantern" style="--c:#9FE8FF;--len:6vh;--dl:-.4s">
-            <span class="lt-string" aria-hidden="true"></span>
-            <div class="lt-body"><svg viewBox="0 0 120 180" aria-hidden="true"><use href="#lantern"/></svg><span class="lt-photo lt-art"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#butterflyArt"/></svg></span></div>
-            <p class="lt-cap"><b>Mai sau</b>Tung cánh bay xa như những cánh bướm</p>
+          <li class="balloon" style="--c:#6FCBF0;--dl:-.4s;--y:9%">
+            <div class="bl-body"><svg viewBox="0 0 160 220" aria-hidden="true"><use href="#balloon"/></svg><span class="bl-photo bl-art"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#butterflyArt"/></svg></span></div>
+            <p class="bl-cap"><b>Mai sau</b>Tung cánh bay xa như những cánh bướm</p>
           </li>
         </ol>
         <span class="critter owl perch" data-kind="owl" style="left:4vw;bottom:auto;top:7%;--w:103px"></span>
@@ -176,7 +173,7 @@
         </div>
         <div class="finale">
           <figure class="group-photo"><label class="photo-slot" data-slot="cung-moi-nguoi" data-label="Ảnh cùng mọi người"></label><figcaption>Cùng những người thương</figcaption></figure>
-          <h2 id="t5">Hẹn gặp bạn dưới bầu trời đom đóm!</h2>
+          <h2 id="t5">Hẹn gặp bạn trong ngày vui của mình!</h2>
           <p>Cảm ơn bạn đã dạo cùng mình đến cuối khu vườn.</p>
           <p class="sign">Thanh Huyền ♡</p>
           <button class="btn btn-ghost" id="toStart" type="button">↺ Dạo lại từ đầu</button>
@@ -195,12 +192,12 @@
     </div>
 
     <div class="bg fg" data-speed="1.35" aria-hidden="true"></div>
-    <div class="companion" id="companion" aria-hidden="true"><span class="critter bunny" data-kind="bunny"></span></div>
+    <div class="companion" id="companion" aria-hidden="true"><span class="critter fox" data-kind="fox"></span></div>
     <p class="scroll-hint" id="scrollHint">Cuộn để dạo vườn <span aria-hidden="true">→</span></p>
     <nav class="chapters" id="chapters" aria-label="Các chặng">
-      <button type="button" data-i="0" aria-label="Chặng 1: Đêm hội đom đóm"></button>
+      <button type="button" data-i="0" aria-label="Chặng 1: Ngày hội tốt nghiệp"></button>
       <button type="button" data-i="1" aria-label="Chặng 2: Cây ước nguyện"></button>
-      <button type="button" data-i="2" aria-label="Chặng 3: Ba chiếc đèn lồng"></button>
+      <button type="button" data-i="2" aria-label="Chặng 3: Ba chiếc khinh khí cầu"></button>
       <button type="button" data-i="3" aria-label="Chặng 4: Hồ kỷ niệm"></button>
       <button type="button" data-i="4" aria-label="Chặng 5: Cổng hoa"></button>
       <button type="button" data-i="5" aria-label="Chặng 6: Hẹn gặp bạn"></button>

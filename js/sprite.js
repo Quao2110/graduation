@@ -1,5 +1,5 @@
 /* ===== Bộ hình SVG kiểu tranh màu nước cho hành trình dạo vườn ngang:
-   cảnh nền dạng ô lặp liền mạch (núi, rừng, đồi cỏ, cỏ tiền cảnh), trăng, cây ước nguyện, đèn lồng, hồ, lá sen, bướm, các con vật ===== */
+   cảnh nền dạng ô lặp liền mạch (núi, rừng, đồi cỏ, cỏ tiền cảnh), vòng nguyệt quế, cây ước nguyện, khinh khí cầu, hồ, lá sen, bướm, các con vật ===== */
 (function () {
   'use strict';
   function n(v) { return Math.round(v * 10) / 10; }
@@ -142,10 +142,40 @@
   })();
 
   /* ---------- đạo cụ các chặng ---------- */
-  /* trăng tròn (viewBox 0 0 400 400) */
-  var moon = '<circle cx="200" cy="200" r="200" fill="url(#gMoonHalo)"/><circle cx="200" cy="200" r="128" fill="url(#gMoon)"/>' +
-    [[150, 160, 22], [250, 140, 14], [230, 250, 26], [160, 260, 12], [280, 210, 10]].map(function (c) { return '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="' + c[2] + '" fill="#E8B9A0" opacity=".25"/>'; }).join('');
-  /* cây ước nguyện treo đèn (viewBox 0 0 600 760) */
+  /* vòng nguyệt quế tốt nghiệp (viewBox 0 0 400 400, ảnh nằm trong vòng tròn bán kính ~118) */
+  var wreath = (function () {
+    var o = '<circle cx="200" cy="200" r="196" fill="url(#gHalo)"/><circle cx="200" cy="200" r="126" fill="#FFF8EC"/>';
+    [-1, 1].forEach(function (side) {
+      for (var i = 0; i < 13; i++) {
+        var a = Math.PI / 2 + side * (0.35 + i * 0.2), x = 200 + Math.cos(a) * 140, y = 200 + Math.sin(a) * 140;
+        var tang = a + side * Math.PI / 2;
+        o += leaf(x, y, 46, deg(tang - side * 0.5), i % 2 ? 'gLeaf' : 'gLeafL', 0.36) + leaf(x, y, 40, deg(tang + side * 0.6), 'gLeafD', 0.34);
+        if (i % 3 === 1) o += '<circle cx="' + n(200 + Math.cos(a) * 160) + '" cy="' + n(200 + Math.sin(a) * 160) + '" r="6" fill="#FFD45E"/>';
+      }
+    });
+    o += '<circle cx="200" cy="200" r="126" fill="none" stroke="#F5C451" stroke-width="5"/>';
+    /* nơ dưới chân vòng */
+    o += '<path d="M200 334 L160 312 C150 330 152 350 166 356 Z M200 334 L240 312 C250 330 248 350 234 356 Z" fill="#F0508F"/>' +
+      '<path d="M192 338 L176 392 L190 384 L198 396 L204 340 Z M208 338 L224 392 L210 384 L202 396 L196 340 Z" fill="#D9407E"/><circle cx="200" cy="336" r="12" fill="#FF8FC8"/>';
+    return o;
+  })();
+  /* mặt trời lặn sau đồi được vẽ bằng CSS; sao giấy treo */
+  function star5(cx, cy, R, fill) {
+    var p = [];
+    for (var i = 0; i < 10; i++) { var r = i % 2 ? R * 0.45 : R, a = -Math.PI / 2 + i * Math.PI / 5; p.push(n(cx + Math.cos(a) * r) + ',' + n(cy + Math.sin(a) * r)); }
+    return '<polygon points="' + p.join(' ') + '" fill="' + fill + '" stroke="#fff" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/>';
+  }
+  /* khinh khí cầu (viewBox 0 0 160 220, màu theo color; ảnh nằm trong vòng tròn tâm (80,76) bán kính ~54) */
+  var balloon =
+    '<circle cx="80" cy="80" r="80" fill="currentColor" opacity=".18"/>' +
+    '<path d="M80 6 C30 6 6 44 10 84 C14 120 50 140 62 158 L98 158 C110 140 146 120 150 84 C154 44 130 6 80 6 Z" fill="currentColor"/>' +
+    '<path d="M80 6 C56 18 46 60 50 96 C54 124 60 144 66 158 L74 158 C68 140 62 120 60 96 C58 60 66 20 80 6 Z M80 6 C104 18 114 60 110 96 C106 124 100 144 94 158 L86 158 C92 140 98 120 100 96 C102 60 94 20 80 6 Z" fill="#fff" opacity=".22"/>' +
+    '<path d="M38 30 C26 46 22 64 24 82" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="5" stroke-linecap="round"/>' +
+    '<rect x="60" y="154" width="40" height="10" rx="4" fill="#7A4A6E"/>' +
+    '<path d="M64 164 L68 190 M96 164 L92 190 M80 164 V190" stroke="#E9D9C0" stroke-width="2"/>' +
+    '<rect x="62" y="188" width="36" height="26" rx="5" fill="url(#gWoodV)"/><path d="M62 196 H98 M62 204 H98 M74 188 V214 M86 188 V214" stroke="#3E2820" stroke-opacity=".35" stroke-width="2"/>';
+
+  /* cây ước nguyện treo sao giấy (viewBox 0 0 600 760) */
   var bigTree = (function () {
     var rnd = seeded(31), o = '';
     o += '<path d="M250 760 C268 640 246 520 278 420 C296 360 268 300 296 236 L336 236 C352 320 330 384 350 444 C374 544 350 650 390 760 Z" fill="url(#gWoodV)"/>' +
@@ -159,24 +189,15 @@
     /* quả đèn sáng trên tán */
     for (var i = 0; i < 16; i++) {
       var x = 80 + rnd() * 440, y = 40 + rnd() * 280, h = ['gHaloP', 'gHaloC', 'gHalo'][i % 3];
-      o += '<circle cx="' + n(x) + '" cy="' + n(y) + '" r="22" fill="url(#' + h + ')"/><circle cx="' + n(x) + '" cy="' + n(y) + '" r="5" fill="#FFFBEA"/>';
+      o += bloom(x, y, 11, 5, ['gPetalH', 'gPetalC', 'gPetalG'][i % 3], true, i);
     }
-    /* đèn treo trên cành */
+    /* sao giấy treo trên cành */
     [[110, 280, 60], [470, 290, 80], [540, 270, 50]].forEach(function (l, k) {
-      o += '<path d="M' + l[0] + ' ' + l[1] + 'V' + (l[1] + l[2]) + '" stroke="#E9D9C0" stroke-width="2"/><circle cx="' + l[0] + '" cy="' + (l[1] + l[2] + 12) + '" r="34" fill="url(#' + ['gHaloP', 'gHaloC', 'gHalo'][k] + ')"/>' +
-        '<ellipse cx="' + l[0] + '" cy="' + (l[1] + l[2] + 12) + '" rx="11" ry="14" fill="' + ['#FF9CC6', '#9FF0FF', '#FFE07A'][k] + '"/>';
+      o += '<path d="M' + l[0] + ' ' + l[1] + 'V' + (l[1] + l[2]) + '" stroke="#E9D9C0" stroke-width="2"/><circle cx="' + l[0] + '" cy="' + (l[1] + l[2] + 14) + '" r="34" fill="url(#' + ['gHaloP', 'gHaloC', 'gHalo'][k] + ')"/>' +
+        star5(l[0], l[1] + l[2] + 14, 16, ['#FF9CC6', '#9FF0FF', '#FFE07A'][k]);
     });
     return o + grass(320, 760, 60, '#123F42', 8, rnd) + grass(180, 760, 44, '#22685E', 6, rnd);
   })();
-  /* đèn lồng giấy (viewBox 0 0 120 180, màu theo color) */
-  var lantern =
-    '<circle cx="60" cy="94" r="84" fill="currentColor" opacity=".22"/>' +
-    '<rect x="42" y="22" width="36" height="10" rx="3" fill="#4A3024"/>' +
-    '<path d="M60 30 C14 34 8 70 10 96 C12 126 26 150 60 154 C94 150 108 126 110 96 C112 70 106 34 60 30 Z" fill="currentColor"/>' +
-    '<ellipse cx="60" cy="92" rx="42" ry="52" fill="url(#gHalo)"/>' +
-    '<path d="M60 31 C40 50 36 130 60 153 M60 31 C80 50 84 130 60 153 M60 31 C22 50 22 130 60 153 M60 31 C98 50 98 130 60 153" fill="none" stroke="#7A2E50" stroke-opacity=".22" stroke-width="2"/>' +
-    '<rect x="44" y="150" width="32" height="9" rx="3" fill="#4A3024"/>' +
-    '<path d="M54 159 V178 M60 159 V180 M66 159 V178" stroke="#F5C451" stroke-width="2.4" stroke-linecap="round"/>';
   /* hồ nước (viewBox 0 0 1200 240) */
   var pond = (function () {
     var rnd = seeded(41), o = '<ellipse cx="600" cy="130" rx="600" ry="112" fill="#0F3A40"/><ellipse cx="600" cy="124" rx="584" ry="102" fill="url(#gWater)"/>';
@@ -334,9 +355,9 @@
   window.SceneTiles = tiles;
 
   var symbols = {
-    moon: ['0 0 400 400', moon],
+    wreath: ['0 0 400 400', wreath],
+    balloon: ['0 0 160 220', balloon],
     bigTree: ['0 0 600 760', bigTree],
-    lantern: ['0 0 120 180', lantern],
     pond: ['0 0 1200 240', pond],
     lily: ['0 0 200 80', lily],
     garland: ['0 0 800 440', garland()],

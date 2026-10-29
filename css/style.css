@@ -8,6 +8,7 @@
   --f-title:"Lora",Georgia,serif;
   --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-script:"Dancing Script",cursive;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
   --ground:9%;
   color-scheme:dark;
 }
@@ -87,6 +88,25 @@ svg{overflow:visible}
 .badges b{font:700 italic 26px/1 var(--f-title);color:var(--rose-d)}
 .badges li:nth-child(2) b{color:#C9861C}
 .badges li:nth-child(3) b{color:var(--leaf-d)}
+.badges li.code{background:rgba(38,28,64,.88);color:#D9F7E8;font-family:var(--f-mono);font-size:14px}
+.badges li.code b{font:600 20px/1 var(--f-mono);color:#7FE6C0}
+
+/* ---------- hiệu ứng lập trình viên ---------- */
+.boot{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px;background:radial-gradient(ellipse at 50% 40%,#3A2E66,#1C1636 75%);cursor:pointer;transition:opacity .7s,visibility .7s}
+.boot.done{opacity:0;visibility:hidden}
+.term{width:min(620px,100%);border-radius:14px;overflow:hidden;background:rgba(20,16,40,.92);box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(200,170,255,.18)}
+.term-bar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:rgba(255,255,255,.06)}
+.term-bar i{width:12px;height:12px;border-radius:50%;background:#FF7FB5}
+.term-bar i:nth-child(2){background:#FFC24A}.term-bar i:nth-child(3){background:#7FDDB0}
+.term-bar span{margin-left:8px;font:500 13px/1 var(--f-mono);color:rgba(230,220,255,.6)}
+.term-body{margin:0;min-height:13.5em;padding:16px 18px 20px;font:400 clamp(13px,.5vw + 11px,16px)/1.7 var(--f-mono);color:#E6E0FF;white-space:pre-wrap;word-break:break-word}
+.term-body .p{color:#FF9CC6}.term-body .ok{color:#7FE6C0}.term-body .k{color:#FFD47A}.term-body .c{color:#9C92C8}
+.term-body .big{display:inline-block;margin-top:4px;font-weight:600;color:#fff;text-shadow:0 0 12px rgba(127,230,192,.8)}
+.caret{display:inline-block;width:.55em;height:1.1em;margin-left:2px;vertical-align:-.18em;background:currentColor;animation:caret 1s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+.boot-skip{margin:0;font:500 13px/1 var(--f-body);color:rgba(230,220,255,.5)}
+.term-line{display:table;white-space:pre-wrap;margin:14px auto 0!important;padding:8px 16px;border-radius:10px;background:rgba(20,16,40,.72);font:400 clamp(13px,.4vw + 11px,16px)/1.5 var(--f-mono)!important;color:#7FE6C0!important;text-shadow:none!important;text-align:left;min-height:2.4em}
+.term-line .p{color:#FF9CC6}
 
 /* ---------- chặng 2: cây ước nguyện ---------- */
 .wish-tree{position:absolute;left:1vw;bottom:12%;height:80%;width:auto;aspect-ratio:600/760;filter:drop-shadow(0 0 40px rgba(120,220,220,.25))}

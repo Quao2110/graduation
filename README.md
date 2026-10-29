@@ -15,6 +15,8 @@ Kỹ thuật hạt sáng và xếp tên bằng canvas tham khảo từ [TranMinh
 | 5 | Cổng hoa | Thư mời, đếm ngày, chỉ đường, lưu vào lịch (.ics) |
 | 6 | Hẹn gặp bạn | Ảnh cùng mọi người, mũ cử nhân tung lên, pháo đom đóm |
 
+Hiệu ứng dân code: màn hình terminal "npm run graduate" lúc mở thiệp, ký hiệu code bay trên trời, huy hiệu `</>` kỹ sư phần mềm, dòng `git push origin tuong-lai` ở chặng cuối, lời chào trong DevTools console.
+
 Điều hướng: cuộn/vuốt, thanh chặng ở dưới, hoặc phím ← →. Tôn trọng `prefers-reduced-motion`.
 
 HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG sinh từ code (`js/sprite.js`), cảnh nền là các ô SVG lặp liền mạch.

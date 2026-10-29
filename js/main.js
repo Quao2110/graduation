@@ -1,14 +1,14 @@
-/* ===== Thư mời của Thanh Huyền — khu vườn: nụ hoa nở, cánh hoa xếp tên, bướm, mây, phấn hoa ===== */
+/* ===== Thư mời của Thanh Huyền — rừng hoa màu nước lúc hoàng hôn: nụ hoa nở, bướm và đom đóm tụ thành tên, sao lấp lánh, thú nhỏ ===== */
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  var INK = '#3A1F4D';
-  var PCOLORS = ['#FFD86B', '#FF9ED2', '#FFFFFF', '#FFC7E0', '#B8F0CF'];
-  var PETALS = ['#FFC7E0', '#FF9ED2', '#FFFFFF', '#FFB3CF', '#E9D8FF'];
-  var BCOLORS = ['#FF8FCB', '#B79CFF', '#7FD6FF', '#FFC46B', '#8FE3B0', '#FFB0C8'];
-  var NAME_FONT = '"Baloo 2","Nunito",ui-rounded,system-ui,sans-serif';
+  var PCOLORS = ['#FFF3C4', '#FBE3A0', '#FFFFFF', '#F7D6DF', '#E9F3D6'];
+  var PETALS = ['#F7C6D3', '#F2A7BC', '#FFF4F0', '#FBD9C4', '#E9D8F0'];
+  var BCOLORS = ['#FF8FC8', '#B79CFF', '#7FD8F2', '#FFC46B', '#8FE3B0', '#FFB0D8'];
+  var TWINKLE = ['#FFFFFF', '#FFE58A', '#9FF0FF', '#FFB3E0', '#D4B8FF'];
+  var NAME_FONT = '"Lora",Georgia,serif';
   var LINES = [{ t: 'Trương Thị', s: 124, y: 150 }, { t: 'Thanh Huyền', s: 150, y: 310 }];
   var rand = function (a, b) { return a + Math.random() * (b - a); };
   var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
@@ -20,12 +20,16 @@
   var BFLY = '<span class="bf-fly"><span class="bf-tilt"><svg class="wing l" viewBox="0 0 50 100"><use href="#bWing"/></svg>' +
     '<svg class="wing r" viewBox="0 0 50 100"><use href="#bWing" transform="matrix(-1 0 0 1 50 0)"/></svg>' +
     '<svg class="bf-body" viewBox="0 0 20 100"><use href="#bBody"/></svg></span></span>';
+  $$('.critter[data-kind]').forEach(function (c) {
+    c.innerHTML = (window.CritterArt || {})[c.dataset.kind] || '';
+    $$('.cr-eye', c).forEach(function (e) { e.style.animationDelay = (-rand(0, 4)).toFixed(2) + 's'; });
+  });
   $$('.bfly').forEach(function (b) { if (!b.firstChild) b.innerHTML = BFLY; b.style.setProperty('--fl', rand(0.26, 0.42).toFixed(2) + 's'); });
 
   /* ---------- nụ hoa: 10 cánh ngoài, 8 cánh trong ---------- */
-  var OUTER = ['#FF8FC0', '#FF9ECB'], INNER = ['#FFC6E4', '#FFD6EA'], petalHTML = '';
-  for (var pi = 0; pi < 10; pi++) petalHTML += '<span class="bl-petal" style="--a:' + (pi * 36) + 'deg;--i:' + pi + ';--pc:' + OUTER[pi % 2] + '"><svg viewBox="0 0 100 160"><use href="#petal"/></svg></span>';
-  for (var pj = 0; pj < 8; pj++) petalHTML += '<span class="bl-petal inner" style="--a:' + (pj * 45 + 22.5) + 'deg;--i:' + (pj + 6) + ';--pc:' + INNER[pj % 2] + '"><svg viewBox="0 0 100 160"><use href="#petal"/></svg></span>';
+  var petalHTML = '';
+  for (var pi = 0; pi < 10; pi++) petalHTML += '<span class="bl-petal" style="--a:' + (pi * 36) + 'deg;--i:' + pi + '"><svg viewBox="0 0 100 160"><use href="#petal"/></svg></span>';
+  for (var pj = 0; pj < 8; pj++) petalHTML += '<span class="bl-petal inner" style="--a:' + (pj * 45 + 22.5) + 'deg;--i:' + (pj + 6) + '"><svg viewBox="0 0 100 160"><use href="#petalIn"/></svg></span>';
   tilt.innerHTML = petalHTML;
   var petalEls = $$('.bl-petal', tilt);
 
@@ -75,7 +79,7 @@
 
   /* ---------- canvas ---------- */
   var sky = $('#sky'), sctx = sky.getContext('2d'), fx = $('#fx'), fctx = fx.getContext('2d');
-  var W = 0, H = 0, DPR = 1, pollen = [], petals = [], skyParts = [], fxParts = [];
+  var W = 0, H = 0, DPR = 1, pollen = [], petals = [], twinkles = [], skyParts = [], fxParts = [];
   var smooth = window.scrollY, prevSmooth = smooth, vel = 0;
 
   function sparkPath(ctx, x, y, r) {
@@ -101,7 +105,13 @@
     for (var i = 0; i < count; i++) {
       var big = Math.random() < 0.15;
       pollen.push({ x: Math.random() * W, y: Math.random() * H, r: big ? rand(3, 5.5) : rand(1, 2.4), big: big,
-        ph: Math.random() * 6.28, sp: rand(0.6, 2), d: rand(0.03, 0.14), c: big ? '#FFFFFF' : (Math.random() < 0.5 ? '#FFE48A' : '#FFFFFF') });
+        ph: Math.random() * 6.28, sp: rand(0.6, 2), d: rand(0.03, 0.14), c: TWINKLE[(Math.random() * TWINKLE.length) | 0] });
+    }
+    twinkles = [];
+    var tc = clamp(Math.round(W * H / 24000), 18, 80);
+    for (var k = 0; k < tc; k++) {
+      var ci = (Math.random() * TWINKLE.length) | 0;
+      twinkles.push({ x: Math.random() * W, y: Math.random() * H, r: rand(3, 9), ph: Math.random() * 6.28, sp: rand(1.2, 3.4), d: rand(0.02, 0.1), c: TWINKLE[ci], g: GLOWS[ci % GLOWS.length] });
     }
     petals = [];
     var pc = clamp(Math.round(W * H / 38000), 10, 40);
@@ -132,30 +142,36 @@
       ctx.fillStyle = p.c;
       if (p.pt) {
         petalPath(ctx, p.x, y, Math.max(0.6, s * 1.4), p.rot + p.life * p.vr, Math.cos(p.life / 180));
-        ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(58,31,77,.45)'; ctx.stroke();
+        ctx.fill();
       } else { sparkPath(ctx, p.x, y, Math.max(0.3, s)); ctx.fill(); }
     }
     ctx.globalAlpha = 1;
   }
 
   /* hạt sáng (bokeh) */
-  var glowImg = document.createElement('canvas'); glowImg.width = glowImg.height = 64;
-  (function () {
-    var g = glowImg.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-    rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.25, 'rgba(255,228,240,.9)');
-    rg.addColorStop(0.55, 'rgba(255,190,220,.3)'); rg.addColorStop(1, 'rgba(255,190,220,0)');
+  /* quầng sáng đom đóm: vàng, xanh ngọc, hồng, tím, xanh lá */
+  function makeGlow(c0, c1) {
+    var cv = document.createElement('canvas'); cv.width = cv.height = 64;
+    var g = cv.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.22, c0); rg.addColorStop(0.55, c1); rg.addColorStop(1, 'rgba(0,0,0,0)');
     g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
-  })();
+    return cv;
+  }
+  var GLOWS = [makeGlow('rgba(255,236,170,.9)', 'rgba(255,200,110,.3)'), makeGlow('rgba(170,240,255,.9)', 'rgba(90,200,255,.3)'),
+    makeGlow('rgba(255,190,230,.9)', 'rgba(255,110,190,.3)'), makeGlow('rgba(215,190,255,.9)', 'rgba(160,110,255,.3)'), makeGlow('rgba(200,255,200,.9)', 'rgba(110,230,140,.3)')];
+  var glowImg = GLOWS[0];
+  function anyGlow() { return (Math.random() * GLOWS.length) | 0; }
   var glows = [];
   function addGlow(x, y, opt) {
     if (reduce || glows.length > 380) return;
     opt = opt || {};
     var a = opt.a != null ? opt.a : rand(0, 6.283), sp = opt.sp != null ? opt.sp : rand(0.05, 0.4);
     glows.push({ x: x, y: y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - (opt.up != null ? opt.up : 0.35), life: -(opt.delay || 0),
-      max: opt.max || rand(1800, 3600), r: opt.r || rand(6, 16) });
+      max: opt.max || rand(1800, 3600), r: opt.r || rand(6, 16), img: GLOWS[opt.img != null ? opt.img : anyGlow()] });
   }
   function drawGlows(dt) {
     var sy0 = window.scrollY;
+    fctx.globalCompositeOperation = 'lighter';
     for (var i = glows.length - 1; i >= 0; i--) {
       var p = glows[i];
       p.life += dt;
@@ -166,9 +182,9 @@
       if (y < -40 || y > H + 40) continue;
       fctx.globalAlpha = Math.sin(Math.PI * t) * 0.9;
       var r = p.r * (0.7 + 0.3 * Math.sin(p.life / 300));
-      fctx.drawImage(glowImg, (p.x - r) * DPR, (y - r) * DPR, r * 2 * DPR, r * 2 * DPR);
+      fctx.drawImage(p.img, (p.x - r) * DPR, (y - r) * DPR, r * 2 * DPR, r * 2 * DPR);
     }
-    fctx.globalAlpha = 1;
+    fctx.globalAlpha = 1; fctx.globalCompositeOperation = 'source-over';
   }
 
   function resize() {
@@ -191,21 +207,31 @@
       var a = reduce ? 0.8 : 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph));
       var sx = reduce ? s.x : s.x + Math.sin(t * s.sp * 0.5 + s.ph) * 8;
       sctx.globalAlpha = a; sctx.fillStyle = s.c;
-      if (s.big) { sparkPath(sctx, sx, y, s.r * (0.65 + 0.35 * a)); sctx.fill(); }
+      if (s.big) { var gr = s.r * 3.2 * (0.7 + 0.3 * a); sctx.drawImage(GLOWS[i % GLOWS.length], sx - gr, y - gr, gr * 2, gr * 2); }
       else { sctx.beginPath(); sctx.arc(sx, y, s.r, 0, 6.283); sctx.fill(); }
     }
+    /* sao bốn cánh chớp sáng */
+    sctx.globalCompositeOperation = 'lighter';
+    for (var w = 0; w < twinkles.length; w++) {
+      var tw = twinkles[w], ty = ((tw.y - smooth * tw.d) % H + H) % H;
+      var ta = reduce ? 0.6 : Math.pow(Math.max(0, Math.sin(t * tw.sp + tw.ph)), 6);
+      if (ta < 0.03) continue;
+      var tr = tw.r * (0.5 + ta);
+      sctx.globalAlpha = ta * 0.8; sctx.drawImage(tw.g, tw.x - tr * 2.4, ty - tr * 2.4, tr * 4.8, tr * 4.8);
+      sctx.globalAlpha = ta; sctx.fillStyle = tw.c; sparkPath(sctx, tw.x, ty, tr); sctx.fill();
+    }
+    sctx.globalCompositeOperation = 'source-over';
     /* cánh hoa rơi chậm, vừa xoay vừa lật */
     var f0 = dt / 16.67;
-    sctx.lineWidth = 1; sctx.strokeStyle = 'rgba(58,31,77,.35)';
     for (var k = 0; k < petals.length; k++) {
       var q = petals[k];
       if (!reduce) { q.y += q.vy * f0; q.x += Math.sin(t * q.sw + q.ph) * 0.6 * f0 + 0.15 * f0; q.rot += q.vr * f0; }
       if (q.y > H + 20) { q.y = -20; q.x = Math.random() * W; }
       if (q.x > W + 20) q.x = -20;
       var py = ((q.y - smooth * q.d) % (H + 40) + H + 40) % (H + 40) - 20;
-      sctx.globalAlpha = 0.9; sctx.fillStyle = q.c;
+      sctx.globalAlpha = 0.8; sctx.fillStyle = q.c;
       petalPath(sctx, q.x, py, q.r, q.rot, reduce ? 1 : Math.cos(t * q.fl + q.ph));
-      sctx.fill(); sctx.stroke();
+      sctx.fill();
     }
     sctx.globalAlpha = 1;
     stepParts(sctx, skyParts, dt, 0);
@@ -250,7 +276,7 @@
       f.el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + rot.toFixed(1) + 'deg) scale(' + f.sc + ')';
       if (Math.abs(v) > 2.5 && Math.random() < Math.min(0.9, Math.abs(v) * 0.04)) {
         addPart(skyParts, x + f.w / 2 + rand(-f.w * 0.3, f.w * 0.3), y + f.h / 2 + rand(-f.h * 0.3, f.h * 0.3),
-          { sp: rand(0.2, 0.8), a: v > 0 ? -Math.PI / 2 + rand(-0.6, 0.6) : Math.PI / 2 + rand(-0.6, 0.6), g: 0, max: rand(450, 850), r: rand(2, 4.5), c: Math.random() < 0.5 ? '#FFE48A' : '#FFFFFF' });
+          { sp: rand(0.2, 0.8), a: v > 0 ? -Math.PI / 2 + rand(-0.6, 0.6) : Math.PI / 2 + rand(-0.6, 0.6), g: 0, max: rand(450, 850), r: rand(2, 4.5), c: Math.random() < 0.5 ? '#FFF1BE' : '#FFFFFF' });
       }
     }
   }
@@ -258,7 +284,7 @@
   /* ---------- tên được xếp từ cánh hoa ---------- */
   var state = 'idle', L = null, minis = [], flyStart = 0, flyEnd = 0, settleStart = 0, nameAlpha = 0;
   var measure = document.createElement('canvas').getContext('2d');
-  function fontAt(s) { return '800 ' + s + 'px ' + NAME_FONT; }
+  function fontAt(s) { return 'italic 700 ' + s + 'px ' + NAME_FONT; }
   function fitLines() {
     return LINES.map(function (l, i) {
       measure.font = fontAt(100);
@@ -273,22 +299,24 @@
     lines.forEach(function (l) {
       ctx.font = fontAt(l.s);
       if (mode === 'mask') {
-        ctx.fillStyle = ctx.strokeStyle = '#fff'; ctx.lineWidth = 26;
+        ctx.fillStyle = ctx.strokeStyle = '#fff'; ctx.lineWidth = 14;
         ctx.strokeText(l.t, 500, l.y); ctx.fillText(l.t, 500, l.y);
       } else if (mode === 'fill') {
         ctx.fillStyle = '#fff'; ctx.fillText(l.t, 500, l.y);
       } else {
-        ctx.fillStyle = ctx.strokeStyle = INK; ctx.lineWidth = 26;
-        ctx.strokeText(l.t, 500, l.y + 12); ctx.fillText(l.t, 500, l.y + 12);
+        ctx.save(); ctx.shadowColor = 'rgba(40,60,45,.35)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 8;
+        ctx.fillStyle = 'rgba(60,80,60,.25)'; ctx.fillText(l.t, 500, l.y + 4); ctx.restore();
       }
     });
     if (mode === 'art') {
       lines.forEach(function (l, i) {
         ctx.font = fontAt(l.s);
-        ctx.strokeStyle = INK; ctx.lineWidth = 24; ctx.strokeText(l.t, 500, l.y);
         var g = ctx.createLinearGradient(0, l.y - l.s * 0.8, 0, l.y + l.s * 0.1);
-        if (i) { g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.5, '#FFC6E4'); g.addColorStop(1, '#FF7FB5'); }
-        else { g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.55, '#D8F6E3'); g.addColorStop(1, '#7FD3A3'); }
+        if (i) { g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.5, '#FFD1EA'); g.addColorStop(1, '#F27BB5'); }
+        else { g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.55, '#FFE7A8'); g.addColorStop(1, '#F5B94E'); }
+        ctx.save(); ctx.shadowColor = i ? 'rgba(255,120,200,.95)' : 'rgba(255,210,120,.95)'; ctx.shadowBlur = 34;
+        ctx.fillStyle = g; ctx.fillText(l.t, 500, l.y); ctx.restore();
+        ctx.strokeStyle = 'rgba(120,40,110,.45)'; ctx.lineWidth = 2.5; ctx.strokeText(l.t, 500, l.y);
         ctx.fillStyle = g; ctx.fillText(l.t, 500, l.y);
       });
     }
@@ -334,7 +362,7 @@
       var a = rand(-Math.PI, 0), rr = rand(0.18, 0.5) * R, a2 = a + (Math.random() < 0.5 ? -1 : 1) * rand(1, 2);
       return { sx: sx, sy: sy, c1x: sx + Math.cos(a) * rr, c1y: sy + Math.sin(a) * rr, c2x: p.x + Math.cos(a2) * rr * 0.5, c2y: p.y + Math.sin(a2) * rr * 0.5,
         tx: p.x, ty: p.y, delay: 80 + (p.x - minX) / spanX * 700 + rand(0, 380), dur: rand(950, 1500),
-        spin: rand(-12, 12), rf: rand(-0.6, 0.6), fp: rand(0, 6.28), col: PETALS[(Math.random() * 5) | 0], landed: false };
+        spin: rand(-3, 3), rf: rand(-0.5, 0.5), fp: rand(0, 6.28), kind: Math.random() < 0.2 ? 'b' : 'f', gi: anyGlow(), bc: BCOLORS[(Math.random() * BCOLORS.length) | 0], landed: false };
     });
     flyStart = now;
     flyEnd = now + minis.reduce(function (m, q) { return Math.max(m, q.delay + q.dur); }, 0);
@@ -354,15 +382,29 @@
       var e = easeOut(t), u = 1 - e;
       var x = u * u * u * m.sx + 3 * u * u * e * m.c1x + 3 * u * e * e * m.c2x + e * e * e * m.tx;
       var y = u * u * u * m.sy + 3 * u * u * e * m.c1y + 3 * u * e * e * m.c2y + e * e * e * m.ty;
-      var rot = m.rf + u * m.spin, flip = t < 1 ? Math.cos(m.fp + e * Math.PI * 5) : 1, sc = 1 + Math.sin(Math.PI * e) * 1.1;
-      var fxs = Math.max(0.15, Math.abs(flip)), c = Math.cos(rot), s = Math.sin(rot), kk = DPR * sc;
-      fctx.setTransform(c * kk * fxs, s * kk * fxs, -s * kk, c * kk, DPR * x, DPR * (y - sy0));
-      fctx.globalAlpha = alpha * Math.min(1, t * 5);
-      fctx.fillStyle = flip < 0 ? '#FFFFFF' : m.col;
-      fctx.beginPath(); fctx.ellipse(0, 0, mw * 0.6, mh * 0.5, 0, 0, 6.283);
-      fctx.lineWidth = Math.max(0.6, mw * 0.14); fctx.strokeStyle = INK;
-      fctx.fill(); fctx.stroke();
-      if (t < 1 && Math.random() < 0.06) addPart(fxParts, x, y, { sp: rand(0.1, 0.6), g: 0.01, max: rand(380, 700), r: rand(1.6, 3.6) });
+      var sc = 1 + Math.sin(Math.PI * e) * 0.9, a0 = alpha * Math.min(1, t * 5);
+      if (m.kind === 'f') {
+        /* đom đóm: chấm sáng nhấp nháy */
+        var tw = 0.7 + 0.3 * Math.sin(now / 110 + m.fp * 3), gr = mw * (t < 1 ? 2.4 : 1.8) * tw * sc * DPR;
+        fctx.setTransform(1, 0, 0, 1, 0, 0);
+        fctx.globalCompositeOperation = 'lighter'; fctx.globalAlpha = a0;
+        fctx.drawImage(GLOWS[m.gi], DPR * x - gr, DPR * (y - sy0) - gr, gr * 2, gr * 2);
+        fctx.globalCompositeOperation = 'source-over';
+      } else {
+        /* bướm: cánh vỗ theo nhịp, nghiêng theo đường bay */
+        var rot = m.rf + u * m.spin + Math.sin(now / 300 + m.fp) * 0.25, fl = Math.abs(Math.sin(now / 55 + m.fp)) * (t < 1 ? 1 : 0.6) + 0.15;
+        var c = Math.cos(rot), s = Math.sin(rot), kk = DPR * mw * 1.15 * sc;
+        fctx.setTransform(c * kk, s * kk, -s * kk, c * kk, DPR * x, DPR * (y - sy0));
+        fctx.globalAlpha = a0; fctx.fillStyle = m.bc;
+        for (var d = -1; d <= 1; d += 2) {
+          fctx.beginPath(); fctx.ellipse(d * 0.6 * fl, -0.28, 0.6 * fl + 0.04, 0.44, d * -0.5, 0, 6.283); fctx.fill();
+          fctx.beginPath(); fctx.ellipse(d * 0.42 * fl, 0.36, 0.38 * fl + 0.03, 0.3, d * 0.5, 0, 6.283); fctx.fill();
+        }
+        fctx.fillStyle = 'rgba(255,255,255,.55)';
+        for (var d2 = -1; d2 <= 1; d2 += 2) { fctx.beginPath(); fctx.ellipse(d2 * 0.66 * fl, -0.38, 0.22 * fl + 0.02, 0.14, 0, 0, 6.283); fctx.fill(); }
+        fctx.fillStyle = '#2B2540'; fctx.beginPath(); fctx.ellipse(0, 0.05, 0.08, 0.48, 0, 0, 6.283); fctx.fill();
+      }
+      if (t < 1 && Math.random() < 0.04) addPart(fxParts, x, y, { sp: rand(0.1, 0.6), g: 0.01, max: rand(380, 700), r: rand(1.6, 3.6), c: TWINKLE[(Math.random() * 5) | 0] });
       if (t === 1 && !m.landed) { m.landed = true; if (Math.random() < 0.12) addPart(fxParts, x, y, { sp: 0.3, g: 0, max: 420, r: rand(3, 5), c: '#FFFFFF' }); }
     }
     fctx.setTransform(1, 0, 0, 1, 0, 0); fctx.globalAlpha = 1;
@@ -385,7 +427,8 @@
       fctx.drawImage(L.sheen, L.left * DPR, y * DPR);
       if (alpha >= 1 && Math.random() < 0.25 && L.pts.length) {
         var p = L.pts[(Math.random() * L.pts.length) | 0];
-        addPart(fxParts, p.x, p.y, { sp: rand(0, 0.3), g: 0, max: rand(500, 900), r: rand(2.5, 5.5), c: Math.random() < 0.6 ? '#FFFFFF' : '#FFE48A' });
+        addPart(fxParts, p.x, p.y, { sp: rand(0, 0.3), g: 0, max: rand(500, 900), r: rand(2.5, 5.5), c: TWINKLE[(Math.random() * TWINKLE.length) | 0] });
+        if (Math.random() < 0.5) addGlow(p.x + rand(-20, 20), p.y + rand(-20, 20), { sp: rand(0.1, 0.5), up: 0.15, r: rand(5, 11), max: rand(1400, 2600) });
       }
     }
     fctx.globalAlpha = 1;
@@ -465,7 +508,8 @@
   /* hạt sáng bay quanh nụ hoa khi trang chủ đang hiện */
   function ambientGlows(dt) {
     if (reduce || window.scrollY > hero.offsetHeight) return;
-    if (Math.random() < dt / 16.67 * 0.1) {
+    if (Math.random() < dt / 16.67 * 0.3) addGlow(rand(0, W), hero.offsetHeight - rand(10, H * 0.38), { sp: rand(0.1, 0.4), up: rand(0.2, 0.5), r: rand(4, 10), max: rand(2200, 4200) });
+    if (Math.random() < dt / 16.67 * 0.12) {
       var r = garden.getBoundingClientRect();
       addGlow(r.left + rand(0.05, 0.95) * r.width, r.top + window.scrollY + rand(0.05, 0.8) * r.height, { sp: rand(0.05, 0.25), up: rand(0.15, 0.45) });
     }

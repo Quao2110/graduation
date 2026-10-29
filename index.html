@@ -7,38 +7,53 @@
 <meta name="description" content="Thư mời dự lễ tốt nghiệp của Trương Thị Thanh Huyền.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Dancing+Script:wght@600;700&family=Mali:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="paper" aria-hidden="true"></div>
 <div class="sky-bg" aria-hidden="true"><canvas id="sky"></canvas></div>
 <div class="floaters" id="floaters" aria-hidden="true"></div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <header class="hero" id="top">
   <div class="scene" id="scene" aria-hidden="true">
-    <div class="layer" style="--d:6">
+    <div class="layer" style="--d:4">
       <div class="sun-glow"></div>
-      <svg class="sun" viewBox="0 0 260 260"><use href="#sun"/></svg>
-      <svg class="cloud" viewBox="0 0 200 100" style="--w:200px;top:9%;--t:70s;--dl:-10s"><use href="#cloudPuff"/></svg>
-      <svg class="cloud" viewBox="0 0 200 100" style="--w:140px;top:24%;--t:90s;--dl:-55s"><use href="#cloudPuff"/></svg>
-      <svg class="cloud" viewBox="0 0 200 100" style="--w:110px;top:4%;--t:80s;--dl:-30s"><use href="#cloudPuff"/></svg>
+      <div class="rays"></div>
+      <span class="cloud" style="--w:320px;top:8%;--t:120s;--dl:-20s"></span>
+      <span class="cloud" style="--w:220px;top:20%;--t:150s;--dl:-80s"></span>
+      <div class="trail sky-trail">
+        <span class="critter bird" data-kind="bird" style="--w:54px;--top:16%;--t:19s;--dl:-4s"></span>
+        <span class="critter bird rev" data-kind="bird" style="--w:40px;--top:9%;--t:25s;--dl:-15s"></span>
+        <span class="critter bird" data-kind="bird" style="--w:34px;--top:24%;--t:30s;--dl:-22s"></span>
+      </div>
     </div>
-    <div class="layer" style="--d:14">
-      <svg class="hills"><use href="#hills" width="100%" height="100%"/></svg>
-    </div>
-    <div class="layer" style="--d:24">
-      <svg class="stem l" viewBox="0 0 360 900" preserveAspectRatio="xMinYMax meet"><use href="#stem"/></svg>
-      <svg class="stem r" viewBox="0 0 360 900" preserveAspectRatio="xMinYMax meet"><use href="#stem"/></svg>
-      <svg class="bouquet" viewBox="0 0 240 220"><use href="#bouquet"/></svg>
-      <span class="bfly" style="--bc:#B79CFF;--s:56px;left:20%;top:34%;--t:17s;--dl:-6s;--rz:14deg"></span>
-      <span class="bfly" style="--bc:#FFC46B;--s:66px;right:18%;top:26%;--t:19s;--dl:-9s;--rz:16deg"></span>
-    </div>
-    <div class="layer" style="--d:36">
-      <svg class="meadow"><use href="#meadow" width="100%" height="100%"/></svg>
+    <div class="layer" style="--d:8"><svg class="ly ly-far"><use href="#far" width="100%" height="100%"/></svg></div>
+    <div class="layer" style="--d:16"><svg class="ly ly-mid"><use href="#mid" width="100%" height="100%"/></svg></div>
+    <div class="layer" style="--d:26">
+      <svg class="ly ly-near"><use href="#near" width="100%" height="100%"/></svg>
       <svg class="mushroom" viewBox="0 -10 170 180"><use href="#mushroom"/></svg>
-      <span class="bfly" style="--bc:#FF8FCB;--s:78px;left:10%;bottom:30%;--t:15s;--rz:-10deg"></span>
-      <span class="bfly" style="--bc:#7FD6FF;--s:84px;right:12%;bottom:18%;--t:12s;--dl:-4s;--rz:-8deg"></span>
+      <span class="orb" style="left:6%;bottom:18%;--h:130px;--c:#7FE6FF;--dl:-1s"></span>
+      <span class="orb" style="left:23%;bottom:12%;--h:90px;--c:#FF8FC8;--dl:-2.2s"></span>
+      <span class="orb" style="left:33%;bottom:20%;--h:150px;--c:#FFE07A;--dl:-.4s"></span>
+      <span class="orb" style="right:30%;bottom:16%;--h:110px;--c:#C9A8FF;--dl:-3s"></span>
+      <span class="orb" style="right:20%;bottom:10%;--h:80px;--c:#7FE6FF;--dl:-1.6s"></span>
+      <span class="orb" style="right:7%;bottom:22%;--h:140px;--c:#FF8FC8;--dl:-2.7s"></span>
+      <div class="trail ground-trail">
+        <span class="critter bunny" data-kind="bunny" style="--w:84px;--b:8%;--t:17s;--dl:-3s"></span>
+        <span class="critter fox rev" data-kind="fox" style="--w:118px;--b:3%;--t:11s;--dl:-6s"></span>
+        <span class="critter frog" data-kind="frog" style="--w:66px;--b:13%;--t:30s;--dl:-12s"></span>
+        <span class="critter puff rev" data-kind="puff" style="--w:66px;--b:6%;--t:24s;--dl:-9s"></span>
+      </div>
+      <span class="bfly" style="--bc:#B9A7E0;--s:52px;left:20%;top:34%;--t:17s;--dl:-6s;--rz:14deg"></span>
+      <span class="bfly" style="--bc:#F3C98B;--s:60px;right:18%;top:26%;--t:19s;--dl:-9s;--rz:16deg"></span>
+      <span class="bfly" style="--bc:#F2A7BC;--s:70px;left:12%;bottom:30%;--t:15s;--rz:-10deg"></span>
+    </div>
+    <div class="layer" style="--d:44">
+      <svg class="fg fg-l" viewBox="0 0 500 900" preserveAspectRatio="xMinYMax meet"><use href="#fgLeaves"/></svg>
+      <svg class="fg fg-r" viewBox="0 0 500 900" preserveAspectRatio="xMaxYMax meet"><use href="#fgLeaves" transform="matrix(-1 0 0 1 500 0)"/></svg>
+      <span class="bfly" style="--bc:#8FC7E0;--s:86px;right:10%;bottom:16%;--t:12s;--dl:-4s;--rz:-8deg"></span>
     </div>
   </div>
 
@@ -46,16 +61,16 @@
     <h1 class="sr-only" id="heroTitle">Thư mời tốt nghiệp của Trương Thị Thanh Huyền</h1>
     <div class="logo-wrap" id="logoWrap">
       <svg class="logo" id="logo" viewBox="0 0 1000 360" aria-hidden="true">
-        <g class="logo-ribbon">
-          <path d="M130 196 H40 L80 246 L40 296 H160 Z M870 196 H960 L920 246 L960 296 H840 Z" fill="#C9518C" stroke="#3A1F4D" stroke-width="10" stroke-linejoin="round"/>
-          <path d="M130 172 Q500 120 870 172 V300 Q500 248 130 300 Z" fill="#3A1F4D" transform="translate(0 12)"/>
-          <path d="M130 172 Q500 120 870 172 V300 Q500 248 130 300 Z" fill="#E86FA8" stroke="#3A1F4D" stroke-width="10" stroke-linejoin="round"/>
-          <path d="M160 190 Q500 142 840 190" fill="none" stroke="#FFC6E4" stroke-width="5" stroke-linecap="round" stroke-dasharray="4 14"/>
+        <defs>
+          <linearGradient id="gTitle" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFDF4"/><stop offset=".6" stop-color="#FBEBC0"/><stop offset="1" stop-color="#E9C171"/></linearGradient>
+          <filter id="tGlow" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope=".35"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <g filter="url(#tGlow)" text-anchor="middle">
+          <text x="500" y="128" font-family="'Dancing Script',cursive" font-weight="700" font-size="112" fill="#FFFDF4">Thư mời</text>
+          <text x="500" y="270" font-family="'Lora',serif" font-style="italic" font-weight="600" font-size="128" fill="url(#gTitle)">Tốt Nghiệp</text>
         </g>
-        <g font-weight="800" text-anchor="middle" stroke-linejoin="round" paint-order="stroke">
-          <text x="500" y="118" font-family="'Dancing Script','Mali',cursive" font-weight="700" font-size="120" fill="#fff" stroke="#3A1F4D" stroke-width="20">Thư mời</text>
-          <text x="500" y="270" font-family="'Baloo 2','Nunito',sans-serif" font-size="118" fill="#FFF6EA" stroke="#3A1F4D" stroke-width="16">Tốt Nghiệp</text>
-        </g>
+        <path d="M250 312 Q375 292 500 312 Q625 332 750 312" fill="none" stroke="#FFF4D6" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+        <circle cx="500" cy="312" r="7" fill="#FFF4D6"/><circle cx="250" cy="312" r="4" fill="#FFF4D6"/><circle cx="750" cy="312" r="4" fill="#FFF4D6"/>
       </svg>
     </div>
 
@@ -72,12 +87,12 @@
     </div>
 
     <div class="welcome" id="welcome">
-      <p class="sign-post">Chạm vào nụ hoa<br>để mở thư mời của <b>Thanh Huyền</b> nhé!</p>
+      <p class="sign-post">✦ Chạm vào nụ hoa để mở thư mời của <b>Thanh Huyền</b> ✦</p>
     </div>
     <div class="after" id="after" hidden>
-      <p class="sign-post">Chào mừng bạn đến khu vườn của mình!</p>
+      <p class="sign-post">Chào mừng bạn đến khu vườn của mình</p>
       <div class="after-row">
-        <a class="btn btn-yellow" href="#loi-cam-on">Cuộn xuống xem thư mời ↓</a>
+        <a class="btn btn-yellow" href="#loi-cam-on">Xem thư mời ↓</a>
         <button class="btn-soft" id="reshuffle" type="button">Thu nụ lại</button>
       </div>
     </div>
@@ -91,7 +106,7 @@
         <svg class="board-branch" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><use href="#branch"/></svg>
         <div class="board-wood">
           <div class="board-panel">
-            <figure class="round-photo" style="--pc:#FF8FCB">
+            <figure class="round-photo" style="--pc:#F2A7BC">
               <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
               <label class="photo-slot rp-photo" data-slot="tan-cu-nhan" data-pos="50% 18%" data-label="Ảnh tân cử nhân"></label>
               <figcaption>Tân cử nhân 2026</figcaption>
@@ -116,7 +131,7 @@
         <h2 class="pop">Quá khứ, hiện tại và tương lai</h2>
       </div>
       <ol class="grow-list">
-        <li class="grow" style="--pc:#FFB38A;--h:150px">
+        <li class="grow" style="--pc:#F3C3A4;--h:150px">
           <div class="grow-plant">
             <div class="round-photo">
               <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
@@ -128,7 +143,7 @@
           <h3>Gieo hạt, ươm mầm</h3>
           <p>Những năm tháng miệt mài học tập trên giảng đường.</p>
         </li>
-        <li class="grow" style="--pc:#FF8FCB;--h:210px">
+        <li class="grow" style="--pc:#F2A7BC;--h:210px">
           <div class="grow-plant">
             <div class="round-photo">
               <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
@@ -140,7 +155,7 @@
           <h3>Thành quả, niềm vui</h3>
           <p>Ngày hôm nay, mình chính thức tốt nghiệp.</p>
         </li>
-        <li class="grow" style="--pc:#B79CFF;--h:150px">
+        <li class="grow" style="--pc:#C9B6E8;--h:150px">
           <div class="grow-plant">
             <div class="round-photo">
               <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
@@ -154,6 +169,7 @@
         </li>
       </ol>
     </div>
+    <div class="trail" aria-hidden="true"><span class="critter bunny" data-kind="bunny" style="--w:70px;--t:20s;--dl:-5s"></span><span class="critter frog rev" data-kind="frog" style="--w:56px;--t:32s;--dl:-18s"></span></div>
   </section>
 
   <section class="section album" id="album">
@@ -175,6 +191,7 @@
         </div>
       </div>
     </div>
+    <div class="trail" aria-hidden="true"><span class="critter fox" data-kind="fox" style="--w:100px;--t:14s;--dl:-2s"></span><span class="critter puff rev" data-kind="puff" style="--w:58px;--t:26s;--dl:-11s"></span></div>
   </section>
 
   <section class="section invite" id="thu-moi">
@@ -209,10 +226,12 @@
         </article>
       </div>
     </div>
+    <div class="trail" aria-hidden="true"><span class="critter puff" data-kind="puff" style="--w:58px;--t:22s;--dl:-7s"></span><span class="critter bunny rev" data-kind="bunny" style="--w:70px;--t:18s;--dl:-13s"></span></div>
   </section>
 </main>
 
 <footer class="site-foot">
+  <div class="trail" aria-hidden="true"><span class="critter frog" data-kind="frog" style="--w:50px;--t:34s;--dl:-8s"></span></div>
   <div class="wrap"><p><b>Trương Thị Thanh Huyền</b> · Lễ tốt nghiệp 2026</p></div>
 </footer>
 

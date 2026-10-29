@@ -10,7 +10,7 @@ Kỹ thuật hạt sáng và xếp tên bằng canvas tham khảo từ [TranMinh
 |---|-------|----------|
 | 1 | Ngày hội tốt nghiệp | Ảnh chân dung trong vòng nguyệt quế, tên tụ lại từ đom đóm và bướm, huy hiệu 4 năm · 1 tấm bằng · ∞ kỷ niệm |
 | 2 | Cây ước nguyện | Thư cảm ơn treo trên cây, ảnh tân cử nhân, ba mẩu giấy biết ơn |
-| 3 | Ba chiếc khinh khí cầu | Ba ảnh của mình trong ba khinh khí cầu |
+| 3 | Ngày mình tốt nghiệp | Sáu ảnh tốt nghiệp trong sáu khinh khí cầu to nhỏ bay lơ lửng |
 | 4 | Hồ kỷ niệm | 54 ảnh polaroid trôi thành 3 dòng trên mặt hồ, bấm để xem lớn, lướt qua lại bằng nút, phím ← → hoặc vuốt |
 | 5 | Cổng hoa | Thư mời, đếm ngày, chỉ đường, lưu vào lịch (.ics) |
 | 6 | Hẹn gặp bạn | Ảnh cùng mọi người, mũ cử nhân tung lên, pháo đom đóm |
@@ -34,7 +34,7 @@ HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG
 <label class="photo-slot wreath-photo" data-slot="chan-dung" data-src="assets/images/chan-dung.jpg" data-label="Ảnh chân dung"></label>
 ```
 
-Các khung: `chan-dung`, `tan-cu-nhan`, `khinh-khi-cau-1` … `khinh-khi-cau-3`, `cung-moi-nguoi`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
+Các khung: `chan-dung`, `tan-cu-nhan`, `tot-nghiep-1` … `tot-nghiep-6`, `cung-moi-nguoi`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
 
 **Album Hồ kỷ niệm:** ảnh nằm ở `assets/images/album/` (`01.jpg` … `54.jpg` bản lớn, `t01.jpg` … bản nhỏ). Kích thước bản nhỏ khai báo trong mảng `ALBUM` ở `js/main.js`; thêm hay bớt ảnh thì sửa cả mảng này.
 

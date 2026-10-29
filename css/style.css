@@ -104,12 +104,13 @@ svg{overflow:visible}
 @keyframes boardSway{0%,100%{rotate:-.8deg}50%{rotate:.8deg}}
 
 /* ---------- chặng 3: ba chiếc khinh khí cầu ---------- */
-.balloons{list-style:none;margin:0;padding:0;position:absolute;left:50%;top:6%;transform:translateX(-50%);display:flex;align-items:flex-start;gap:clamp(18px,5vw,80px)}
-.balloon{display:flex;flex-direction:column;align-items:center;width:min(300px,26vw,44vh);margin-top:var(--y,0);animation:drift2 6s ease-in-out var(--dl,0s) infinite}
+.balloons{list-style:none;margin:0;padding:0;position:absolute;inset:0 2vw 24% 2vw}
+.balloon{position:absolute;left:var(--x);top:var(--y);width:calc(min(215px,14.5vw,30vh) * var(--s,1));animation:drift2 6s ease-in-out var(--dl,0s) infinite}
 .bl-body{position:relative;width:100%;aspect-ratio:160/220;color:var(--c);filter:drop-shadow(0 16px 24px rgba(80,40,110,.3))}
 .bl-body>svg{position:absolute;inset:0;width:100%;height:100%}
 .bl-photo{position:absolute;left:17%;top:10%;width:66%;height:48%;border-radius:50%!important;box-shadow:0 0 0 4px rgba(255,255,255,.9),0 8px 18px rgba(80,40,110,.25)}
-.s2 .sky-title{bottom:19%;z-index:1;font-size:clamp(26px,1.6vw + 18px,42px)}
+.s2 .sky-title{bottom:21%;z-index:1;font-size:clamp(28px,1.8vw + 18px,46px)}
+.s2 .sky-sub{bottom:calc(21% - 34px);z-index:1}
 @keyframes drift2{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-16px) rotate(2deg)}}
 
 /* ---------- chặng 4: hồ kỷ niệm ---------- */
@@ -271,9 +272,10 @@ body.lb-open{overflow:hidden}
   .wish-tree{left:-26vw;opacity:.5}
   .letter{left:6vw;width:88vw;top:6%;max-height:56%;overflow:auto;font-size:14.5px;line-height:1.55}
   .hang-photo{width:30%}
-  .balloons{gap:0 4vw;top:5%;width:100vw;flex-wrap:wrap;justify-content:center}
-  .balloon{width:44vw}
-  .balloon:nth-child(3){margin-top:-8%}
+  .balloons{inset:0 0 22% 0}
+  .balloon{left:var(--mx);top:var(--my);width:36vw}
+  .s2 .sky-title{bottom:19%}
+  .s2 .sky-sub{bottom:calc(19% - 28px);font-size:16px}
   .companion{left:6vw}
   .scroll-hint{right:4vw;font-size:14px}
   .critter{scale:.8}

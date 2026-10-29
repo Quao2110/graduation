@@ -1,6 +1,6 @@
 # Thư Mời Tốt Nghiệp · Trương Thị Thanh Huyền
 
-Thư mời dự lễ tốt nghiệp online dạng **hành trình dạo vườn ngày tốt nghiệp 2.5D**: cuộn chuột hoặc vuốt như bình thường, cảnh trôi sang ngang như một game cuộn cảnh, có cáo con đi cùng.
+Thư mời dự lễ tốt nghiệp online dạng **hành trình dạo rừng xanh sương mờ 2.5D** (cảm hứng màu sắc từ game Hoa): cuộn chuột hoặc vuốt như bình thường, cảnh trôi sang ngang như một game cuộn cảnh, có cáo con đi cùng.
 
 Kỹ thuật hạt sáng và xếp tên bằng canvas tham khảo từ [TranMinh0903/Invitation-card](https://github.com/TranMinh0903/Invitation-card); thiết kế, bố cục, hình minh họa và nội dung làm mới.
 
@@ -23,10 +23,8 @@ HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG
 
 | Nội dung | Ở đâu |
 |----------|-------|
-| Ngành học, tên trường | `index.html`, dòng `inv-major` |
-| Ngày, giờ, nơi | `index.html`, danh sách `facts` |
+| Ngày, giờ, nơi (đã điền: 07.11.2026, 12h30, ĐH FPT TP.HCM) | `index.html`, danh sách `facts` |
 | Giờ lễ (đếm ngày, file lịch), tên địa điểm cho lịch | `js/main.js`, đối tượng `EVENT` ở đầu file |
-| Link "Chỉ đường" | `index.html`, thêm tên địa điểm sau `query=` |
 | Chú thích ảnh ở Hồ kỷ niệm | `index.html`, các thẻ `figcaption` trong `.pads` |
 
 ## Thêm ảnh

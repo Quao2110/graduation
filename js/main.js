@@ -7,7 +7,7 @@
     start: Date.UTC(2026, 10, 7, 5, 30, 0),  // 12h30 giờ Việt Nam
     end: Date.UTC(2026, 10, 7, 10, 0, 0),    // 17h00 giờ Việt Nam
     title: 'Lễ tốt nghiệp của Thanh Huyền',
-    place: '[Tên địa điểm], [Địa chỉ]'
+    place: 'Trường Đại học FPT TP.HCM, Lô E2a-7, Đường D1, Khu Công nghệ cao, TP.HCM'
   };
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -16,8 +16,8 @@
   var rand = function (a, b) { return a + Math.random() * (b - a); };
   var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
   var BCOLORS = ['#FF8FC8', '#B79CFF', '#7FD8F2', '#FFC46B', '#8FE3B0', '#FFB0D8'];
-  var TWINKLE = ['#FFFFFF', '#FFE58A', '#9FF0FF', '#FFB3E0', '#D4B8FF'];
-  var PETALS = ['#F7C6D3', '#F2A7BC', '#FFF4F0', '#FBD9C4', '#E9D8F0'];
+  var TWINKLE = ['#FFFFFF', '#FFF3B0', '#EFFFD0', '#FFE0EC', '#E4FFC8'];
+  var PETALS = ['#FFFFFF', '#F3F8DA', '#CFE8A6', '#B6DC8C', '#FFF1D2'];
   var NAME_FONT = '"Lora",Georgia,serif';
   var LINES = [{ t: 'Trương Thị', s: 124, y: 150 }, { t: 'Thanh Huyền', s: 150, y: 310 }];
 
@@ -27,7 +27,7 @@
   /* ---------- cảnh nền lặp, thú nhỏ, bướm ---------- */
   var tiles = window.SceneTiles || {};
   bgs.forEach(function (b) {
-    var k = b.classList.contains('far') ? 'far' : b.classList.contains('mid') ? 'mid' : b.classList.contains('near') ? 'near' : 'fg';
+    var k = b.classList.contains('far') ? 'far' : b.classList.contains('mid') ? 'mid' : b.classList.contains('near') ? 'near' : b.classList.contains('canopy') ? 'canopy' : 'fg';
     if (tiles[k]) b.style.backgroundImage = 'url("' + tiles[k] + '")';
     b._speed = parseFloat(b.dataset.speed) || 1;
   });

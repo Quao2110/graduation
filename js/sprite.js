@@ -12,10 +12,10 @@
   function lin(id, list, vertical) { return '<linearGradient id="' + id + '" x1="0" y1="' + (vertical ? 1 : 0) + '" x2="' + (vertical ? 0 : 1) + '" y2="0">' + stops(list) + '</linearGradient>'; }
   function rad(id, list, cx, cy) { return '<radialGradient id="' + id + '" cx="' + (cx || 0.5) + '" cy="' + (cy || 0.5) + '" r=".5">' + stops(list) + '</radialGradient>'; }
   var GRADS =
-    lin('gLeaf', [[0, '#1F6B5C'], [0.6, '#3FA486'], [1, '#8FE0B4']]) +
-    lin('gLeafD', [[0, '#164C4A'], [0.7, '#2A7A6A'], [1, '#47A88A']]) +
-    lin('gLeafL', [[0, '#3FA486'], [1, '#C9F5C8']]) +
-    lin('gFg', [[0, '#14403E'], [0.7, '#23655A'], [1, '#3A8A72']]) +
+    lin('gLeaf', [[0, '#3B7A38'], [0.6, '#68AC4C'], [1, '#C2E596']]) +
+    lin('gLeafD', [[0, '#2C5E2E'], [0.7, '#4A8A42'], [1, '#78B460']]) +
+    lin('gLeafL', [[0, '#7CBA5C'], [1, '#E2F5C0']]) +
+    lin('gFg', [[0, '#3E8236'], [0.6, '#6DB04A'], [1, '#B4DE7E']]) +
     lin('gPetalH', [[0, '#F0508F'], [1, '#FFE0EE']]) +
     lin('gPetalW', [[0, '#E9D3E6'], [1, '#FFFFFF']]) +
     lin('gPetalL', [[0, '#8A5CE0'], [1, '#F0E2FF']]) +
@@ -23,8 +23,8 @@
     lin('gPetalC', [[0, '#26AFCF'], [1, '#D9FAFF']]) +
     lin('gWood', [[0, '#3E2820'], [0.5, '#7A543A'], [1, '#4A3024']]) +
     lin('gWoodV', [[0, '#3E2820'], [1, '#8C6244']], true) +
-    lin('gGround', [[0, '#1F6E66'], [0.6, '#36998A'], [1, '#62C4A0']], true) +
-    lin('gPad', [[0, '#1E6B52'], [1, '#6FCB8A']], true) +
+    lin('gGround', [[0, '#5C9446'], [0.6, '#86BC62'], [1, '#B2D888']], true) +
+    lin('gPad', [[0, '#3F7E3C'], [1, '#9CD474']], true) +
     lin('gFur', [[0, '#D9CBF0'], [1, '#FFFFFF']], true) +
     lin('gFox', [[0, '#E0662E'], [1, '#FFB45E']], true) +
     lin('gFrog', [[0, '#2E8F5A'], [1, '#9CE27A']], true) +
@@ -39,7 +39,7 @@
     rad('gHaloP', [[0, '#FFF0F8', 0.95], [0.4, '#FF8FC8', 0.45], [1, '#FF8FC8', 0]]) +
     rad('gMoon', [[0, '#FFFBEA'], [0.7, '#FFE9C4'], [1, '#F7C6A6']], 0.42, 0.4) +
     rad('gMoonHalo', [[0, '#FFF1D6', 0.8], [0.35, '#FFB8D8', 0.35], [1, '#B78CFF', 0]]) +
-    rad('gWater', [[0, '#57C3C8'], [0.6, '#2A8696'], [1, '#164763']], 0.5, 0.35) +
+    rad('gWater', [[0, '#B4E6CE'], [0.6, '#72BFA6'], [1, '#4A9482']], 0.5, 0.35) +
     rad('gCap', [[0, '#FFE2F0'], [0.5, '#E67AC0'], [1, '#8E3E9E']], 0.4, 0.35) +
     rad('gPuff', [[0, '#F4ECFF'], [0.6, '#BFA9F0'], [1, '#8E74D6']], 0.4, 0.35);
   var DEFS = '<filter id="wc" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="4" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="8" xChannelSelector="R" yChannelSelector="G"/></filter>' + GRADS;
@@ -102,41 +102,81 @@
     try { return URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' })); } catch (e) { return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); }
   }
   var tiles = {};
+  /* bụi lá tròn kiểu Hoa: nhiều lá rộng xòe quanh một gốc */
+  function bush(x, y, r, grad, rnd, k) {
+    var o = '';
+    for (var i = 0; i < (k || 9); i++) {
+      var a = -170 + i * 160 / ((k || 9) - 1) + (rnd() - 0.5) * 18;
+      o += leaf(x + (rnd() - 0.5) * r * 0.3, y, r * (0.75 + rnd() * 0.45), a, grad, 0.42);
+    }
+    return o;
+  }
+  /* tán lá mờ: cụm tròn mềm chồng lên nhau */
+  function puffs(TW, f, cnt, rMin, rMax, fill, op, rnd) {
+    var o = '';
+    for (var i = 0; i < cnt; i++) {
+      var x = i * TW / cnt + rnd() * 30, r = rMin + rnd() * (rMax - rMin), y = f(x) + r * 0.35;
+      o += wrap(TW, x, function (X) { return '<circle cx="' + n(X) + '" cy="' + n(y) + '" r="' + n(r) + '" fill="' + fill + '" opacity="' + op + '"/>'; });
+    }
+    return o;
+  }
+  var tiles = {};
   tiles.far = (function () {
     var TW = 1600, TH = 420, rnd = seeded(5), o = '';
-    var f1 = wave(TW, 200, [[40, 2, 0.4], [26, 5, 1.3], [12, 9, 2.1]]), f2 = wave(TW, 270, [[30, 3, 2.2], [18, 7, 0.3]]);
-    o += hill(TW, TH, f1, '#A898EC');
-    for (var i = 0; i < 44; i++) { var x = i * TW / 44 + rnd() * 20, r1 = 16 + rnd() * 12; o += wrap(TW, x, function (X) { return '<circle cx="' + n(X) + '" cy="' + n(f1(X) + 12) + '" r="' + n(r1) + '" fill="#9C8DE4"/>'; }); }
-    o += hill(TW, TH, f2, '#8C86D8');
-    for (var j = 0; j < 50; j++) { var x2 = j * TW / 50 + rnd() * 16, r2 = 12 + rnd() * 12; o += wrap(TW, x2, function (X) { return '<circle cx="' + n(X) + '" cy="' + n(f2(X) + 10) + '" r="' + n(r2) + '" fill="#817DD0"/>'; }); }
+    var f1 = wave(TW, 170, [[40, 2, 0.4], [26, 5, 1.3], [12, 9, 2.1]]), f2 = wave(TW, 250, [[30, 3, 2.2], [18, 7, 0.3]]);
+    o += puffs(TW, f1, 30, 40, 80, '#D3E6BE', 1, rnd) + hill(TW, TH, f1, '#D3E6BE');
+    for (var i = 0; i < 9; i++) { var tx = i * TW / 9 + rnd() * 60, th = 260 + rnd() * 120; o += wrap(TW, tx, function (X) { return '<rect x="' + n(X) + '" y="' + n(TH - th) + '" width="' + n(10 + rnd() * 6) + '" height="' + n(th) + '" fill="#C2DAAA" opacity=".8"/>'; }); }
+    o += puffs(TW, f2, 34, 30, 64, '#BBD6A2', 1, rnd) + hill(TW, TH, f2, '#BBD6A2');
     return tile(TW, TH, o);
   })();
   tiles.mid = (function () {
-    var TW = 1800, TH = 420, rnd = seeded(9), o = '', f = wave(TW, 340, [[14, 2, 1], [8, 5, 0.2]]);
-    for (var i = 0; i < 18; i++) {
-      var x = i * TW / 18 + rnd() * 40, r = 32 + rnd() * 26, y = f(x) + 6;
-      o += wrap(TW, x, function (X) { return tree(X, y, r, '#4FA8B4', '#8FE0D8', '#3A8A9C', seeded(i + 3)); });
+    var TW = 1800, TH = 420, rnd = seeded(9), o = '', f = wave(TW, 330, [[14, 2, 1], [8, 5, 0.2]]);
+    for (var i = 0; i < 16; i++) {
+      var x = i * TW / 16 + rnd() * 40, r = 36 + rnd() * 28, y = f(x) + 6;
+      o += wrap(TW, x, function (X) { return tree(X, y, r, '#8CBE76', '#C4E3A2', '#6E9F60', seeded(i + 3)); });
     }
-    o += hill(TW, TH, f, '#4A9AA4');
+    o += hill(TW, TH, f, '#86B870');
+    for (var j = 0; j < 14; j++) { var bx = j * TW / 14 + rnd() * 50, br = 40 + rnd() * 30; o += wrap(TW, bx, function (X) { return bush(X, f(X) + 18, br, 'gLeafL', seeded(j + 40), 7); }); }
     return tile(TW, TH, o);
   })();
   tiles.near = (function () {
     var TW = 1600, TH = 300, rnd = seeded(13), o = '', f = wave(TW, 96, [[22, 2, 0.6], [10, 5, 2]]);
     o += hill(TW, TH, f, 'url(#gGround)');
-    for (var i = 0; i < 64; i++) { var x = i * 25 + rnd() * 10; o += grass(x, f(x) + 14, 28 + rnd() * 24, rnd() < 0.5 ? '#2A7C6E' : '#3E9C82', 4, rnd); }
-    var grads = ['gPetalH', 'gPetalC', 'gPetalL', 'gPetalG', 'gPetalW'];
+    for (var k = 0; k < 12; k++) { var bx = k * TW / 12 + rnd() * 60, br = 44 + rnd() * 26; o += wrap(TW, bx, function (X) { return bush(X, f(X) + 24, br, 'gLeaf', seeded(k + 70), 8); }); }
+    for (var i = 0; i < 64; i++) { var x = i * 25 + rnd() * 10; o += grass(x, f(x) + 14, 26 + rnd() * 22, rnd() < 0.5 ? '#5E9A46' : '#8CC266', 4, rnd); }
+    var grads = ['gPetalW', 'gPetalG', 'gPetalW', 'gPetalH', 'gPetalW'];
     for (var j = 0; j < 32; j++) {
-      var fx = 20 + j * 49 + rnd() * 20, fy = f(fx) + 30 + rnd() * 120, r = 6 + rnd() * 7, g = grads[j % 5], rot = rnd();
-      o += '<path d="M' + n(fx) + ' ' + n(fy + 30) + 'Q' + n(fx - 4) + ' ' + n(fy + 14) + ' ' + n(fx) + ' ' + n(fy) + '" stroke="#2A7C6E" stroke-width="2" fill="none"/>' + bloom(fx, fy, r, 5, g, true, rot);
+      var fx = 20 + j * 49 + rnd() * 20, fy = f(fx) + 30 + rnd() * 120, r = 5 + rnd() * 6, g = grads[j % 5], rot = rnd();
+      o += '<path d="M' + n(fx) + ' ' + n(fy + 30) + 'Q' + n(fx - 4) + ' ' + n(fy + 14) + ' ' + n(fx) + ' ' + n(fy) + '" stroke="#5E9A46" stroke-width="2" fill="none"/>' + bloom(fx, fy, r, 5, g, true, rot);
     }
     return tile(TW, TH, o);
   })();
   tiles.fg = (function () {
     var TW = 1400, TH = 260, rnd = seeded(21), o = '';
-    for (var i = 0; i < 9; i++) {
-      var x = i * TW / 9 + rnd() * 80, l1 = 150 + rnd() * 90, a1 = -70 - rnd() * 40, l2 = 120 + rnd() * 60, a2 = -110 + rnd() * 30;
-      o += wrap(TW, x, function (X) { return leaf(X, TH + 10, l1, a1, 'gFg', 0.28) + leaf(X + 20, TH + 10, l2, a2, 'gFg', 0.26); });
-      o += grass(x + 60, TH, 90 + rnd() * 50, '#1C5048', 7, rnd);
+    for (var i = 0; i < 7; i++) {
+      var x = i * TW / 7 + rnd() * 80, r = 120 + rnd() * 60;
+      o += wrap(TW, x, function (X) { return bush(X, TH + 20, r, 'gFg', seeded(i + 90), 11); });
+    }
+    return tile(TW, TH, o);
+  })();
+  /* tán lá rủ từ trên xuống, có dây leo */
+  tiles.canopy = (function () {
+    var TW = 1500, TH = 320, rnd = seeded(31), o = '';
+    for (var i = 0; i < 26; i++) {
+      var x = i * TW / 26 + rnd() * 30, r = 50 + rnd() * 50, y = -10 + rnd() * 30;
+      o += wrap(TW, x, function (X) { return '<circle cx="' + n(X) + '" cy="' + n(y) + '" r="' + n(r) + '" fill="#A9CF8E" opacity=".85"/>'; });
+    }
+    for (var j = 0; j < 22; j++) {
+      var lx = j * TW / 22 + rnd() * 40, ll = 60 + rnd() * 50, la = 40 + rnd() * 100, ly = 20 + rnd() * 40, gg = rnd() < 0.5 ? 'gLeaf' : 'gLeafL';
+      o += wrap(TW, lx, function (X) { return leaf(X, ly, ll, la, gg, 0.42); });
+    }
+    for (var v = 0; v < 7; v++) {
+      var vx = v * TW / 7 + rnd() * 80, vl = 140 + rnd() * 150, sw = (rnd() - 0.5) * 40;
+      o += wrap(TW, vx, function (X) {
+        var p = '<path d="M' + n(X) + ' 0Q' + n(X + sw) + ' ' + n(vl * 0.5) + ' ' + n(X + sw * 0.3) + ' ' + n(vl) + '" fill="none" stroke="#5E9A46" stroke-width="3" stroke-linecap="round"/>';
+        for (var t = 0.2; t < 1; t += 0.2) { var py = vl * t, px = X + sw * (t < 0.5 ? t * 2 * 0.6 : 0.6 - (t - 0.5) * 0.6); p += leaf(px, py, 22, t * 400 % 2 < 1 ? 30 : 150, 'gLeafL', 0.45); }
+        return p;
+      });
     }
     return tile(TW, TH, o);
   })();
@@ -183,9 +223,9 @@
       '<path d="M284 330 C220 300 150 300 60 270 L56 286 C146 318 216 330 278 356 Z" fill="url(#gWoodV)"/>' +
       '<path d="M260 760 C230 740 200 744 170 760 M380 760 C410 738 450 742 480 760" stroke="#3E2820" stroke-width="12" fill="none" stroke-linecap="round"/>';
     var blobs = [[300, 170, 140], [180, 200, 100], [420, 200, 104], [240, 90, 96], [370, 92, 92], [120, 260, 70], [490, 262, 72], [300, 250, 110]];
-    blobs.forEach(function (b) { o += '<circle cx="' + b[0] + '" cy="' + b[1] + '" r="' + b[2] + '" fill="#3A8E9C"/>'; });
-    blobs.forEach(function (b) { o += '<circle cx="' + (b[0] - b[2] * 0.25) + '" cy="' + (b[1] - b[2] * 0.3) + '" r="' + (b[2] * 0.6) + '" fill="#52AEB0" opacity=".85"/>'; });
-    blobs.forEach(function (b) { o += '<circle cx="' + (b[0] - b[2] * 0.4) + '" cy="' + (b[1] - b[2] * 0.45) + '" r="' + (b[2] * 0.28) + '" fill="#6FD0C4" opacity=".55"/>'; });
+    blobs.forEach(function (b) { o += '<circle cx="' + b[0] + '" cy="' + b[1] + '" r="' + b[2] + '" fill="#5E9E48"/>'; });
+    blobs.forEach(function (b) { o += '<circle cx="' + (b[0] - b[2] * 0.25) + '" cy="' + (b[1] - b[2] * 0.3) + '" r="' + (b[2] * 0.6) + '" fill="#86C062" opacity=".85"/>'; });
+    blobs.forEach(function (b) { o += '<circle cx="' + (b[0] - b[2] * 0.4) + '" cy="' + (b[1] - b[2] * 0.45) + '" r="' + (b[2] * 0.28) + '" fill="#C6E89A" opacity=".6"/>'; });
     /* quả đèn sáng trên tán */
     for (var i = 0; i < 16; i++) {
       var x = 80 + rnd() * 440, y = 40 + rnd() * 280, h = ['gHaloP', 'gHaloC', 'gHalo'][i % 3];
@@ -196,7 +236,7 @@
       o += '<path d="M' + l[0] + ' ' + l[1] + 'V' + (l[1] + l[2]) + '" stroke="#E9D9C0" stroke-width="2"/><circle cx="' + l[0] + '" cy="' + (l[1] + l[2] + 14) + '" r="34" fill="url(#' + ['gHaloP', 'gHaloC', 'gHalo'][k] + ')"/>' +
         star5(l[0], l[1] + l[2] + 14, 16, ['#FF9CC6', '#9FF0FF', '#FFE07A'][k]);
     });
-    return o + grass(320, 760, 60, '#123F42', 8, rnd) + grass(180, 760, 44, '#22685E', 6, rnd);
+    return o + grass(320, 760, 60, '#4E8A3C', 8, rnd) + grass(180, 760, 44, '#6FA852', 6, rnd);
   })();
   /* hồ nước (viewBox 0 0 1200 240) */
   var pond = (function () {

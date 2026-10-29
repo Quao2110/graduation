@@ -19,7 +19,6 @@
   <div class="stage" id="stage">
     <div class="glow-horizon" aria-hidden="true"></div>
     <div class="sun-disc" aria-hidden="true"></div>
-    <div class="rays" aria-hidden="true"></div>
     <div class="bg far" data-speed=".12" aria-hidden="true"></div>
     <div class="bg mid" data-speed=".35" aria-hidden="true"></div>
     <div class="sky-track" id="skyTrack" aria-hidden="true">
@@ -113,19 +112,12 @@
       <!-- chặng 4: hồ kỷ niệm -->
       <article class="station s3" id="st-3" aria-labelledby="t3">
         <h2 class="sky-title" id="t3">Hồ kỷ niệm</h2>
-        <p class="sky-sub">Những khoảnh khắc mình muốn giữ mãi</p>
+        <p class="sky-sub">Thật nhiều kỷ niệm: những bữa ăn đông vui, những chuyến đi, những đêm chạy deadline cùng nhau…</p>
         <svg class="pond" viewBox="0 0 1200 240" aria-hidden="true"><use href="#pond"/></svg>
-        <div class="pads">
-          <figure class="pad" style="--x:2%;--y:4%;--dl:-1s"><label class="photo-slot" data-slot="album-1" data-label="Kỷ niệm 1"></label><figcaption>Ngày nhập học</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:22%;--y:0%;--dl:-2.2s"><label class="photo-slot" data-slot="album-2" data-label="Kỷ niệm 2"></label><figcaption>Mùa thi đầu tiên</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:42%;--y:6%;--dl:-.4s"><label class="photo-slot" data-slot="album-3" data-label="Kỷ niệm 3"></label><figcaption>Chuyến đi cùng lớp</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:62%;--y:1%;--dl:-1.6s"><label class="photo-slot" data-slot="album-4" data-label="Kỷ niệm 4"></label><figcaption>Hội trại</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:82%;--y:5%;--dl:-3s"><label class="photo-slot" data-slot="album-5" data-label="Kỷ niệm 5"></label><figcaption>Sinh nhật bạn thân</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:10%;--y:46%;--dl:-.9s"><label class="photo-slot" data-slot="album-6" data-label="Kỷ niệm 6"></label><figcaption>Buổi học nhóm</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:30%;--y:42%;--dl:-2.6s"><label class="photo-slot" data-slot="album-7" data-label="Kỷ niệm 7"></label><figcaption>Ngày bảo vệ</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:50%;--y:48%;--dl:-1.3s"><label class="photo-slot" data-slot="album-8" data-label="Kỷ niệm 8"></label><figcaption>Chụp ảnh kỷ yếu</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:70%;--y:43%;--dl:-.2s"><label class="photo-slot" data-slot="album-9" data-label="Kỷ niệm 9"></label><figcaption>Ngày tốt nghiệp</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
-          <figure class="pad" style="--x:88%;--y:47%;--dl:-3.4s"><label class="photo-slot" data-slot="album-10" data-label="Kỷ niệm 10"></label><figcaption>Cả nhà cùng vui</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
+        <svg class="lily-deco" style="left:14vw;bottom:9%" viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg>
+        <svg class="lily-deco" style="left:78vw;bottom:13%" viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg>
+        <div class="album" id="album" data-count="54">
+          <div class="streams"></div>
         </div>
         <span class="critter duck swim" data-kind="duck" style="left:30vw;bottom:12%;--w:135px;--t:16s"></span>
         <span class="critter duck swim" data-kind="duck" style="left:66vw;bottom:9%;--w:108px;--t:20s"></span>
@@ -193,7 +185,6 @@
     </div>
 
     <div class="bg fg" data-speed="1.35" aria-hidden="true"></div>
-    <div class="bg canopy" data-speed=".8" aria-hidden="true"></div>
     <div class="companion" id="companion" aria-hidden="true"><span class="critter fox" data-kind="fox"></span></div>
     <p class="scroll-hint" id="scrollHint">Cuộn để dạo vườn <span aria-hidden="true">→</span></p>
     <nav class="chapters" id="chapters" aria-label="Các chặng">
@@ -206,6 +197,13 @@
     </nav>
   </div>
 </section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh kỷ niệm" hidden>
+    <figure class="lb-frame"><img id="lbImg" alt=""><figcaption id="lbCount"></figcaption></figure>
+    <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Ảnh trước">‹</button>
+    <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Ảnh sau">›</button>
+    <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Đóng">×</button>
+  </div>
 
 <script src="js/sprite.js"></script>
 <script src="js/main.js"></script>

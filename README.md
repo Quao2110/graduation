@@ -1,47 +1,48 @@
 # Thư Mời Tốt Nghiệp · Trương Thị Thanh Huyền
 
-Thư mời dự lễ tốt nghiệp online theo chủ đề **khu vườn ban ngày**: nụ hoa 2.5D, bướm vỗ cánh, cánh hoa rơi, mây trôi.
+Thư mời dự lễ tốt nghiệp online dạng **hành trình dạo vườn đom đóm 2.5D**: cuộn chuột hoặc vuốt như bình thường, cảnh trôi sang ngang như một game cuộn cảnh, có thỏ con đi cùng.
 
-Kỹ thuật hiệu ứng (hạt, xếp tên bằng canvas) dựa trên [TranMinh0903/Invitation-card](https://github.com/TranMinh0903/Invitation-card); thiết kế, bố cục và hình minh họa làm mới.
+Kỹ thuật hạt sáng và xếp tên bằng canvas tham khảo từ [TranMinh0903/Invitation-card](https://github.com/TranMinh0903/Invitation-card); thiết kế, bố cục, hình minh họa và nội dung làm mới.
 
-## Tính năng
+## Sáu chặng
 
-- **Màn mở đầu:** một nụ hoa lớn trên đồi. Chạm vào thì từng cánh xòe ra trong không gian 3D, nhụy hoa hiện ảnh chân dung, cánh hoa bay lên xếp thành tên.
-- **Chiều sâu 2.5D:** cảnh nhiều lớp dịch chuyển theo chuột (mặt trời, mây, đồi xa, thân hoa lớn, thảm cỏ, nấm), bướm vỗ cánh bằng CSS 3D, cánh hoa vừa rơi vừa lật.
-- **Lời cảm ơn:** bảng gỗ treo trên cành hoa, ảnh trong vòng cánh hoa.
-- **Ba đóa hoa:** quá khứ, hiện tại, tương lai là ba bông hoa mọc từ đất.
-- **Album:** ảnh kẹp trên dây phơi, đung đưa.
-- **Thư mời:** thiệp hình cổng vòm kết hoa, đếm ngược "hoa nở sau … ngày".
-- Bướm bay theo khi cuộn, con trỏ rắc cánh hoa, bấm để tung hoa.
-- Responsive, tôn trọng `prefers-reduced-motion`.
+| # | Chặng | Nội dung |
+|---|-------|----------|
+| 1 | Đêm hội đom đóm | Ảnh chân dung trong vầng trăng, tên tụ lại từ đom đóm và bướm, huy hiệu 4 năm · 1 tấm bằng · ∞ kỷ niệm |
+| 2 | Cây ước nguyện | Thư cảm ơn treo trên cây, ảnh tân cử nhân, ba mẩu giấy biết ơn |
+| 3 | Ba chiếc đèn lồng | Ngày ấy · Hôm nay · Mai sau |
+| 4 | Hồ kỷ niệm | Sáu ảnh đứng trên lá sen, có chú thích |
+| 5 | Cổng hoa | Thư mời, đếm ngày, chỉ đường, lưu vào lịch (.ics) |
+| 6 | Hẹn gặp bạn | Ảnh cùng mọi người, mũ cử nhân tung lên, pháo đom đóm |
 
-HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG sinh từ code (`js/sprite.js`).
+Điều hướng: cuộn/vuốt, thanh chặng ở dưới, hoặc phím ← →. Tôn trọng `prefers-reduced-motion`.
+
+HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG sinh từ code (`js/sprite.js`), cảnh nền là các ô SVG lặp liền mạch.
 
 ## Cần điền trước khi gửi
 
 | Nội dung | Ở đâu |
 |----------|-------|
-| Ngành học, tên trường | `index.html`, dòng `letter-major` |
-| Ngày, giờ, tên và địa chỉ địa điểm | `index.html`, mục `details` |
-| Link "Xem đường đi" | `index.html`, thêm tên địa điểm sau `query=` |
-| Giờ lễ cho đếm ngược | `js/main.js`: `EV_START`, `EV_END` (giờ UTC, tức giờ Việt Nam trừ 7) |
+| Ngành học, tên trường | `index.html`, dòng `inv-major` |
+| Ngày, giờ, nơi | `index.html`, danh sách `facts` |
+| Giờ lễ (đếm ngày, file lịch), tên địa điểm cho lịch | `js/main.js`, đối tượng `EVENT` ở đầu file |
+| Link "Chỉ đường" | `index.html`, thêm tên địa điểm sau `query=` |
+| Chú thích ảnh ở Hồ kỷ niệm | `index.html`, các thẻ `figcaption` trong `.pads` |
 
 ## Thêm ảnh
 
-Đặt ảnh vào `assets/images/` rồi thêm thuộc tính `data-src` cho khung tương ứng trong `index.html`, ví dụ:
+Đặt ảnh vào `assets/images/` rồi thêm `data-src` cho khung tương ứng trong `index.html`, ví dụ:
 
 ```html
-<label class="photo-slot tc-photo" data-slot="chan-dung" data-src="assets/images/chan-dung.jpg" data-label="Ảnh chân dung"></label>
+<label class="photo-slot moon-photo" data-slot="chan-dung" data-src="assets/images/chan-dung.jpg" data-label="Ảnh chân dung"></label>
 ```
 
-Các khung: `chan-dung`, `tan-cu-nhan`, `thoi-sinh-vien`, `ao-cu-nhan`, `album-1` … `album-6`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
+Các khung: `chan-dung`, `tan-cu-nhan`, `thoi-sinh-vien`, `ao-cu-nhan`, `album-1` … `album-6`, `cung-moi-nguoi`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
 
 ## Chạy thử
 
 ```bash
 python -m http.server 8000
-# hoặc
-npx serve .
 ```
 
 ## Triển khai

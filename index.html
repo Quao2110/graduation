@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Thư Mời Của Thanh Huyền</title>
-<meta name="description" content="Thư mời dự lễ tốt nghiệp của Trương Thị Thanh Huyền.">
+<meta name="description" content="Thư mời dự lễ tốt nghiệp của Trương Thị Thanh Huyền — một hành trình dạo vườn đom đóm.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap">
@@ -13,227 +13,174 @@
 <body>
 <div class="paper" aria-hidden="true"></div>
 <div class="sky-bg" aria-hidden="true"><canvas id="sky"></canvas></div>
-<div class="floaters" id="floaters" aria-hidden="true"></div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
-<header class="hero" id="top">
-  <div class="scene" id="scene" aria-hidden="true">
-    <div class="layer" style="--d:4">
-      <div class="sun-glow"></div>
-      <div class="rays"></div>
-      <span class="cloud" style="--w:320px;top:8%;--t:120s;--dl:-20s"></span>
-      <span class="cloud" style="--w:220px;top:20%;--t:150s;--dl:-80s"></span>
-      <div class="trail sky-trail">
-        <span class="critter bird" data-kind="bird" style="--w:54px;--top:16%;--t:19s;--dl:-4s"></span>
-        <span class="critter bird rev" data-kind="bird" style="--w:40px;--top:9%;--t:25s;--dl:-15s"></span>
-        <span class="critter bird" data-kind="bird" style="--w:34px;--top:24%;--t:30s;--dl:-22s"></span>
-      </div>
+<section class="journey" id="journey" aria-label="Hành trình dạo vườn đom đóm của Thanh Huyền">
+  <div class="stage" id="stage">
+    <div class="glow-horizon" aria-hidden="true"></div>
+    <div class="bg far" data-speed=".12" aria-hidden="true"></div>
+    <div class="bg mid" data-speed=".35" aria-hidden="true"></div>
+    <div class="sky-track" id="skyTrack" aria-hidden="true">
+      <span class="critter bird" data-kind="bird" style="--w:52px;left:30vw;top:10%"></span>
+      <span class="critter bird" data-kind="bird" style="--w:38px;left:120vw;top:18%"></span>
+      <span class="critter bird" data-kind="bird" style="--w:44px;left:220vw;top:8%"></span>
+      <span class="bfly" style="--bc:#FF8FC8;--s:60px;left:80vw;top:32%;--t:14s"></span>
+      <span class="bfly" style="--bc:#7FD8F2;--s:52px;left:170vw;top:26%;--t:16s;--dl:-5s"></span>
+      <span class="bfly" style="--bc:#FFC46B;--s:56px;left:250vw;top:30%;--t:12s;--dl:-3s"></span>
     </div>
-    <div class="layer" style="--d:8"><svg class="ly ly-far"><use href="#far" width="100%" height="100%"/></svg></div>
-    <div class="layer" style="--d:16"><svg class="ly ly-mid"><use href="#mid" width="100%" height="100%"/></svg></div>
-    <div class="layer" style="--d:26">
-      <svg class="ly ly-near"><use href="#near" width="100%" height="100%"/></svg>
-      <svg class="mushroom" viewBox="0 -10 170 180"><use href="#mushroom"/></svg>
-      <span class="orb" style="left:6%;bottom:18%;--h:130px;--c:#7FE6FF;--dl:-1s"></span>
-      <span class="orb" style="left:23%;bottom:12%;--h:90px;--c:#FF8FC8;--dl:-2.2s"></span>
-      <span class="orb" style="left:33%;bottom:20%;--h:150px;--c:#FFE07A;--dl:-.4s"></span>
-      <span class="orb" style="right:30%;bottom:16%;--h:110px;--c:#C9A8FF;--dl:-3s"></span>
-      <span class="orb" style="right:20%;bottom:10%;--h:80px;--c:#7FE6FF;--dl:-1.6s"></span>
-      <span class="orb" style="right:7%;bottom:22%;--h:140px;--c:#FF8FC8;--dl:-2.7s"></span>
-      <div class="trail ground-trail">
-        <span class="critter bunny" data-kind="bunny" style="--w:84px;--b:8%;--t:17s;--dl:-3s"></span>
-        <span class="critter fox rev" data-kind="fox" style="--w:118px;--b:3%;--t:11s;--dl:-6s"></span>
-        <span class="critter frog" data-kind="frog" style="--w:66px;--b:13%;--t:30s;--dl:-12s"></span>
-        <span class="critter puff rev" data-kind="puff" style="--w:66px;--b:6%;--t:24s;--dl:-9s"></span>
-      </div>
-      <span class="bfly" style="--bc:#B9A7E0;--s:52px;left:20%;top:34%;--t:17s;--dl:-6s;--rz:14deg"></span>
-      <span class="bfly" style="--bc:#F3C98B;--s:60px;right:18%;top:26%;--t:19s;--dl:-9s;--rz:16deg"></span>
-      <span class="bfly" style="--bc:#F2A7BC;--s:70px;left:12%;bottom:30%;--t:15s;--rz:-10deg"></span>
+    <div class="bg near" data-speed="1" aria-hidden="true"></div>
+
+    <div class="track" id="track">
+      <!-- chặng 1: đêm hội đom đóm -->
+      <article class="station s0" id="st-0" aria-labelledby="t0">
+        <svg class="bunting" viewBox="0 0 1000 130" preserveAspectRatio="none" aria-hidden="true"><use href="#bunting"/></svg>
+        <svg class="cap-float" viewBox="0 0 160 120" aria-hidden="true"><use href="#gradCap"/></svg>
+        <div class="moon">
+          <svg class="moon-art" viewBox="0 0 400 400" aria-hidden="true"><use href="#moon"/></svg>
+          <label class="photo-slot moon-photo" data-slot="chan-dung" data-label="Ảnh chân dung"></label>
+        </div>
+        <div class="intro">
+          <p class="eyebrow">Thư mời tốt nghiệp · 2026</p>
+          <h1 class="sr-only" id="t0">Trương Thị Thanh Huyền</h1>
+          <div class="name-anchor" id="nameAnchor" aria-hidden="true"></div>
+          <p class="intro-line">Một đêm hội đom đóm nhỏ, và mình mong có bạn ở đó.</p>
+          <ul class="badges">
+            <li><b>4</b>năm thanh xuân</li>
+            <li><b>1</b>tấm bằng cử nhân</li>
+            <li><b>∞</b>kỷ niệm đẹp</li>
+          </ul>
+        </div>
+        <svg class="deco mushroom" style="left:8vw;--w:70px" viewBox="0 -10 170 180" aria-hidden="true"><use href="#mushroom"/></svg>
+        <span class="orb" style="left:18vw;--h:120px;--c:#7FE6FF;--dl:-1s"></span>
+        <span class="orb" style="left:84vw;--h:150px;--c:#FF8FC8;--dl:-2s"></span>
+      </article>
+
+      <!-- chặng 2: cây ước nguyện -->
+      <article class="station s1" id="st-1" aria-labelledby="t1">
+        <svg class="wish-tree" viewBox="0 0 600 760" aria-hidden="true"><use href="#bigTree"/></svg>
+        <div class="card letter">
+          <span class="card-string" aria-hidden="true"></span>
+          <p class="chip">Chặng 2 · Cây ước nguyện</p>
+          <h2 id="t1">Gửi những người thương</h2>
+          <figure class="hang-photo">
+            <label class="photo-slot" data-slot="tan-cu-nhan" data-pos="50% 18%" data-label="Ảnh tân cử nhân"></label>
+          </figure>
+          <p>Bốn năm qua, mỗi người đã thắp cho mình một đốm sáng nhỏ: lời dặn dò của bố mẹ, những bài giảng tận tâm của thầy cô, những buổi học nhóm kéo dài tới khuya cùng bạn bè.</p>
+          <p>Gom lại, chúng thành cả một khu vườn rực rỡ, soi đường cho mình đi tới ngày hôm nay.</p>
+          <p class="sign">— Thanh Huyền</p>
+        </div>
+        <ul class="notes" aria-label="Những điều mình biết ơn">
+          <li style="--r:-4deg;--dl:-1s"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#iconHeart"/></svg><b>Bố mẹ</b>vì luôn tin con</li>
+          <li style="--r:3deg;--dl:-2.4s"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#iconBook"/></svg><b>Thầy cô</b>vì từng bài học</li>
+          <li style="--r:-2deg;--dl:-.5s"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#iconStar"/></svg><b>Bạn bè</b>vì những ngày bên nhau</li>
+        </ul>
+        <span class="critter fox patrol" data-kind="fox" style="left:66vw;--w:104px;--t:9s"></span>
+      </article>
+
+      <!-- chặng 3: ba chiếc đèn lồng -->
+      <article class="station s2" id="st-2" aria-labelledby="t2">
+        <svg class="lantern-branch" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><use href="#branch"/></svg>
+        <h2 class="sky-title" id="t2">Ba chiếc đèn lồng</h2>
+        <ol class="lanterns">
+          <li class="lantern" style="--c:#FF9CC6;--len:8vh;--dl:-1s">
+            <span class="lt-string" aria-hidden="true"></span>
+            <div class="lt-body"><svg viewBox="0 0 120 180" aria-hidden="true"><use href="#lantern"/></svg><label class="photo-slot lt-photo" data-slot="thoi-sinh-vien" data-label="Ảnh ngày ấy"></label></div>
+            <p class="lt-cap"><b>Ngày ấy</b>Cô sinh viên năm nhất còn bỡ ngỡ</p>
+          </li>
+          <li class="lantern" style="--c:#FFE07A;--len:14vh;--dl:-2.5s">
+            <span class="lt-string" aria-hidden="true"></span>
+            <div class="lt-body"><svg viewBox="0 0 120 180" aria-hidden="true"><use href="#lantern"/></svg><label class="photo-slot lt-photo" data-slot="ao-cu-nhan" data-label="Ảnh hôm nay"></label></div>
+            <p class="lt-cap"><b>Hôm nay</b>Khoác lên mình tấm áo cử nhân</p>
+          </li>
+          <li class="lantern" style="--c:#9FE8FF;--len:6vh;--dl:-.4s">
+            <span class="lt-string" aria-hidden="true"></span>
+            <div class="lt-body"><svg viewBox="0 0 120 180" aria-hidden="true"><use href="#lantern"/></svg><span class="lt-photo lt-art"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#butterflyArt"/></svg></span></div>
+            <p class="lt-cap"><b>Mai sau</b>Tung cánh bay xa như những cánh bướm</p>
+          </li>
+        </ol>
+        <span class="critter puff patrol" data-kind="puff" style="left:12vw;--w:62px;--t:11s"></span>
+        <span class="orb" style="left:90vw;--h:110px;--c:#C9A8FF;--dl:-1.4s"></span>
+      </article>
+
+      <!-- chặng 4: hồ kỷ niệm -->
+      <article class="station s3" id="st-3" aria-labelledby="t3">
+        <h2 class="sky-title" id="t3">Hồ kỷ niệm</h2>
+        <p class="sky-sub">Những khoảnh khắc mình muốn giữ mãi</p>
+        <svg class="pond" viewBox="0 0 1200 240" aria-hidden="true"><use href="#pond"/></svg>
+        <div class="pads">
+          <figure class="pad" style="--x:10%;--y:8%;--dl:-1s"><label class="photo-slot" data-slot="album-1" data-label="Kỷ niệm 1"></label><figcaption>Ngày nhập học</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
+          <figure class="pad" style="--x:36%;--y:0%;--dl:-2.2s"><label class="photo-slot" data-slot="album-2" data-label="Kỷ niệm 2"></label><figcaption>Mùa thi đầu tiên</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
+          <figure class="pad" style="--x:62%;--y:6%;--dl:-.4s"><label class="photo-slot" data-slot="album-3" data-label="Kỷ niệm 3"></label><figcaption>Chuyến đi cùng lớp</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
+          <figure class="pad" style="--x:22%;--y:44%;--dl:-1.6s"><label class="photo-slot" data-slot="album-4" data-label="Kỷ niệm 4"></label><figcaption>Hội trại</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
+          <figure class="pad" style="--x:50%;--y:40%;--dl:-3s"><label class="photo-slot" data-slot="album-5" data-label="Kỷ niệm 5"></label><figcaption>Ngày bảo vệ</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
+          <figure class="pad" style="--x:76%;--y:46%;--dl:-.9s"><label class="photo-slot" data-slot="album-6" data-label="Kỷ niệm 6"></label><figcaption>Ngày tốt nghiệp</figcaption><svg viewBox="0 0 200 80" aria-hidden="true"><use href="#lily"/></svg></figure>
+        </div>
+        <span class="critter frog patrol" data-kind="frog" style="left:84vw;--w:60px;--t:13s"></span>
+      </article>
+
+      <!-- chặng 5: cổng hoa, thư mời -->
+      <article class="station s4" id="st-4" aria-labelledby="t4">
+        <div class="gate">
+          <svg class="gate-garland" viewBox="0 0 800 440" aria-hidden="true"><use href="#garland"/></svg>
+          <div class="card invite">
+            <p class="chip">Chặng 5 · Cổng hoa</p>
+            <h2 id="t4">Mời bạn đến dự lễ tốt nghiệp của mình</h2>
+            <p class="inv-name">Trương Thị Thanh Huyền</p>
+            <p class="inv-major">[Ngành học] · [Tên trường]</p>
+            <p class="nights" id="countdown" aria-live="polite"><span id="cdPre">Còn</span> <b id="cdNum">9</b> <span id="cdPost">đêm nữa</span></p>
+            <ul class="facts">
+              <li><span class="fi" aria-hidden="true">✦</span><span><b>Ngày</b>Thứ Bảy, 07.11.2026</span></li>
+              <li><span class="fi" aria-hidden="true">☾</span><span><b>Giờ</b>Từ 12h30 · mình sẽ chờ bạn ở cổng trường</span></li>
+              <li><span class="fi" aria-hidden="true">❀</span><span><b>Nơi</b>[Tên địa điểm] · [Địa chỉ]</span></li>
+            </ul>
+            <p class="inv-note"><svg viewBox="0 0 160 80" aria-hidden="true"><use href="#diploma"/></svg><span>Chỉ cần mang theo nụ cười thôi nhé, có thêm một bông hoa nhỏ thì mình vui lắm!</span></p>
+            <div class="inv-actions">
+              <a class="btn btn-gold" id="mapLink" href="https://www.google.com/maps/search/?api=1&amp;query=" target="_blank" rel="noopener">Chỉ đường</a>
+              <button class="btn btn-ghost" id="icsBtn" type="button">Lưu vào lịch</button>
+            </div>
+          </div>
+        </div>
+        <span class="critter bunny patrol" data-kind="bunny" style="left:78vw;--w:70px;--t:10s"></span>
+      </article>
+
+      <!-- chặng 6: hẹn gặp -->
+      <article class="station s5" id="st-5" aria-labelledby="t5">
+        <svg class="bunting" viewBox="0 0 1000 130" preserveAspectRatio="none" aria-hidden="true"><use href="#bunting"/></svg>
+        <div class="caps-toss" aria-hidden="true">
+          <svg viewBox="0 0 160 120" style="--x:-42vw;--d:0s"><use href="#gradCap"/></svg>
+          <svg viewBox="0 0 160 120" style="--x:-30vw;--d:-1.2s"><use href="#gradCap"/></svg>
+          <svg viewBox="0 0 160 120" style="--x:30vw;--d:-2.1s"><use href="#gradCap"/></svg>
+          <svg viewBox="0 0 160 120" style="--x:42vw;--d:-.6s"><use href="#gradCap"/></svg>
+        </div>
+        <div class="finale">
+          <figure class="group-photo"><label class="photo-slot" data-slot="cung-moi-nguoi" data-label="Ảnh cùng mọi người"></label><figcaption>Cùng những người thương</figcaption></figure>
+          <h2 id="t5">Hẹn gặp bạn dưới bầu trời đom đóm!</h2>
+          <p>Cảm ơn bạn đã dạo cùng mình đến cuối khu vườn.</p>
+          <p class="sign">Thanh Huyền ♡</p>
+          <button class="btn btn-ghost" id="toStart" type="button">↺ Dạo lại từ đầu</button>
+        </div>
+        <span class="critter fox" data-kind="fox" style="left:18vw;--w:92px"></span>
+        <span class="critter puff" data-kind="puff" style="left:30vw;--w:56px"></span>
+        <span class="critter frog" data-kind="frog" style="left:66vw;--w:56px"></span>
+        <span class="critter bunny rev" data-kind="bunny" style="left:76vw;--w:66px"></span>
+        <span class="orb" style="left:44vw;--h:140px;--c:#FFE07A;--dl:-.6s"></span>
+        <span class="orb" style="left:56vw;--h:100px;--c:#7FE6FF;--dl:-2s"></span>
+      </article>
     </div>
-    <div class="layer" style="--d:44">
-      <svg class="fg fg-l" viewBox="0 0 500 900" preserveAspectRatio="xMinYMax meet"><use href="#fgLeaves"/></svg>
-      <svg class="fg fg-r" viewBox="0 0 500 900" preserveAspectRatio="xMaxYMax meet"><use href="#fgLeaves" transform="matrix(-1 0 0 1 500 0)"/></svg>
-      <span class="bfly" style="--bc:#8FC7E0;--s:86px;right:10%;bottom:16%;--t:12s;--dl:-4s;--rz:-8deg"></span>
-    </div>
+
+    <div class="bg fg" data-speed="1.35" aria-hidden="true"></div>
+    <div class="companion" id="companion" aria-hidden="true"><span class="critter bunny" data-kind="bunny"></span></div>
+    <p class="scroll-hint" id="scrollHint">Cuộn để dạo vườn <span aria-hidden="true">→</span></p>
+    <nav class="chapters" id="chapters" aria-label="Các chặng">
+      <button type="button" data-i="0" aria-label="Chặng 1: Đêm hội đom đóm"></button>
+      <button type="button" data-i="1" aria-label="Chặng 2: Cây ước nguyện"></button>
+      <button type="button" data-i="2" aria-label="Chặng 3: Ba chiếc đèn lồng"></button>
+      <button type="button" data-i="3" aria-label="Chặng 4: Hồ kỷ niệm"></button>
+      <button type="button" data-i="4" aria-label="Chặng 5: Cổng hoa"></button>
+      <button type="button" data-i="5" aria-label="Chặng 6: Hẹn gặp bạn"></button>
+    </nav>
   </div>
-
-  <div class="wrap hero-inner">
-    <h1 class="sr-only" id="heroTitle">Thư mời tốt nghiệp của Trương Thị Thanh Huyền</h1>
-    <div class="logo-wrap" id="logoWrap">
-      <svg class="logo" id="logo" viewBox="0 0 1000 360" aria-hidden="true">
-        <defs>
-          <linearGradient id="gTitle" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFDF4"/><stop offset=".6" stop-color="#FBEBC0"/><stop offset="1" stop-color="#E9C171"/></linearGradient>
-          <filter id="tGlow" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope=".35"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <g filter="url(#tGlow)" text-anchor="middle">
-          <text x="500" y="128" font-family="'Dancing Script',cursive" font-weight="700" font-size="112" fill="#FFFDF4">Thư mời</text>
-          <text x="500" y="270" font-family="'Lora',serif" font-style="italic" font-weight="600" font-size="128" fill="url(#gTitle)">Tốt Nghiệp</text>
-        </g>
-        <path d="M250 312 Q375 292 500 312 Q625 332 750 312" fill="none" stroke="#FFF4D6" stroke-width="3" stroke-linecap="round" opacity=".9"/>
-        <circle cx="500" cy="312" r="7" fill="#FFF4D6"/><circle cx="250" cy="312" r="4" fill="#FFF4D6"/><circle cx="750" cy="312" r="4" fill="#FFF4D6"/>
-      </svg>
-    </div>
-
-    <div class="garden" id="garden">
-      <span class="bl-glow" aria-hidden="true"></span>
-      <svg class="bud-stem" viewBox="0 0 400 300" aria-hidden="true"><use href="#budStem"/></svg>
-      <div class="bloom" id="bloom">
-        <div class="bl-tilt" id="blTilt" aria-hidden="true"></div>
-        <div class="bl-core" id="core" aria-hidden="true">
-          <label class="photo-slot core-photo" data-slot="chan-dung" data-label="Ảnh chân dung"></label>
-        </div>
-        <button class="bl-hit" id="bloomBtn" type="button" aria-label="Chạm vào nụ hoa để mở thư mời"></button>
-      </div>
-    </div>
-
-    <div class="welcome" id="welcome">
-      <p class="sign-post">✦ Chạm vào nụ hoa để mở thư mời của <b>Thanh Huyền</b> ✦</p>
-    </div>
-    <div class="after" id="after" hidden>
-      <p class="sign-post">Chào mừng bạn đến khu vườn của mình</p>
-      <div class="after-row">
-        <a class="btn btn-yellow" href="#loi-cam-on">Xem thư mời ↓</a>
-        <button class="btn-soft" id="reshuffle" type="button">Thu nụ lại</button>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <section class="section thanks" id="loi-cam-on">
-    <div class="wrap">
-      <div class="board">
-        <svg class="board-branch" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><use href="#branch"/></svg>
-        <div class="board-wood">
-          <div class="board-panel">
-            <figure class="round-photo" style="--pc:#F2A7BC">
-              <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
-              <label class="photo-slot rp-photo" data-slot="tan-cu-nhan" data-pos="50% 18%" data-label="Ảnh tân cử nhân"></label>
-              <figcaption>Tân cử nhân 2026</figcaption>
-            </figure>
-            <div class="thanks-text">
-              <h2 class="ink-h">Lời cảm ơn</h2>
-              <p>Những năm đại học là khu vườn nơi mình được gieo hạt, được chăm bón và lớn lên từng ngày. Có những mùa nắng rực rỡ, cũng có những ngày mưa mình tưởng như muốn dừng lại.</p>
-              <p>Cảm ơn bố mẹ và gia đình đã luôn là mảnh đất vững chãi cho mình. Cảm ơn thầy cô đã kiên nhẫn vun trồng từng bài học. Cảm ơn bạn bè đã cùng mình đi qua mọi mùa hoa.</p>
-              <p class="magic">Nếu có phép màu nào trong hành trình này, đó chính là mọi người.</p>
-              <p class="sign">Thanh Huyền</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section grow-sec" id="ba-doa-hoa">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="kicker">Ba đóa hoa</p>
-        <h2 class="pop">Quá khứ, hiện tại và tương lai</h2>
-      </div>
-      <ol class="grow-list">
-        <li class="grow" style="--pc:#F3C3A4;--h:150px">
-          <div class="grow-plant">
-            <div class="round-photo">
-              <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
-              <label class="photo-slot rp-photo" data-slot="thoi-sinh-vien" data-label="Ảnh thời sinh viên"></label>
-            </div>
-            <svg class="grow-stem" viewBox="0 0 80 220" preserveAspectRatio="none" aria-hidden="true"><use href="#growStem"/></svg>
-          </div>
-          <p class="leaf-tag">Quá khứ · Nụ hoa</p>
-          <h3>Gieo hạt, ươm mầm</h3>
-          <p>Những năm tháng miệt mài học tập trên giảng đường.</p>
-        </li>
-        <li class="grow" style="--pc:#F2A7BC;--h:210px">
-          <div class="grow-plant">
-            <div class="round-photo">
-              <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
-              <label class="photo-slot rp-photo" data-slot="ao-cu-nhan" data-label="Ảnh mặc áo cử nhân"></label>
-            </div>
-            <svg class="grow-stem" viewBox="0 0 80 220" preserveAspectRatio="none" aria-hidden="true"><use href="#growStem"/></svg>
-          </div>
-          <p class="leaf-tag">Hiện tại · Hoa nở</p>
-          <h3>Thành quả, niềm vui</h3>
-          <p>Ngày hôm nay, mình chính thức tốt nghiệp.</p>
-        </li>
-        <li class="grow" style="--pc:#C9B6E8;--h:150px">
-          <div class="grow-plant">
-            <div class="round-photo">
-              <svg class="rp-ring" viewBox="0 0 200 200" aria-hidden="true"><use href="#petalRing"/></svg>
-              <span class="rp-photo rp-art"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#butterflyArt"/></svg></span>
-            </div>
-            <svg class="grow-stem" viewBox="0 0 80 220" preserveAspectRatio="none" aria-hidden="true"><use href="#growStem"/></svg>
-          </div>
-          <p class="leaf-tag">Tương lai · Cánh bướm</p>
-          <h3>Tung cánh, bay xa</h3>
-          <p>Mang theo những điều đã học để chạm tới ước mơ.</p>
-        </li>
-      </ol>
-    </div>
-    <div class="trail" aria-hidden="true"><span class="critter bunny" data-kind="bunny" style="--w:70px;--t:20s;--dl:-5s"></span><span class="critter frog rev" data-kind="frog" style="--w:56px;--t:32s;--dl:-18s"></span></div>
-  </section>
-
-  <section class="section album" id="album">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="kicker">Những ngày đáng nhớ</p>
-        <h2 class="pop">Album kỷ niệm</h2>
-      </div>
-      <div class="lines">
-        <div class="line">
-          <figure class="snap" style="--rot:-5deg;--dy:18px;--dl:-1s"><span class="pin"></span><label class="photo-slot" data-slot="album-1" data-label="Ảnh album 1"></label></figure>
-          <figure class="snap" style="--rot:3deg;--dy:46px;--dl:-2.4s"><span class="pin"></span><label class="photo-slot" data-slot="album-2" data-label="Ảnh album 2"></label></figure>
-          <figure class="snap" style="--rot:-2deg;--dy:18px;--dl:-.6s"><span class="pin"></span><label class="photo-slot" data-slot="album-3" data-label="Ảnh album 3"></label></figure>
-        </div>
-        <div class="line">
-          <figure class="snap" style="--rot:4deg;--dy:18px;--dl:-1.8s"><span class="pin"></span><label class="photo-slot" data-slot="album-4" data-label="Ảnh album 4"></label></figure>
-          <figure class="snap" style="--rot:-3deg;--dy:46px;--dl:-3s"><span class="pin"></span><label class="photo-slot" data-slot="album-5" data-label="Ảnh album 5"></label></figure>
-          <figure class="snap" style="--rot:5deg;--dy:18px;--dl:-.2s"><span class="pin"></span><label class="photo-slot" data-slot="album-6" data-label="Ảnh album 6"></label></figure>
-        </div>
-      </div>
-    </div>
-    <div class="trail" aria-hidden="true"><span class="critter fox" data-kind="fox" style="--w:100px;--t:14s;--dl:-2s"></span><span class="critter puff rev" data-kind="puff" style="--w:58px;--t:26s;--dl:-11s"></span></div>
-  </section>
-
-  <section class="section invite" id="thu-moi">
-    <div class="wrap">
-      <div class="arch" id="arch">
-        <svg class="arch-garland" viewBox="0 0 800 440" aria-hidden="true"><use href="#garland"/></svg>
-        <article class="arch-card">
-          <p class="kicker">Thư mời</p>
-          <h2 class="letter-h">Trân trọng kính mời bạn đến dự lễ tốt nghiệp của mình</h2>
-          <p class="letter-name">Trương Thị Thanh Huyền</p>
-          <p class="letter-major">[Ngành học] · [Tên trường]</p>
-          <p class="countdown" id="countdown" aria-live="polite"><span id="cdPre">Còn</span> <b id="cdNum">10</b> <span id="cdPost">ngày</span></p>
-          <dl class="details">
-            <div>
-              <dt><span class="dt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>Ngày</dt>
-              <dd>Thứ Bảy, 07.11.2026</dd>
-            </div>
-            <div>
-              <dt><span class="dt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>Giờ</dt>
-              <dd>Từ 12h30<span>Lúc đó mình vừa nhận bằng xong, mời bạn đến chung vui cùng mình</span></dd>
-            </div>
-            <div>
-              <dt><span class="dt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Địa điểm</dt>
-              <dd>[Tên địa điểm]<span>[Địa chỉ]</span></dd>
-            </div>
-          </dl>
-          <a class="btn btn-yellow" href="https://www.google.com/maps/search/?api=1&amp;query=" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-            Xem đường đi
-          </a>
-          <p class="closing">Sự có mặt của bạn là món quà ý nghĩa nhất với mình. Hẹn gặp bạn ở khu vườn ngày hôm ấy nhé!</p>
-        </article>
-      </div>
-    </div>
-    <div class="trail" aria-hidden="true"><span class="critter puff" data-kind="puff" style="--w:58px;--t:22s;--dl:-7s"></span><span class="critter bunny rev" data-kind="bunny" style="--w:70px;--t:18s;--dl:-13s"></span></div>
-  </section>
-</main>
-
-<footer class="site-foot">
-  <div class="trail" aria-hidden="true"><span class="critter frog" data-kind="frog" style="--w:50px;--t:34s;--dl:-8s"></span></div>
-  <div class="wrap"><p><b>Trương Thị Thanh Huyền</b> · Lễ tốt nghiệp 2026</p></div>
-</footer>
+</section>
 
 <script src="js/sprite.js"></script>
 <script src="js/main.js"></script>

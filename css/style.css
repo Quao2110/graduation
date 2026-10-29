@@ -290,6 +290,44 @@ body.lb-open{overflow:hidden}
   .lb-btn{width:44px;height:44px}
   .lb-prev,.lb-next{top:auto;bottom:3vh;translate:none}
   .lightbox{padding:8vh 3vw 12vh}
+  /* điện thoại: cú đậu chỉ còn ở chặng cuối, thẻ nội dung nằm trên các con vật */
+  .s1 .perch,.s4 .perch{display:none}
+  .card,.gate,.notes{z-index:5}
+  .s2 .sky-title,.s2 .sky-sub{z-index:5}
+  .notes{bottom:calc(var(--ground) + 13%)}
+  .invite h2{max-width:15em;margin-left:auto;margin-right:auto}
+  .letter{max-height:none;overflow:visible;font-size:13.5px;line-height:1.5;padding:18px 18px 16px}
+  .letter h2{font-size:24px;margin-bottom:8px}
+  .letter p{font-size:13.5px;margin-bottom:8px}
+  .letter .sign{font-size:26px!important}
+  .hang-photo{width:28%;margin:0 0 6px 10px}
+  .gate{top:1%;width:94vw}
+  .invite{margin-top:5%;padding:52px 14px 16px}
+  .invite .chip{font-size:14px;margin-bottom:2px}
+  .invite h2{font-size:19px;margin-bottom:2px}
+  .inv-name{font-size:30px!important}
+  .inv-major{font-size:13.5px!important;margin:0 0 8px!important}
+  .nights{padding:5px 18px;margin-bottom:10px!important;font-size:15px}
+  .nights b{font-size:24px}
+  .facts{gap:6px;margin-bottom:12px}
+  .facts li{padding:6px 10px;gap:8px;font-size:14px;line-height:1.4;border-radius:12px}
+  .facts b{font-size:11px}
+  .inv-note{display:none}
+  .inv-actions .btn{padding:10px 20px;font-size:15px}
+}
+@media (max-width:760px) and (max-height:700px){
+  .wreath{width:min(48vw,30vh);top:6%}
+  .intro{top:31%}
+  .eyebrow{font-size:15px}
+  .intro-line{font-size:17px;margin-top:6px}
+  .letter{top:3%;font-size:12.5px}
+  .letter p{font-size:12.5px;line-height:1.45}
+  .letter h2{font-size:21px}
+  .notes li{padding:5px 4px 6px}.notes svg{width:22px;height:22px}
+  .invite .chip,.inv-major{display:none}
+  .invite{padding-top:44px}
+  .facts li{font-size:13px;padding:4px 10px}
+  .s2 .sky-sub{display:none}
 }
 @media (max-height:720px) and (min-width:761px){
   .letter{font-size:14.5px;line-height:1.5;top:5%}

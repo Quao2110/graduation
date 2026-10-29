@@ -115,13 +115,8 @@
     makeGlow('rgba(255,190,230,.9)', 'rgba(255,110,190,.3)'), makeGlow('rgba(215,190,255,.9)', 'rgba(160,110,255,.3)'), makeGlow('rgba(200,255,200,.9)', 'rgba(110,230,140,.3)')];
   function anyGlow() { return (Math.random() * GLOWS.length) | 0; }
 
-  var GLYPHS = ['</>', '{ }', '( )', '=>', ';', '[ ]', '01', '&&', '#', '++', '!=', '//', 'git', 'λ', '</>', '{ }'];
-  var glyphs = [];
   function makeSky() {
-    pollen = []; twinkles = []; petals = []; glyphs = [];
-    for (var gq = 0, gc = clamp(Math.round(W * H / 60000), 8, 26); gq < gc; gq++) {
-      glyphs.push({ x: Math.random() * W, y: Math.random() * H * 0.9, s: rand(13, 24), vy: rand(0.12, 0.35), ph: Math.random() * 6.28, d: rand(0.08, 0.3), t: GLYPHS[gq % GLYPHS.length], c: TWINKLE[gq % TWINKLE.length] });
-    }
+    pollen = []; twinkles = []; petals = [];
     for (var i = 0, c = clamp(Math.round(W * H / 14000), 30, 120); i < c; i++) {
       pollen.push({ x: Math.random() * W, y: Math.random() * H * 0.85, r: Math.random() < 0.15 ? rand(3, 5.5) : rand(0.8, 2.2), ph: Math.random() * 6.28, sp: rand(0.6, 2), d: rand(0.04, 0.2), g: GLOWS[i % 5] });
     }
@@ -195,17 +190,6 @@
       sctx.globalAlpha = ta; sctx.fillStyle = tw.c; sparkPath(sctx, tx, tw.y, tr); sctx.fill();
     }
     sctx.globalCompositeOperation = 'source-over';
-    /* ký hiệu code bay lên chầm chậm như bong bóng */
-    sctx.textAlign = 'center'; sctx.textBaseline = 'middle';
-    for (var gi2 = 0; gi2 < glyphs.length; gi2++) {
-      var gl = glyphs[gi2];
-      if (!reduce) { gl.y -= gl.vy * dt / 16.67; if (gl.y < -30) { gl.y = H + 30; gl.x = Math.random() * W; } }
-      sctx.globalAlpha = 0.32 + 0.22 * Math.sin(t * 0.8 + gl.ph);
-      sctx.font = '600 ' + gl.s + 'px "JetBrains Mono", Consolas, monospace';
-      sctx.fillStyle = gl.c; sctx.shadowColor = 'rgba(255,255,255,.7)'; sctx.shadowBlur = 8;
-      sctx.fillText(gl.t, wrapX(gl.x + Math.sin(t * 0.5 + gl.ph) * 10, trackX * gl.d), gl.y);
-    }
-    sctx.shadowBlur = 0;
     /* cánh hoa rơi chậm, vừa xoay vừa lật */
     var f0 = dt / 16.67;
     for (var k = 0; k < petals.length; k++) {
@@ -381,7 +365,7 @@
       dots.forEach(function (d, k) { d.classList.toggle('on', k === idx); d.setAttribute('aria-current', k === idx ? 'step' : 'false'); });
     }
     hint.classList.toggle('gone', prog > 0.02);
-    if (idx === N - 1 && !finaleDone) { finaleDone = true; fireworks(); typeFinale(); }
+    if (idx === N - 1 && !finaleDone) { finaleDone = true; fireworks(); }
   }
   dots.forEach(function (d) { d.addEventListener('click', function () { goTo(+d.dataset.i); }); });
   $('#toStart').addEventListener('click', function () { goTo(0); });
@@ -534,60 +518,8 @@
     fctx.setTransform(1, 0, 0, 1, 0, 0);
     requestAnimationFrame(frame);
   }
-  /* ---------- hiệu ứng lập trình viên ---------- */
-  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
-  /* gõ từng dòng vào một phần tử; mỗi dòng là [lớp, chữ] hoặc chuỗi nhiều đoạn */
-  function typeLines(el, lines, speed, done) {
-    var li = 0, ci = 0, html = '', stopped = false;
-    function step() {
-      if (stopped) return;
-      if (li >= lines.length) { if (done) done(); return; }
-      var ln = lines[li];
-      if (ci === 0 && ln.instant) { html += ln.html; li++; el.innerHTML = html + '<span class="caret"></span>'; return setTimeout(step, ln.wait || 160); }
-      var txt = ln.text;
-      ci++;
-      el.innerHTML = html + (ln.cls ? '<span class="' + ln.cls + '">' : '') + esc(txt.slice(0, ci)) + (ln.cls ? '</span>' : '') + '<span class="caret"></span>';
-      if (ci >= txt.length) { html += (ln.cls ? '<span class="' + ln.cls + '">' : '') + esc(txt) + (ln.cls ? '</span>' : '') + (ln.br === false ? '' : '\n'); li++; ci = 0; return setTimeout(step, ln.wait || 120); }
-      setTimeout(step, speed);
-    }
-    step();
-    return function () { stopped = true; };
-  }
-  function runBoot(next) {
-    var boot = $('#boot'), body = $('#bootBody'), finished = false;
-    function finish() {
-      if (finished) return; finished = true;
-      boot.classList.add('done'); setTimeout(function () { boot.hidden = true; }, 800);
-      next();
-    }
-    if (!boot) return next();
-    if (reduce) { boot.hidden = true; return next(); }
-    var stop = typeLines(body, [
-      { cls: 'p', text: '$ ', br: false, wait: 60 }, { text: 'npm run graduate', wait: 260 },
-      { instant: true, html: '<span class="c">&gt; huyen-graduation@2026.11.07 build</span>\n', wait: 220 },
-      { instant: true, html: '<span class="k">compiling</span> 4 năm đại học ............ <span class="ok">✓</span>\n', wait: 260 },
-      { instant: true, html: '<span class="k">testing</span>   1 tấm bằng cử nhân .. <span class="ok">passed</span>\n', wait: 260 },
-      { instant: true, html: '<span class="k">bundling</span>  54 kỷ niệm ............... <span class="ok">100%</span>\n', wait: 300 },
-      { instant: true, html: '<span class="ok">✓ Build succeeded</span> · 0 errors · ∞ niềm vui\n', wait: 200 },
-      { cls: 'big', text: '> Welcome, Kỹ sư Thanh Huyền ✨', wait: 700 }
-    ], 26, finish);
-    boot.addEventListener('click', function () { stop(); finish(); });
-    window.addEventListener('keydown', function () { stop(); finish(); }, { once: true });
-  }
-  var finaleTyped = false;
-  function typeFinale() {
-    var el = $('#finaleTerm .tl-text'), caret = $('#finaleTerm .caret');
-    if (!el || finaleTyped) return; finaleTyped = true;
-    if (caret) caret.remove();
-    typeLines(el, [{ cls: 'p', text: '$ ', br: false, wait: 40 }, { text: 'git push origin tuong-lai', wait: 500 }, { text: '✓ Hẹn gặp bạn ngày 07.11 nhé!', br: false }], reduce ? 0 : 45);
-  }
-  try {
-    console.log('%c</> Thư mời tốt nghiệp · Trương Thị Thanh Huyền', 'font:600 16px monospace;color:#FF7FB5');
-    console.log('%cĐã mở DevTools rồi à? Đúng là dân code 😄 Hẹn gặp bạn 12h30 ngày 07.11.2026 ở ĐH FPT TP.HCM!', 'font:13px monospace;color:#7FB8E6');
-  } catch (e) {}
-
   window.addEventListener('resize', resize);
   resize();
-  runBoot(revealName);
+  revealName();
   requestAnimationFrame(frame);
 })();

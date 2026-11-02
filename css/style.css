@@ -71,7 +71,7 @@ svg{overflow:visible}
 .has-img:hover .ph-change,.has-img:focus-within .ph-change{opacity:1}
 
 /* ---------- chặng 1: ngày hội tốt nghiệp ---------- */
-.wreath{position:absolute;right:8vw;top:9%;width:min(44vh,34vw);aspect-ratio:1;animation:float 7s ease-in-out infinite}
+.wreath{position:absolute;right:6vw;top:8%;width:min(56vh,40vw);aspect-ratio:1;animation:float 7s ease-in-out infinite}
 .wreath-art{position:absolute;inset:-4%;width:108%;height:108%;filter:drop-shadow(0 12px 24px rgba(80,40,110,.25))}
 .wreath-photo{position:absolute;left:21%;top:21%;width:58%;height:58%;border-radius:50%!important;outline-offset:-10px}
 .wreath-cap{position:absolute;right:2%;top:-6%;width:34%;height:auto;rotate:16deg;filter:drop-shadow(0 6px 10px rgba(40,20,80,.35))}
@@ -172,14 +172,11 @@ body.lb-open{overflow:hidden}
 .inv-note svg{flex:none;width:64px;height:auto}
 
 /* ---------- chặng 6: hẹn gặp ---------- */
-.finale{position:absolute;left:50%;top:12%;transform:translateX(-50%);width:min(640px,88vw);text-align:center}
+.finale{position:absolute;left:50%;top:22%;transform:translateX(-50%);width:min(640px,88vw);text-align:center}
 .finale h2{margin:0 0 10px;font:600 italic clamp(34px,2.8vw + 20px,64px)/1.15 var(--f-title);color:#FFF8EC;text-shadow:0 0 20px rgba(255,190,230,.9),0 0 50px rgba(160,120,255,.6)}
 .finale p{margin:0 0 8px;font:500 italic clamp(19px,.6vw + 15px,24px)/1.5 var(--f-title);color:#FFF0F6;text-shadow:0 2px 8px rgba(40,10,60,.6)}
 .finale .sign{color:#FFC6E2!important;text-shadow:0 0 16px rgba(255,140,200,.8)}
 .finale .btn{margin-top:18px;color:#fff}
-.group-photo{width:min(240px,46vw);margin:0 auto 18px;padding:8px 8px 34px;background:#fff;border-radius:4px;box-shadow:0 16px 30px rgba(60,30,90,.3);rotate:-3deg;position:relative}
-.group-photo .photo-slot{aspect-ratio:4/3;border-radius:2px}
-.group-photo figcaption{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:700 20px/1.1 var(--f-script);color:var(--rose-d)}
 .caps-toss{position:absolute;left:50%;bottom:calc(var(--ground) + 6%);width:0;height:0}
 .caps-toss svg{position:absolute;left:-40px;top:0;width:80px;height:auto;filter:drop-shadow(0 0 12px rgba(255,220,140,.6));animation:toss 3.4s ease-in-out var(--d,0s) infinite}
 @keyframes toss{0%,100%{transform:translate(calc(var(--x) * .6),0) rotate(0)}50%{transform:translate(var(--x),-32vh) rotate(380deg)}}
@@ -280,8 +277,9 @@ body.lb-open{overflow:hidden}
 @media (max-width:760px){
   .album{top:calc(8% + 128px);bottom:9%}
   .s3 .sky-sub{padding:0 6vw;font-size:16px}
-  .wreath{right:50%;transform:translateX(50%);top:7%;width:48vw;animation:none}
-  .intro{left:5vw;top:30%;width:90vw}
+  .wreath{right:50%;transform:translateX(50%);top:6%;width:58vw;animation:none}
+  .intro{left:5vw;top:34%;width:90vw}
+  .finale{top:31%}
   .wish-tree{left:-26vw;opacity:.5}
   .letter{left:6vw;width:88vw;top:6%;max-height:56%;overflow:auto;font-size:14.5px;line-height:1.55}
   .hang-photo{width:30%}
@@ -301,7 +299,6 @@ body.lb-open{overflow:hidden}
   .badges{gap:6px}.badges li{padding:6px 12px;font-size:13px}.badges b{font-size:20px}
   .notes{left:4vw;right:4vw;top:auto;bottom:calc(var(--ground) + 4%);flex-direction:row;gap:8px;justify-content:center}
   .notes li{width:28vw;font-size:12.5px;padding:8px 6px 10px}.notes b{font-size:15px}.notes svg{width:30px;height:30px}
-  .group-photo{width:52vw}
   .snap{padding:3px 3px 9px}
   .lb-btn{width:44px;height:44px}
   .lb-prev,.lb-next{top:auto;bottom:3vh;translate:none}
@@ -332,8 +329,8 @@ body.lb-open{overflow:hidden}
   .inv-actions .btn{padding:10px 20px;font-size:15px}
 }
 @media (max-width:760px) and (max-height:700px){
-  .wreath{width:min(48vw,30vh);top:6%}
-  .intro{top:31%}
+  .wreath{width:min(56vw,34vh);top:5%}
+  .intro{top:36%}
   .eyebrow{font-size:15px}
   .intro-line{font-size:17px;margin-top:6px}
   .letter{top:3%;font-size:12.5px}

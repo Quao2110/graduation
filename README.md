@@ -34,7 +34,7 @@ HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG
 <label class="photo-slot wreath-photo" data-slot="chan-dung" data-src="assets/images/chan-dung.jpg" data-label="Ảnh chân dung"></label>
 ```
 
-Các khung: `chan-dung`, `tan-cu-nhan`, `cung-moi-nguoi`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
+Các khung: `chan-dung`, `tan-cu-nhan`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
 
 **Ảnh tốt nghiệp:** `assets/images/totnghiep/` (32 ảnh), kích thước khai báo trong mảng `GRAD` ở `js/main.js`. Vòng nguyệt quế dùng `vong-nguyet-que.jpg` (cắt từ ảnh 1), thư cảm ơn dùng ảnh 17.
 

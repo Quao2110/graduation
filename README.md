@@ -15,7 +15,7 @@ Kỹ thuật hạt sáng và xếp tên bằng canvas tham khảo từ [TranMinh
 | 5 | Cổng hoa | Thư mời, đếm ngày, chỉ đường, lưu vào lịch (.ics) |
 | 6 | Hẹn gặp bạn | Ảnh cùng mọi người, mũ cử nhân tung lên, pháo đom đóm |
 
-Điều hướng: cuộn/vuốt, thanh chặng ở dưới, hoặc phím ← →. Tôn trọng `prefers-reduced-motion`.
+Điều hướng: cuộn, vuốt ngang trên điện thoại (cảnh trôi theo ngón tay), thanh chặng ở dưới, hoặc phím ← →. Tôn trọng `prefers-reduced-motion`.
 
 HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG sinh từ code (`js/sprite.js`), cảnh nền là các ô SVG lặp liền mạch.
 

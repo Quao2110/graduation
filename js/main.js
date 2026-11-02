@@ -395,7 +395,8 @@
     var box = $('.streams'), lb = $('#lightbox'), lbImg = $('#lbImg'), lbCount = $('#lbCount'), at = 0, opener = null,
       set = { dir: 'album', n: ALBUM.length, label: 'Ảnh kỷ niệm ' };
     if (!box) return;
-    var ROWS = 3, per = Math.ceil(ALBUM.length / ROWS);
+    /* điện thoại: 2 dòng để ảnh to, dễ xem hơn */
+    var ROWS = window.innerWidth < 760 ? 2 : 3, per = Math.ceil(ALBUM.length / ROWS);
     for (var r = 0; r < ROWS; r++) {
       var row = document.createElement('div'), inner = document.createElement('div'), html = '';
       row.className = 'stream' + (r % 2 ? ' rev' : '');
@@ -495,6 +496,31 @@
     /* tự chuyển ảnh khi đang đứng ở chặng này */
     if (!reduce) setInterval(function () { if (current === 2 && !hold && $('#lightbox').hidden && !document.hidden) go(cur + 1); }, 3200);
     layout();
+  })();
+  /* vuốt ngang trên màn hình cảm ứng: cảnh trôi theo ngón tay, thả ra thì dừng ở chặng gần nhất */
+  (function () {
+    var sx = 0, sy = 0, sp = 0, axis = null, t0 = 0, lastDx = 0;
+    if (window.matchMedia('(pointer: coarse)').matches) hint.innerHTML = 'Vuốt sang để dạo vườn <span aria-hidden="true">←</span>';
+    stage.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1 || e.target.closest('.reel')) { axis = 'skip'; return; }
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY; sp = progT; axis = null; t0 = performance.now(); lastDx = 0;
+    }, { passive: true });
+    stage.addEventListener('touchmove', function (e) {
+      if (axis === 'skip' || axis === 'y') return;
+      var dx = e.touches[0].clientX - sx, dy = e.touches[0].clientY - sy;
+      if (!axis) { if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return; axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; if (axis === 'y') return; }
+      if (e.cancelable) e.preventDefault();
+      lastDx = dx;
+      var p = clamp(sp - dx / (W * (N - 1)), 0, 1);
+      window.scrollTo(0, journey.offsetTop + p * scrollSpan());
+    }, { passive: false });
+    stage.addEventListener('touchend', function () {
+      if (axis !== 'x') { axis = null; return; }
+      axis = null;
+      var start = sp * (N - 1), now = progT * (N - 1), moved = now - start, fast = Math.abs(lastDx) / Math.max(1, performance.now() - t0) > 0.3;
+      var target = Math.abs(moved) > 0.18 || (fast && Math.abs(lastDx) > 30) ? Math.round(start) + (moved > 0 ? 1 : -1) : Math.round(start);
+      goTo(clamp(target, 0, N - 1));
+    }, { passive: true });
   })();
   /* bàn phím: Tab tới nội dung chặng nào thì cuộn tới chặng đó; mũi tên trái/phải để chuyển chặng */
   track.addEventListener('focusin', function (e) {

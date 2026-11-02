@@ -26,7 +26,7 @@ svg{overflow:visible}
 
 /* ---------- sân khấu cuộn ngang ---------- */
 .journey{position:relative;z-index:2;height:calc(100svh + 5 * 115svh)}
-.stage{position:sticky;top:0;height:100svh;overflow:hidden}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden;touch-action:pan-y}
 .glow-horizon{position:absolute;left:50%;bottom:10%;width:170vw;height:90vh;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at 50% 70%,rgba(255,240,200,1) 0%,rgba(255,190,190,.65) 24%,rgba(230,140,200,.25) 46%,transparent 68%);pointer-events:none}
 .sun-disc{position:absolute;left:58%;bottom:34%;width:min(26vh,22vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#FFFBEA 0 42%,#FFE6A6 58%,rgba(255,210,150,0) 71%);box-shadow:0 0 140px 70px rgba(255,226,170,.55);pointer-events:none}
 .bg{position:absolute;left:0;right:0;background-repeat:repeat-x;background-size:auto 100%;pointer-events:none;will-change:transform;backface-visibility:hidden}
@@ -277,7 +277,8 @@ body.lb-open{overflow:hidden}
 
 /* ---------- màn hình hẹp / thấp ---------- */
 @media (max-width:760px){
-  .album{top:calc(8% + 128px);bottom:9%}
+  .album{top:calc(6% + 128px);bottom:15%}
+  .streams{gap:4%}
   .s3 .sky-sub{padding:0 6vw;font-size:16px}
   .wreath{right:50%;transform:translateX(50%);top:6%;width:58vw;animation:none}
   .intro{left:5vw;top:34%;width:90vw}
@@ -285,7 +286,9 @@ body.lb-open{overflow:hidden}
   .wish-tree{left:-26vw;opacity:.5}
   .letter{left:6vw;width:88vw;top:6%;max-height:56%;overflow:auto;font-size:14.5px;line-height:1.55}
   .hang-photo{width:30%}
-  .reel{top:3%;height:60%;--step:22vw;--mw:84vw}
+  .reel{top:3%;height:62%;--step:40vw;--mw:90vw}
+  .rf{transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .45s}
+  .rf:not(.on){opacity:0;pointer-events:none}
   .reel-btn{top:auto;bottom:-38px;translate:none;width:40px;height:40px;font-size:26px}
   .reel-prev{left:18vw}.reel-next{right:18vw}
   .reel-count{bottom:-28px}
@@ -315,7 +318,7 @@ body.lb-open{overflow:hidden}
   .letter h2{font-size:24px;margin-bottom:8px}
   .letter p{font-size:13.5px;margin-bottom:8px}
   .letter .sign{font-size:26px!important}
-  .hang-photo{width:28%;margin:0 0 6px 10px}
+  .hang-photo{width:36%;margin:0 0 6px 10px}
   .gate{top:1%;width:94vw}
   .invite{margin-top:5%;padding:52px 14px 16px}
   .invite .chip{font-size:14px;margin-bottom:2px}

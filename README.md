@@ -10,7 +10,7 @@ Kỹ thuật hạt sáng và xếp tên bằng canvas tham khảo từ [TranMinh
 |---|-------|----------|
 | 1 | Ngày hội tốt nghiệp | Ảnh chân dung trong vòng nguyệt quế, tên tụ lại từ đom đóm và bướm, huy hiệu 4 năm · 1 tấm bằng · ∞ kỷ niệm |
 | 2 | Cây ước nguyện | Thư cảm ơn treo trên cây, ảnh tân cử nhân, ba mẩu giấy biết ơn |
-| 3 | Ngày mình tốt nghiệp | Băng chiếu 35 ảnh tốt nghiệp kiểu 2.5D (ảnh giữa to, hai bên lùi dần), tự chuyển, bấm để xem lớn |
+| 3 | Ngày mình tốt nghiệp | Băng chiếu 32 ảnh tốt nghiệp kiểu 2.5D (ảnh giữa to, hai bên lùi dần), tự chuyển, bấm để xem lớn |
 | 4 | Hồ kỷ niệm | 54 ảnh polaroid trôi thành 3 dòng trên mặt hồ, bấm để xem lớn, lướt qua lại bằng nút, phím ← → hoặc vuốt |
 | 5 | Cổng hoa | Thư mời, đếm ngày, chỉ đường, lưu vào lịch (.ics) |
 | 6 | Hẹn gặp bạn | Ảnh cùng mọi người, mũ cử nhân tung lên, pháo đom đóm |
@@ -36,7 +36,7 @@ HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG
 
 Các khung: `chan-dung`, `tan-cu-nhan`, `cung-moi-nguoi`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
 
-**Ảnh tốt nghiệp:** `assets/images/totnghiep/` (35 ảnh), kích thước khai báo trong mảng `GRAD` ở `js/main.js`. Vòng nguyệt quế dùng ảnh 26, thư cảm ơn dùng ảnh 17.
+**Ảnh tốt nghiệp:** `assets/images/totnghiep/` (32 ảnh), kích thước khai báo trong mảng `GRAD` ở `js/main.js`. Vòng nguyệt quế dùng ảnh 24, thư cảm ơn dùng ảnh 17.
 
 **Album Hồ kỷ niệm:** ảnh nằm ở `assets/images/album/` (`01.jpg` … `54.jpg` bản lớn, `t01.jpg` … bản nhỏ). Kích thước bản nhỏ khai báo trong mảng `ALBUM` ở `js/main.js`; thêm hay bớt ảnh thì sửa cả mảng này.
 

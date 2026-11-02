@@ -522,6 +522,32 @@
       goTo(clamp(target, 0, N - 1));
     }, { passive: true });
   })();
+  /* ---------- nhạc nền: chỉ hiện nút khi có file nhạc; tự phát ở lần chạm/bấm đầu tiên (trình duyệt chặn tự phát trước đó) ---------- */
+  (function () {
+    var audio = $('#bgm'), btn = $('#musicBtn'), want = true;
+    if (!audio || !btn) return;
+    try { want = localStorage.getItem('bgm') !== 'off'; } catch (e) {}
+    audio.volume = 0.6;
+    function sync() { var on = !audio.paused; btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? 'Tắt nhạc' : 'Bật nhạc'); }
+    function play() { var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
+    function remember(v) { want = v; try { localStorage.setItem('bgm', v ? 'on' : 'off'); } catch (e) {} }
+    fetch(audio.getAttribute('src'), { method: 'HEAD' }).then(function (r) {
+      if (!r.ok) return;
+      btn.hidden = false;
+      var EV = ['pointerup', 'touchend', 'click', 'keydown'];
+      function stop() { EV.forEach(function (t) { window.removeEventListener(t, first, true); }); }
+      /* thử ở mỗi lần chạm/bấm cho tới khi trình duyệt cho phát (một cú vuốt có thể chưa được tính) */
+      function first(e) {
+        if (!want || (e.target.closest && e.target.closest('#musicBtn'))) return stop();
+        var p = audio.play();
+        if (p && p.then) p.then(stop, function () {}); else stop();
+      }
+      EV.forEach(function (t) { window.addEventListener(t, first, true); });
+    }).catch(function () {});
+    btn.addEventListener('click', function () { if (audio.paused) { remember(true); play(); } else { remember(false); audio.pause(); } });
+    audio.addEventListener('play', sync); audio.addEventListener('pause', sync);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) { audio._bg = !audio.paused; audio.pause(); } else if (audio._bg) play(); });
+  })();
   /* bàn phím: Tab tới nội dung chặng nào thì cuộn tới chặng đó; mũi tên trái/phải để chuyển chặng */
   track.addEventListener('focusin', function (e) {
     var st = e.target.closest('.station');

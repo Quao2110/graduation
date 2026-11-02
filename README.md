@@ -40,6 +40,8 @@ Các khung: `chan-dung`, `tan-cu-nhan`. Khung chưa có ảnh vẫn cho bấm đ
 
 **Album Hồ kỷ niệm:** ảnh nằm ở `assets/images/album/` (`01.jpg` … `54.jpg` bản lớn, `t01.jpg` … bản nhỏ). Kích thước bản nhỏ khai báo trong mảng `ALBUM` ở `js/main.js`; thêm hay bớt ảnh thì sửa cả mảng này.
 
+**Nhạc nền:** `assets/music/nhac-nen.mp3` (Công Tử Văn Thơ – MONO). Đổi bài thì thay file này, giữ nguyên tên. Không có file thì nút nhạc tự ẩn.
+
 ## Chạy thử
 
 ```bash

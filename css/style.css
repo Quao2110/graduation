@@ -192,6 +192,13 @@ body.lb-open{overflow:hidden}
 .companion.walking .cr-leg{animation:leg .26s ease-in-out infinite alternate!important}
 .companion.walking .cr-b{animation-direction:alternate-reverse!important}
 .companion.walking .cr-tail{animation:tail .5s ease-in-out infinite alternate!important}
+.music{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:max(14px,env(safe-area-inset-top,0px));z-index:12;width:46px;height:46px;border:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:rgba(255,250,243,.9);color:var(--rose-d);box-shadow:0 6px 18px rgba(60,30,90,.3);font:600 22px/1 var(--f-body)}
+.music:focus-visible{outline:2.5px solid #FFE07A;outline-offset:3px}
+.music .eq{display:none;gap:3px;align-items:flex-end;height:18px}
+.music .eq i{width:4px;height:100%;border-radius:2px;background:currentColor;animation:eq .9s ease-in-out infinite alternate}
+.music .eq i:nth-child(2){animation-delay:-.3s}.music .eq i:nth-child(3){animation-delay:-.6s}
+@keyframes eq{from{transform:scaleY(.3)}to{transform:scaleY(1)}}
+.music.on .eq{display:flex}.music.on .music-off{display:none}
 .chapters{position:absolute;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;gap:12px;z-index:7;padding:10px 16px;border-radius:999px;background:rgba(60,40,120,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .chapters button{width:12px;height:12px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.4);cursor:pointer;transition:width .3s,background .3s,box-shadow .3s}
 .chapters button.on{width:28px;background:#FFE07A;box-shadow:0 0 12px rgba(255,224,122,.9)}

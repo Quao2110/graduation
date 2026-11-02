@@ -371,10 +371,12 @@
   $('#toStart').addEventListener('click', function () { goTo(0); });
   /* ---------- hồ kỷ niệm: album ảnh trôi thành 3 dòng, bấm để xem lớn ---------- */
   var ALBUM = [[420,231],[379,420],[420,420],[420,315],[420,280],[207,420],[272,420],[315,420],[420,315],[420,233],[420,236],[315,420],[420,315],[420,237],[420,280],[420,304],[236,420],[268,420],[420,315],[420,315],[420,315],[315,420],[420,315],[420,315],[420,236],[420,236],[420,387],[420,316],[420,220],[315,420],[420,315],[420,315],[420,280],[420,420],[420,315],[315,420],[420,315],[420,315],[420,236],[315,420],[236,420],[420,420],[420,280],[315,420],[420,420],[312,420],[420,315],[420,259],[420,315],[420,315],[420,315],[420,315],[313,420],[420,315]];
+  function pad(i) { return (i < 9 ? '0' : '') + (i + 1); }
+  var openLightbox = function () {};
   (function () {
-    var box = $('.streams'), lb = $('#lightbox'), lbImg = $('#lbImg'), lbCount = $('#lbCount'), at = 0, opener = null;
+    var box = $('.streams'), lb = $('#lightbox'), lbImg = $('#lbImg'), lbCount = $('#lbCount'), at = 0, opener = null,
+      set = { dir: 'album', n: ALBUM.length, label: 'Ảnh kỷ niệm ' };
     if (!box) return;
-    function pad(i) { return (i < 9 ? '0' : '') + (i + 1); }
     var ROWS = 3, per = Math.ceil(ALBUM.length / ROWS);
     for (var r = 0; r < ROWS; r++) {
       var row = document.createElement('div'), inner = document.createElement('div'), html = '';
@@ -394,17 +396,21 @@
       box.appendChild(row);
     }
     function show(i) {
-      at = (i + ALBUM.length) % ALBUM.length;
-      lbImg.src = 'assets/images/album/' + pad(at) + '.jpg';
-      lbImg.alt = 'Ảnh kỷ niệm ' + (at + 1);
-      lbCount.textContent = (at + 1) + ' / ' + ALBUM.length;
-      new Image().src = 'assets/images/album/' + pad((at + 1) % ALBUM.length) + '.jpg';
+      at = (i + set.n) % set.n;
+      lbImg.src = 'assets/images/' + set.dir + '/' + pad(at) + '.jpg';
+      lbImg.alt = set.label + (at + 1);
+      lbCount.textContent = (at + 1) + ' / ' + set.n;
+      new Image().src = 'assets/images/' + set.dir + '/' + pad((at + 1) % set.n) + '.jpg';
     }
+    /* mở hộp xem ảnh lớn cho một bộ ảnh bất kỳ (album hoặc ảnh tốt nghiệp) */
+    openLightbox = function (s, i, op) {
+      set = s; opener = op || null;
+      show(i); lb.hidden = false; document.body.classList.add('lb-open'); $('#lbClose').focus();
+    };
     function close() { lb.hidden = true; document.body.classList.remove('lb-open'); if (opener) opener.focus({ preventScroll: true }); }
     box.addEventListener('click', function (e) {
       var b = e.target.closest('.snap'); if (!b) return;
-      opener = b.getAttribute('aria-hidden') ? null : b;
-      show(+b.dataset.i); lb.hidden = false; document.body.classList.add('lb-open'); $('#lbClose').focus();
+      openLightbox({ dir: 'album', n: ALBUM.length, label: 'Ảnh kỷ niệm ' }, +b.dataset.i, b.getAttribute('aria-hidden') ? null : b);
     });
     $('#lbPrev').addEventListener('click', function () { show(at - 1); });
     $('#lbNext').addEventListener('click', function () { show(at + 1); });
@@ -424,6 +430,53 @@
     var sx = null;
     lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
     lb.addEventListener('touchend', function (e) { if (sx == null) return; var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1)); sx = null; });
+  })();
+  /* ---------- ngày mình tốt nghiệp: băng chiếu ảnh 2.5D, ảnh giữa to, hai bên lùi dần ---------- */
+  var GRAD = [[347,520],[520,347],[520,347],[520,347],[520,347],[520,347],[347,520],[347,520],[520,347],[347,520],[520,347],[520,347],[520,347],[347,520],[347,520],[347,520],[347,520],[347,520],[347,520],[520,347],[347,520],[347,520],[347,520],[347,520],[347,520],[347,520],[347,520],[347,520],[347,520],[520,347],[347,520],[347,520],[347,520],[347,520],[347,520]];
+  (function () {
+    var reel = $('#reel');
+    if (!reel) return;
+    var stageEl = $('.reel-stage', reel), cnt = $('.reel-count', reel), n = GRAD.length, cur = 0, hold = false, cards = [];
+    var SET = { dir: 'totnghiep', n: n, label: 'Ảnh tốt nghiệp ' };
+    GRAD.forEach(function (d, i) {
+      var c = document.createElement('button');
+      c.type = 'button'; c.className = 'rf'; c.dataset.i = i;
+      c.style.setProperty('--ar', (d[0] / d[1]).toFixed(3));
+      c.innerHTML = '<img src="assets/images/totnghiep/t' + pad(i) + '.jpg" width="' + d[0] + '" height="' + d[1] + '" alt="" decoding="async"' + (i > 4 && i < n - 4 ? ' loading="lazy"' : '') + '>';
+      stageEl.appendChild(c); cards.push(c);
+    });
+    function layout() {
+      cards.forEach(function (c, i) {
+        var d = i - cur;
+        if (d > n / 2) d -= n; else if (d < -n / 2) d += n;
+        var a = Math.abs(d);
+        c.style.setProperty('--d', d); c.style.setProperty('--a', Math.min(a, 4));
+        c.style.zIndex = 20 - a;
+        c.style.visibility = a > 3 ? 'hidden' : 'visible';
+        c.classList.toggle('on', d === 0);
+        c.tabIndex = d === 0 ? 0 : -1;
+        c.setAttribute('aria-label', d === 0 ? 'Xem lớn ảnh tốt nghiệp ' + (i + 1) : 'Chuyển tới ảnh ' + (i + 1));
+      });
+      cnt.textContent = (cur + 1) + ' / ' + n;
+    }
+    function go(i) { cur = (i + n) % n; layout(); }
+    stageEl.addEventListener('click', function (e) {
+      var c = e.target.closest('.rf'); if (!c) return;
+      var i = +c.dataset.i;
+      if (i === cur) openLightbox(SET, i, c); else go(i);
+    });
+    $('.reel-prev', reel).addEventListener('click', function () { go(cur - 1); });
+    $('.reel-next', reel).addEventListener('click', function () { go(cur + 1); });
+    var sx = null;
+    reel.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; hold = true; }, { passive: true });
+    reel.addEventListener('touchend', function (e) { if (sx != null) { var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); } sx = null; hold = false; });
+    reel.addEventListener('mouseenter', function () { hold = true; });
+    reel.addEventListener('mouseleave', function () { hold = false; });
+    reel.addEventListener('focusin', function () { hold = true; });
+    reel.addEventListener('focusout', function () { hold = false; });
+    /* tự chuyển ảnh khi đang đứng ở chặng này */
+    if (!reduce) setInterval(function () { if (current === 2 && !hold && $('#lightbox').hidden && !document.hidden) go(cur + 1); }, 3200);
+    layout();
   })();
   /* bàn phím: Tab tới nội dung chặng nào thì cuộn tới chặng đó; mũi tên trái/phải để chuyển chặng */
   track.addEventListener('focusin', function (e) {

@@ -29,7 +29,9 @@
   bgs.forEach(function (b) {
     var k = b.classList.contains('far') ? 'far' : b.classList.contains('mid') ? 'mid' : b.classList.contains('near') ? 'near' : 'fg';
     if (tiles[k]) b.style.backgroundImage = 'url("' + tiles[k] + '")';
-    b._speed = parseFloat(b.dataset.speed) || 1;
+    b._speed = parseFloat(b.dataset.speed) || 1; b._tw = 0; b._x = null;
+    /* đo tỉ lệ ô nền để trượt bằng transform trong phạm vi một ô */
+    if (tiles[k]) { var im = new Image(); im.onload = function () { b._ar = im.naturalWidth / im.naturalHeight; sizeBg(b); }; im.src = tiles[k]; }
   });
   $$('.critter[data-kind]').forEach(function (c) {
     c.innerHTML = (window.CritterArt || {})[c.dataset.kind] || '';
@@ -244,6 +246,8 @@
     var sheen = document.createElement('canvas'); sheen.width = art.width; sheen.height = art.height;
     var data = mask.getContext('2d').getImageData(0, 0, cw, ch).data;
     var left = r.left - pad * k, top = r.top - pad * k, step = clamp(lines[1].s * k * 0.058, 3.4, 9), pts = [];
+    /* số hạt tụ thành tên: ít hơn trên điện thoại cho mượt */
+    var MAXP = W < 760 ? 700 : 1100;
     for (var pass = 0; pass < 4; pass++) {
       pts = [];
       for (var y = step / 2, row = 0; y < ch; y += step, row++) {
@@ -251,8 +255,8 @@
           if (data[((y | 0) * cw + (x | 0)) * 4 + 3] > 128) pts.push({ x: left + x + rand(-step * 0.2, step * 0.2), y: top + y + rand(-step * 0.2, step * 0.2) });
         }
       }
-      if (pts.length <= 1500) break;
-      step *= Math.sqrt(pts.length / 1450);
+      if (pts.length <= MAXP) break;
+      step *= Math.sqrt(pts.length / (MAXP * 0.97));
     }
     L = { ax: r.left, ay: r.top, left: left, top: top, ch: ch, art: art, fill: fill, sheen: sheen, pts: pts, step: step };
   }
@@ -348,14 +352,28 @@
   function scrollSpan() { return Math.max(1, journey.offsetHeight - stage.offsetHeight); }
   function readScroll() { progT = clamp((window.scrollY - journey.offsetTop) / scrollSpan(), 0, 1); }
   function goTo(i) { window.scrollTo({ top: journey.offsetTop + i / (N - 1) * scrollSpan(), behavior: reduce ? 'auto' : 'smooth' }); }
+  function sizeBg(b) {
+    if (!b._ar) return;
+    b._tw = b.offsetHeight * b._ar;
+    b.style.right = 'auto'; b.style.width = Math.ceil(W + b._tw + 2) + 'px'; b._x = null;
+  }
+  var stations = $$('.station', track), lastX = null;
   function updateJourney(dt) {
     prog += (progT - prog) * (reduce ? 1 : Math.min(1, dt / 1000 * 6));
     if (Math.abs(progT - prog) < 1e-5) prog = progT;
     var span = track.offsetWidth - W, gap = (progT - prog) * span;
     trackX = prog * span;
-    track.style.transform = 'translate3d(' + (-trackX).toFixed(1) + 'px,0,0)';
-    skyTrack.style.transform = 'translate3d(' + (-trackX * 0.3).toFixed(1) + 'px,0,0)';
-    for (var i = 0; i < bgs.length; i++) bgs[i].style.backgroundPositionX = (-trackX * bgs[i]._speed).toFixed(1) + 'px';
+    if (lastX === null || Math.abs(trackX - lastX) > 0.05) {
+      lastX = trackX;
+      track.style.transform = 'translate3d(' + (-trackX).toFixed(1) + 'px,0,0)';
+      skyTrack.style.transform = 'translate3d(' + (-trackX * 0.3).toFixed(1) + 'px,0,0)';
+      for (var i = 0; i < bgs.length; i++) {
+        var b = bgs[i], bx = b._tw ? -((trackX * b._speed) % b._tw) : 0;
+        if (b._x === null || Math.abs(bx - b._x) > 0.05) { b._x = bx; b.style.transform = 'translate3d(' + bx.toFixed(1) + 'px,0,0)'; }
+      }
+      var pos = prog * (N - 1);
+      for (var k = 0; k < stations.length; k++) { var off = Math.abs(k - pos) > 1.02; if (stations[k]._off !== off) { stations[k]._off = off; stations[k].classList.toggle('off', off); } }
+    }
     var moving = Math.abs(gap) > 1.5;
     companion.classList.toggle('walking', moving);
     if (moving) companion.classList.toggle('back', gap < 0);
@@ -536,7 +554,8 @@
   /* ---------- vòng lặp ---------- */
   function resize() {
     var nw = window.innerWidth, nh = window.innerHeight, changed = Math.abs(nw - W) > 0 || Math.abs(nh - H) > 140;
-    W = nw; H = nh; DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = nw; H = nh; DPR = Math.min(1.5, window.devicePixelRatio || 1);
+    bgs.forEach(sizeBg);
     [sky, fx].forEach(function (c) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); });
     if (changed) {
       makeSky();

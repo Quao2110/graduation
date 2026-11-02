@@ -21,7 +21,7 @@ svg{overflow:visible}
 .sky-bg{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,#6FA8EC 0%,#9DB4F2 22%,#C6A8EC 42%,#F2A6C8 62%,#FFBFA0 80%,#FFDDA6 100%)}
 #sky{position:absolute;inset:0;width:100%;height:100%;display:block}
 #fx{position:fixed;inset:0;width:100%;height:100%;z-index:8;pointer-events:none;display:block}
-.paper{position:fixed;inset:0;z-index:9;pointer-events:none;opacity:.08;mix-blend-mode:multiply;
+.paper{position:fixed;inset:0;z-index:9;pointer-events:none;opacity:.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .3 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ---------- sân khấu cuộn ngang ---------- */
@@ -29,7 +29,7 @@ svg{overflow:visible}
 .stage{position:sticky;top:0;height:100svh;overflow:hidden}
 .glow-horizon{position:absolute;left:50%;bottom:10%;width:170vw;height:90vh;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at 50% 70%,rgba(255,240,200,1) 0%,rgba(255,190,190,.65) 24%,rgba(230,140,200,.25) 46%,transparent 68%);pointer-events:none}
 .sun-disc{position:absolute;left:58%;bottom:34%;width:min(26vh,22vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#FFFBEA 0 42%,#FFE6A6 58%,rgba(255,210,150,0) 71%);box-shadow:0 0 140px 70px rgba(255,226,170,.55);pointer-events:none}
-.bg{position:absolute;left:0;right:0;background-repeat:repeat-x;background-size:auto 100%;pointer-events:none;will-change:background-position}
+.bg{position:absolute;left:0;right:0;background-repeat:repeat-x;background-size:auto 100%;pointer-events:none;will-change:transform;backface-visibility:hidden}
 .far{bottom:22%;height:46%;filter:blur(1.2px);opacity:.95}
 .mid{bottom:14%;height:42%;filter:blur(.4px)}
 .near{bottom:0;height:32%}
@@ -37,6 +37,8 @@ svg{overflow:visible}
 .sky-track{position:absolute;left:0;top:0;width:320vw;height:100%;will-change:transform}
 .track{position:absolute;left:0;top:0;height:100%;width:600vw;display:flex;z-index:3;will-change:transform}
 .station{position:relative;flex:none;width:100vw;height:100%}
+/* chặng ngoài màn hình: tạm dừng mọi hoạt ảnh cho nhẹ máy */
+.station.off,.station.off *{animation-play-state:paused!important}
 
 /* ---------- chữ, thẻ, nút ---------- */
 .card{background:var(--paper);color:var(--ink);border-radius:26px;box-shadow:var(--shadow);padding:clamp(20px,3vw,34px)}
@@ -182,7 +184,7 @@ body.lb-open{overflow:hidden}
 @keyframes toss{0%,100%{transform:translate(calc(var(--x) * .6),0) rotate(0)}50%{transform:translate(var(--x),-32vh) rotate(380deg)}}
 
 /* ---------- thỏ con đi cùng, thanh chặng, gợi ý ---------- */
-.companion{position:absolute;left:11vw;bottom:var(--ground);width:clamp(110px,9vw,150px);z-index:7;filter:drop-shadow(0 0 14px rgba(255,230,250,.55))}
+.companion{position:absolute;left:11vw;bottom:var(--ground);width:clamp(110px,9vw,150px);z-index:7}
 .companion .critter{position:relative;left:auto;bottom:auto;width:100%;display:block}
 .companion.back svg{transform:scaleX(-1)}
 .companion .cr-body,.companion .cr-leg,.companion .cr-tail{animation:none!important}
@@ -205,7 +207,7 @@ body.lb-open{overflow:hidden}
 @keyframes orbBlink{0%,100%{opacity:.55;scale:.8}50%{opacity:1;scale:1.15}}
 
 /* ---------- thú nhỏ ---------- */
-.critter{position:absolute;bottom:var(--ground);width:var(--w,80px);filter:drop-shadow(0 0 10px rgba(255,220,240,.35))}
+.critter{position:absolute;bottom:var(--ground);width:var(--w,80px)}
 .critter svg{display:block;width:100%;height:auto;overflow:visible}
 .critter.rev svg{transform:scaleX(-1)}
 .patrol{animation:patrol var(--t,10s) ease-in-out infinite}
@@ -247,7 +249,7 @@ body.lb-open{overflow:hidden}
 .owl .cr-wing2{animation-delay:-.2s}
 @keyframes owlTilt{0%,40%,100%{transform:rotate(0)}50%,60%{transform:rotate(-12deg)}70%,85%{transform:rotate(10deg)}}
 @keyframes owlFlap{0%,70%,100%{transform:rotate(0)}78%{transform:rotate(-28deg)}86%{transform:rotate(14deg)}}
-.perch{filter:drop-shadow(0 0 12px rgba(255,230,250,.6))}
+
 .duck .cr-body{transform-origin:50% 100%;animation:paddle 1.6s ease-in-out infinite}
 .duck .cr-wing{transform-origin:20% 50%;animation:flap .5s ease-in-out infinite alternate}
 @keyframes paddle{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
@@ -262,7 +264,7 @@ body.lb-open{overflow:hidden}
 
 /* ---------- bướm 2.5D ---------- */
 .bfly{position:absolute;width:var(--s,56px);aspect-ratio:1;color:var(--bc,#F2A7BC);pointer-events:none}
-.bf-fly{position:absolute;inset:0;animation:bfWander var(--t,14s) ease-in-out var(--dl,0s) infinite;filter:drop-shadow(0 0 12px color-mix(in srgb,var(--bc,#F2A7BC) 70%,transparent))}
+.bf-fly{position:absolute;inset:0;animation:bfWander var(--t,14s) ease-in-out var(--dl,0s) infinite}
 .bf-tilt{position:absolute;inset:0;transform-style:preserve-3d;transform:perspective(420px) rotateX(42deg) rotateZ(var(--rz,0deg))}
 .bfly .wing{position:absolute;top:0;width:47%;height:100%;overflow:visible}
 .bfly .wing.l{left:3%;transform-origin:100% 50%;animation:flapL var(--fl,.34s) ease-in-out infinite alternate}

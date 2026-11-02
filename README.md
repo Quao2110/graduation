@@ -48,5 +48,5 @@ python -m http.server 8000
 
 ## Triển khai
 
-- **GitHub Pages:** Settings → Pages → Deploy from a branch → `main`, thư mục `/ (root)`.
+- **GitHub Pages (đang dùng):** https://quao2110.github.io/graduation/ — trang lấy từ nhánh `gh-pages`. Sau khi sửa trên `main`, cập nhật trang bằng `git push origin main:gh-pages`.
 - **Vercel:** import repo, Framework Preset chọn **Other**, để trống Build Command.

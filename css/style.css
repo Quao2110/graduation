@@ -192,6 +192,16 @@ body.lb-open{overflow:hidden}
 .companion.walking .cr-leg{animation:leg .26s ease-in-out infinite alternate!important}
 .companion.walking .cr-b{animation-direction:alternate-reverse!important}
 .companion.walking .cr-tail{animation:tail .5s ease-in-out infinite alternate!important}
+.opener{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:radial-gradient(ellipse at 50% 45%,rgba(255,236,246,.55),rgba(70,50,130,.55) 75%);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .7s,visibility .7s}
+.opener.gone{opacity:0;visibility:hidden}
+.opener-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;width:min(420px,88vw);padding:38px 24px 30px;border:0;border-radius:24px;cursor:pointer;background:var(--paper);color:var(--ink);box-shadow:var(--shadow);font:inherit;animation:float 5s ease-in-out infinite}
+.opener-card::before{content:"";position:absolute;inset:10px;border:1.5px dashed rgba(184,70,122,.35);border-radius:16px;pointer-events:none}
+.opener-card:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.op-eyebrow{font:500 italic 16px/1.4 var(--f-title);color:var(--leaf-d);letter-spacing:.04em}
+.op-name{font:700 clamp(32px,6vw,44px)/1.15 var(--f-script);color:var(--rose-d)}
+.op-seal{display:grid;place-items:center;width:58px;height:58px;margin:10px 0 6px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FF9CC6,#C2387A);color:#fff;font-size:24px;box-shadow:0 6px 16px rgba(194,56,122,.45);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.op-cta{padding:10px 24px;border-radius:999px;background:linear-gradient(180deg,#FFE7A8,#F5C451);color:#4A3412;font:600 17px/1.2 var(--f-body);box-shadow:0 8px 22px rgba(245,196,81,.45)}
 .music-box{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:max(14px,env(safe-area-inset-top,0px));z-index:12;display:flex;align-items:center;gap:8px;padding:4px 4px 4px 14px;border-radius:999px;background:rgba(255,250,243,.9);box-shadow:0 6px 18px rgba(60,30,90,.3)}
 .vol{width:clamp(70px,9vw,120px);height:22px;margin:0;accent-color:var(--rose-d);cursor:pointer}
 .vol:focus-visible{outline:2.5px solid #FFE07A;outline-offset:3px;border-radius:4px}

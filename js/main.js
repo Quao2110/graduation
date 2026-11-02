@@ -522,10 +522,13 @@
       goTo(clamp(target, 0, N - 1));
     }, { passive: true });
   })();
+  /* tên bay tụ lại chỉ bắt đầu khi thiệp đã mở (sau màn hình chạm, nếu có) */
+  var showStarted = false;
+  function startShow() { if (showStarted) return; showStarted = true; revealName(); }
   /* ---------- nhạc nền: chỉ hiện nút khi có file nhạc; tự phát ở lần chạm/bấm đầu tiên (trình duyệt chặn tự phát trước đó) ---------- */
   (function () {
     var audio = $('#bgm'), btn = $('#musicBtn'), box = $('#musicBox'), vol = $('#vol'), want = true, level = 0.6, gain = null;
-    if (!audio || !btn) return;
+    if (!audio || !btn) return startShow();
     try { want = localStorage.getItem('bgm') !== 'off'; var sv = localStorage.getItem('bgmVol'); if (sv !== null) level = clamp(+sv, 0, 1); } catch (e) {}
     vol.value = Math.round(level * 100);
     /* âm lượng qua Web Audio để chỉnh được cả trên iPhone (Safari bỏ qua audio.volume) */
@@ -542,8 +545,13 @@
     function play() { initGain(); if (audio._ctx && audio._ctx.state === 'suspended') audio._ctx.resume(); var p = audio.play(); if (p && p.catch) p.catch(function () {}); return p; }
     function remember(v) { want = v; try { localStorage.setItem('bgm', v ? 'on' : 'off'); } catch (e) {} }
     fetch(audio.getAttribute('src'), { method: 'HEAD' }).then(function (r) {
-      if (!r.ok) return;
+      if (!r.ok) return startShow();
       box.hidden = false;
+      if (!want) return startShow();
+      /* thử tự phát ngay; trình duyệt chặn thì hiện màn hình "Chạm để mở thiệp", chạm là nhạc chạy và thiệp mở */
+      audio.volume = level;
+      var auto = audio.play();
+      if (auto && auto.then) auto.then(startShow, function () { audio.load(); showOpener(); }); else startShow();
       var EV = ['pointerup', 'touchend', 'click', 'keydown'];
       function stop() { EV.forEach(function (t) { window.removeEventListener(t, first, true); }); }
       /* thử ở mỗi lần chạm/bấm cho tới khi trình duyệt cho phát (một cú vuốt có thể chưa được tính) */
@@ -553,7 +561,19 @@
         if (p && p.then) p.then(stop, function () {}); else stop();
       }
       EV.forEach(function (t) { window.addEventListener(t, first, true); });
-    }).catch(function () {});
+    }).catch(startShow);
+    function showOpener() {
+      var op = $('#opener'), ob = $('#openerBtn');
+      if (!op) return startShow();
+      op.hidden = false; ob.focus({ preventScroll: true });
+      function open() {
+        play();
+        op.classList.add('gone'); setTimeout(function () { op.hidden = true; }, 750);
+        startShow();
+      }
+      ob.addEventListener('click', open, { once: true });
+      op.addEventListener('click', function (e) { if (e.target === op) ob.click(); });
+    }
     btn.addEventListener('click', function () { if (audio.paused) { remember(true); play(); } else { remember(false); audio.pause(); } });
     audio.addEventListener('play', sync); audio.addEventListener('pause', sync);
     document.addEventListener('visibilitychange', function () { if (document.hidden) { audio._bg = !audio.paused; audio.pause(); } else if (audio._bg) play(); });
@@ -654,6 +674,5 @@
   }
   window.addEventListener('resize', resize);
   resize();
-  revealName();
   requestAnimationFrame(frame);
 })();

@@ -36,7 +36,7 @@ HTML, CSS, JavaScript thuần, không cần build. Toàn bộ hình vẽ là SVG
 
 Các khung: `chan-dung`, `tan-cu-nhan`, `cung-moi-nguoi`. Khung chưa có ảnh vẫn cho bấm để xem thử ảnh trên máy (không lưu, không gửi đi). Nên thu nhỏ ảnh còn khoảng 1000px và xóa EXIF.
 
-**Ảnh tốt nghiệp:** `assets/images/totnghiep/` (32 ảnh), kích thước khai báo trong mảng `GRAD` ở `js/main.js`. Vòng nguyệt quế dùng ảnh 24, thư cảm ơn dùng ảnh 17.
+**Ảnh tốt nghiệp:** `assets/images/totnghiep/` (32 ảnh), kích thước khai báo trong mảng `GRAD` ở `js/main.js`. Vòng nguyệt quế dùng `vong-nguyet-que.jpg` (cắt từ ảnh 1), thư cảm ơn dùng ảnh 17.
 
 **Album Hồ kỷ niệm:** ảnh nằm ở `assets/images/album/` (`01.jpg` … `54.jpg` bản lớn, `t01.jpg` … bản nhỏ). Kích thước bản nhỏ khai báo trong mảng `ALBUM` ở `js/main.js`; thêm hay bớt ảnh thì sửa cả mảng này.
 

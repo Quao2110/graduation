@@ -181,9 +181,12 @@
     <div class="bg fg" data-speed="1.35" aria-hidden="true"></div>
     <div class="companion" id="companion" aria-hidden="true"><span class="critter fox" data-kind="fox"></span></div>
     <p class="scroll-hint" id="scrollHint">Cuộn để dạo vườn <span aria-hidden="true">→</span></p>
-    <button class="music" id="musicBtn" type="button" aria-pressed="false" aria-label="Bật nhạc" hidden>
-      <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="music-off" aria-hidden="true">♪</span>
-    </button>
+    <div class="music-box" id="musicBox" hidden>
+      <input class="vol" id="vol" type="range" min="0" max="100" value="60" aria-label="Âm lượng nhạc">
+      <button class="music" id="musicBtn" type="button" aria-pressed="false" aria-label="Bật nhạc">
+        <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="music-off" aria-hidden="true">♪</span>
+      </button>
+    </div>
     <audio id="bgm" src="assets/music/nhac-nen.mp3" preload="none" loop></audio>
     <nav class="chapters" id="chapters" aria-label="Các chặng">
       <button type="button" data-i="0" aria-label="Chặng 1: Ngày hội tốt nghiệp"></button>

@@ -192,7 +192,10 @@ body.lb-open{overflow:hidden}
 .companion.walking .cr-leg{animation:leg .26s ease-in-out infinite alternate!important}
 .companion.walking .cr-b{animation-direction:alternate-reverse!important}
 .companion.walking .cr-tail{animation:tail .5s ease-in-out infinite alternate!important}
-.music{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:max(14px,env(safe-area-inset-top,0px));z-index:12;width:46px;height:46px;border:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:rgba(255,250,243,.9);color:var(--rose-d);box-shadow:0 6px 18px rgba(60,30,90,.3);font:600 22px/1 var(--f-body)}
+.music-box{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:max(14px,env(safe-area-inset-top,0px));z-index:12;display:flex;align-items:center;gap:8px;padding:4px 4px 4px 14px;border-radius:999px;background:rgba(255,250,243,.9);box-shadow:0 6px 18px rgba(60,30,90,.3)}
+.vol{width:clamp(70px,9vw,120px);height:22px;margin:0;accent-color:var(--rose-d);cursor:pointer}
+.vol:focus-visible{outline:2.5px solid #FFE07A;outline-offset:3px;border-radius:4px}
+.music{position:relative;flex:none;width:40px;height:40px;border:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:#FFE4EF;color:var(--rose-d);font:600 20px/1 var(--f-body)}
 .music:focus-visible{outline:2.5px solid #FFE07A;outline-offset:3px}
 .music .eq{display:none;gap:3px;align-items:flex-end;height:18px}
 .music .eq i{width:4px;height:100%;border-radius:2px;background:currentColor;animation:eq .9s ease-in-out infinite alternate}
@@ -327,6 +330,10 @@ body.lb-open{overflow:hidden}
   .letter .sign{font-size:26px!important}
   .hang-photo{width:36%;margin:0 0 6px 10px}
   .gate{top:1%;width:94vw}
+  .music-box{right:10px;top:10px;padding:3px 3px 3px 10px;gap:6px}
+  .vol{width:64px}
+  .music{width:34px;height:34px;font-size:17px}
+  .letter{top:8%}
   .invite{margin-top:5%;padding:52px 14px 16px}
   .invite .chip{font-size:14px;margin-bottom:2px}
   .invite h2{font-size:19px;margin-bottom:2px}

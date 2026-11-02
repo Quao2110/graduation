@@ -524,22 +524,32 @@
   })();
   /* ---------- nhạc nền: chỉ hiện nút khi có file nhạc; tự phát ở lần chạm/bấm đầu tiên (trình duyệt chặn tự phát trước đó) ---------- */
   (function () {
-    var audio = $('#bgm'), btn = $('#musicBtn'), want = true;
+    var audio = $('#bgm'), btn = $('#musicBtn'), box = $('#musicBox'), vol = $('#vol'), want = true, level = 0.6, gain = null;
     if (!audio || !btn) return;
-    try { want = localStorage.getItem('bgm') !== 'off'; } catch (e) {}
-    audio.volume = 0.6;
+    try { want = localStorage.getItem('bgm') !== 'off'; var sv = localStorage.getItem('bgmVol'); if (sv !== null) level = clamp(+sv, 0, 1); } catch (e) {}
+    vol.value = Math.round(level * 100);
+    /* âm lượng qua Web Audio để chỉnh được cả trên iPhone (Safari bỏ qua audio.volume) */
+    function setLevel(v) { level = v; if (gain) gain.gain.value = v; else audio.volume = v; }
+    function initGain() {
+      if (gain) return;
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      try { var ctx = new AC(); gain = ctx.createGain(); ctx.createMediaElementSource(audio).connect(gain); gain.connect(ctx.destination); audio.volume = 1; gain.gain.value = level; audio._ctx = ctx; } catch (e) { gain = null; }
+    }
+    setLevel(level);
+    vol.addEventListener('input', function () { setLevel(vol.value / 100); try { localStorage.setItem('bgmVol', level); } catch (e) {} if (level > 0 && audio.paused && want) play(); });
     function sync() { var on = !audio.paused; btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? 'Tắt nhạc' : 'Bật nhạc'); }
-    function play() { var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
+    function play() { initGain(); if (audio._ctx && audio._ctx.state === 'suspended') audio._ctx.resume(); var p = audio.play(); if (p && p.catch) p.catch(function () {}); return p; }
     function remember(v) { want = v; try { localStorage.setItem('bgm', v ? 'on' : 'off'); } catch (e) {} }
     fetch(audio.getAttribute('src'), { method: 'HEAD' }).then(function (r) {
       if (!r.ok) return;
-      btn.hidden = false;
+      box.hidden = false;
       var EV = ['pointerup', 'touchend', 'click', 'keydown'];
       function stop() { EV.forEach(function (t) { window.removeEventListener(t, first, true); }); }
       /* thử ở mỗi lần chạm/bấm cho tới khi trình duyệt cho phát (một cú vuốt có thể chưa được tính) */
       function first(e) {
-        if (!want || (e.target.closest && e.target.closest('#musicBtn'))) return stop();
-        var p = audio.play();
+        if (!want || (e.target.closest && e.target.closest('#musicBox'))) return stop();
+        var p = play();
         if (p && p.then) p.then(stop, function () {}); else stop();
       }
       EV.forEach(function (t) { window.addEventListener(t, first, true); });
